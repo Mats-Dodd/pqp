@@ -6,10 +6,24 @@ import "./App.css";
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+  const [shellOutput, setShellOutput] = useState("");
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     setGreetMsg(await invoke("greet", { name }));
+  }
+
+  async function runShellCommand() {
+    try {
+      console.log("Starting MCP server...");
+      setShellOutput("Starting MCP server...");
+      const result = await invoke("run_shell_command");
+      console.log("Server result:", result);
+      setShellOutput(String(result));
+    } catch (error) {
+      console.error("Server error:", error);
+      setShellOutput(`Error: ${JSON.stringify(error, null, 2)}`);
+    }
   }
 
   return (
@@ -44,6 +58,16 @@ function App() {
         <button type="submit">Greet</button>
       </form>
       <p>{greetMsg}</p>
+
+      <div className="row">
+        <button onClick={runShellCommand}>Start MCP Server</button>
+        {shellOutput && (
+          <div className="output-container">
+            <h3>Server Output:</h3>
+            <pre>{shellOutput}</pre>
+          </div>
+        )}
+      </div>
     </main>
   );
 }
