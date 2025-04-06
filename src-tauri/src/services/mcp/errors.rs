@@ -36,49 +36,42 @@ impl fmt::Display for McpError {
 
 impl Error for McpError {}
 
-// Conversion from JsonRpcError
 impl From<JsonRpcError> for McpError {
     fn from(err: JsonRpcError) -> Self {
         McpError::JsonRpcError(err)
     }
 }
 
-// Conversion from Mutex poison error
 impl<T> From<std::sync::PoisonError<T>> for McpError {
     fn from(err: std::sync::PoisonError<T>) -> Self {
         McpError::LockError(err.to_string())
     }
 }
 
-// Conversion from IO error
 impl From<io::Error> for McpError {
     fn from(err: io::Error) -> Self {
         McpError::IoError(err.to_string())
     }
 }
 
-// Conversion from RMCP service error
 impl From<ServiceError> for McpError {
     fn from(err: ServiceError) -> Self {
         McpError::RmcpError(err)
     }
 }
 
-// Conversion from serde_json error
 impl From<serde_json::Error> for McpError {
     fn from(err: serde_json::Error) -> Self {
         McpError::SerializationError(err.to_string())
     }
 }
 
-// Add Conversion from JoinError
 impl From<JoinError> for McpError {
     fn from(err: JoinError) -> Self {
         McpError::TaskJoinError(err.to_string())
     }
 }
 
-// For Tauri compatibility
 impl From<McpError> for String {
     fn from(err: McpError) -> Self {
         err.to_string()
