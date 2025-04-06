@@ -1,3 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
 # Example Clients
 Source: https://modelcontextprotocol.io/clients
 
@@ -128,7 +133,7 @@ Claude Code is an interactive agentic coding tool from Anthropic that helps you 
 
 ### 5ire
 
-[5ire](https://github.com/nanbingxyz/5ire) is an open source cross-platform desktop AI assistant that supports tools through MCP servers.
+[5ire](mdc:https:/github.com/nanbingxyz/5ire) is an open source cross-platform desktop AI assistant that supports tools through MCP servers.
 
 **Key features:**
 
@@ -139,7 +144,7 @@ Claude Code is an interactive agentic coding tool from Anthropic that helps you 
 
 ### BeeAI Framework
 
-[BeeAI Framework](https://i-am-bee.github.io/beeai-framework) is an open-source framework for building, deploying, and serving powerful agentic workflows at scale. The framework includes the **MCP Tool**, a native feature that simplifies the integration of MCP servers into agentic workflows.
+[BeeAI Framework](mdc:https:/i-am-bee.github.io/beeai-framework) is an open-source framework for building, deploying, and serving powerful agentic workflows at scale. The framework includes the **MCP Tool**, a native feature that simplifies the integration of MCP servers into agentic workflows.
 
 **Key features:**
 
@@ -149,11 +154,11 @@ Claude Code is an interactive agentic coding tool from Anthropic that helps you 
 
 **Learn more:**
 
-* [Example of using MCP tools in agentic workflow](https://i-am-bee.github.io/beeai-framework/#/typescript/tools?id=using-the-mcptool-class)
+* [Example of using MCP tools in agentic workflow](mdc:https:/i-am-bee.github.io/beeai-framework/#/typescript/tools?id=using-the-mcptool-class)
 
 ### Cline
 
-[Cline](https://github.com/cline/cline) is an autonomous coding agent in VS Code that edits files, runs commands, uses a browser, and more–with your permission at each step.
+[Cline](mdc:https:/github.com/cline/cline) is an autonomous coding agent in VS Code that edits files, runs commands, uses a browser, and more–with your permission at each step.
 
 **Key features:**
 
@@ -163,7 +168,7 @@ Claude Code is an interactive agentic coding tool from Anthropic that helps you 
 
 ### Continue
 
-[Continue](https://github.com/continuedev/continue) is an open-source AI code assistant, with built-in support for all MCP features.
+[Continue](mdc:https:/github.com/continuedev/continue) is an open-source AI code assistant, with built-in support for all MCP features.
 
 **Key features**
 
@@ -174,7 +179,7 @@ Claude Code is an interactive agentic coding tool from Anthropic that helps you 
 
 ### Cursor
 
-[Cursor](https://docs.cursor.com/advanced/model-context-protocol) is an AI code editor.
+[Cursor](mdc:https:/docs.cursor.com/advanced/model-context-protocol) is an AI code editor.
 
 **Key Features**:
 
@@ -183,7 +188,7 @@ Claude Code is an interactive agentic coding tool from Anthropic that helps you 
 
 ### Emacs Mcp
 
-[Emacs Mcp](https://github.com/lizqwerscott/mcp.el) is an Emacs client designed to interface with MCP servers, enabling seamless connections and interactions. It provides MCP tool invocation support for AI plugins like [gptel](https://github.com/karthink/gptel) and [llm](https://github.com/ahyatt/llm), adhering to Emacs' standard tool invocation format. This integration enhances the functionality of AI tools within the Emacs ecosystem.
+[Emacs Mcp](mdc:https:/github.com/lizqwerscott/mcp.el) is an Emacs client designed to interface with MCP servers, enabling seamless connections and interactions. It provides MCP tool invocation support for AI plugins like [gptel](mdc:https:/github.com/karthink/gptel) and [llm](mdc:https:/github.com/ahyatt/llm), adhering to Emacs' standard tool invocation format. This integration enhances the functionality of AI tools within the Emacs ecosystem.
 
 **Key features:**
 
@@ -191,7 +196,7 @@ Claude Code is an interactive agentic coding tool from Anthropic that helps you 
 
 ### fast-agent
 
-[fast-agent](https://github.com/evalstate/fast-agent) is a Python Agent framework, with simple declarative support for creating Agents and Workflows, with full multi-modal support for Anthropic and OpenAI models.
+[fast-agent](mdc:https:/github.com/evalstate/fast-agent) is a Python Agent framework, with simple declarative support for creating Agents and Workflows, with full multi-modal support for Anthropic and OpenAI models.
 
 **Key features:**
 
@@ -202,7 +207,7 @@ Claude Code is an interactive agentic coding tool from Anthropic that helps you 
 
 ### Genkit
 
-[Genkit](https://github.com/firebase/genkit) is a cross-language SDK for building and integrating GenAI features into applications. The [genkitx-mcp](https://github.com/firebase/genkit/tree/main/js/plugins/mcp) plugin enables consuming MCP servers as a client or creating MCP servers from Genkit tools and prompts.
+[Genkit](mdc:https:/github.com/firebase/genkit) is a cross-language SDK for building and integrating GenAI features into applications. The [genkitx-mcp](mdc:https:/github.com/firebase/genkit/tree/main/js/plugins/mcp) plugin enables consuming MCP servers as a client or creating MCP servers from Genkit tools and prompts.
 
 **Key features:**
 
@@ -213,7 +218,7 @@ Claude Code is an interactive agentic coding tool from Anthropic that helps you 
 
 ### GenAIScript
 
-Programmatically assemble prompts for LLMs using [GenAIScript](https://microsoft.github.io/genaiscript/) (in JavaScript). Orchestrate LLMs, tools, and data in JavaScript.
+Programmatically assemble prompts for LLMs using [GenAIScript](mdc:https:/microsoft.github.io/genaiscript) (in JavaScript). Orchestrate LLMs, tools, and data in JavaScript.
 
 **Key features:**
 
@@ -223,23 +228,23 @@ Programmatically assemble prompts for LLMs using [GenAIScript](https://microsoft
 
 ### Goose
 
-[Goose](https://github.com/block/goose) is an open source AI agent that supercharges your software development by automating coding tasks.
+[Goose](mdc:https:/github.com/block/goose) is an open source AI agent that supercharges your software development by automating coding tasks.
 
 **Key features:**
 
 * Expose MCP functionality to Goose through tools.
-* MCPs can be installed directly via the [extensions directory](https://block.github.io/goose/v1/extensions/), CLI, or UI.
-* Goose allows you to extend its functionality by [building your own MCP servers](https://block.github.io/goose/docs/tutorials/custom-extensions).
+* MCPs can be installed directly via the [extensions directory](mdc:https:/block.github.io/goose/v1/extensions), CLI, or UI.
+* Goose allows you to extend its functionality by [building your own MCP servers](mdc:https:/block.github.io/goose/docs/tutorials/custom-extensions).
 * Includes built-in tools for development, web scraping, automation, memory, and integrations with JetBrains and Google Drive.
 
 ### LibreChat
 
-[LibreChat](https://github.com/danny-avila/LibreChat) is an open-source, customizable AI chat UI that supports multiple AI providers, now including MCP integration.
+[LibreChat](mdc:https:/github.com/danny-avila/LibreChat) is an open-source, customizable AI chat UI that supports multiple AI providers, now including MCP integration.
 
 **Key features:**
 
-* Extend current tool ecosystem, including [Code Interpreter](https://www.librechat.ai/docs/features/code_interpreter) and Image generation tools, through MCP servers
-* Add tools to customizable [Agents](https://www.librechat.ai/docs/features/agents), using a variety of LLMs from top providers
+* Extend current tool ecosystem, including [Code Interpreter](mdc:https:/www.librechat.ai/docs/features/code_interpreter) and Image generation tools, through MCP servers
+* Add tools to customizable [Agents](mdc:https:/www.librechat.ai/docs/features/agents), using a variety of LLMs from top providers
 * Open-source and self-hostable, with secure multi-user support
 * Future roadmap includes expanded MCP feature support
 
@@ -251,7 +256,7 @@ Programmatically assemble prompts for LLMs using [GenAIScript](https://microsoft
 
 * Automatic connection management of MCP servers.
 * Expose tools from multiple servers to an LLM.
-* Implements every pattern defined in [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents).
+* Implements every pattern defined in [Building Effective Agents](mdc:https:/www.anthropic.com/research/building-effective-agents).
 * Supports workflow pause/resume signals, such as waiting for human feedback.
 
 ### Microsoft Copilot Studio
@@ -275,7 +280,7 @@ Programmatically assemble prompts for LLMs using [GenAIScript](https://microsoft
 
 ### Roo Code
 
-[Roo Code](https://roocode.com) enables AI coding assistance via MCP.
+[Roo Code](mdc:https:/roocode.com) enables AI coding assistance via MCP.
 
 **Key features:**
 
@@ -285,7 +290,7 @@ Programmatically assemble prompts for LLMs using [GenAIScript](https://microsoft
 
 ### Sourcegraph Cody
 
-[Cody](https://openctx.org/docs/providers/modelcontextprotocol) is Sourcegraph's AI coding assistant, which implements MCP through OpenCTX.
+[Cody](mdc:https:/openctx.org/docs/providers/modelcontextprotocol) is Sourcegraph's AI coding assistant, which implements MCP through OpenCTX.
 
 **Key features:**
 
@@ -296,7 +301,7 @@ Programmatically assemble prompts for LLMs using [GenAIScript](https://microsoft
 
 ### SpinAI
 
-[SpinAI](https://spinai.dev) is an open-source TypeScript framework for building observable AI agents. The framework provides native MCP compatibility, allowing agents to seamlessly integrate with MCP servers and tools.
+[SpinAI](mdc:https:/spinai.dev) is an open-source TypeScript framework for building observable AI agents. The framework provides native MCP compatibility, allowing agents to seamlessly integrate with MCP servers and tools.
 
 **Key features:**
 
@@ -307,7 +312,7 @@ Programmatically assemble prompts for LLMs using [GenAIScript](https://microsoft
 
 ### Superinterface
 
-[Superinterface](https://superinterface.ai) is AI infrastructure and a developer platform to build in-app AI assistants with support for MCP, interactive components, client-side function calling and more.
+[Superinterface](mdc:https:/superinterface.ai) is AI infrastructure and a developer platform to build in-app AI assistants with support for MCP, interactive components, client-side function calling and more.
 
 **Key features:**
 
@@ -317,7 +322,7 @@ Programmatically assemble prompts for LLMs using [GenAIScript](https://microsoft
 
 ### TheiaAI/TheiaIDE
 
-[Theia AI](https://eclipsesource.com/blogs/2024/10/07/introducing-theia-ai/) is a framework for building AI-enhanced tools and IDEs. The [AI-powered Theia IDE](https://eclipsesource.com/blogs/2024/10/08/introducting-ai-theia-ide/) is an open and flexible development environment built on Theia AI.
+[Theia AI](mdc:https:/eclipsesource.com/blogs/2024/10/07/introducing-theia-ai) is a framework for building AI-enhanced tools and IDEs. The [AI-powered Theia IDE](mdc:https:/eclipsesource.com/blogs/2024/10/08/introducting-ai-theia-ide) is an open and flexible development environment built on Theia AI.
 
 **Key features:**
 
@@ -329,12 +334,12 @@ Theia AI and Theia IDE's MCP integration provide users with flexibility, making 
 
 **Learn more:**
 
-* [Theia IDE and Theia AI MCP Announcement](https://eclipsesource.com/blogs/2024/12/19/theia-ide-and-theia-ai-support-mcp/)
-* [Download the AI-powered Theia IDE](https://theia-ide.org/)
+* [Theia IDE and Theia AI MCP Announcement](mdc:https:/eclipsesource.com/blogs/2024/12/19/theia-ide-and-theia-ai-support-mcp)
+* [Download the AI-powered Theia IDE](mdc:https:/theia-ide.org)
 
 ### Windsurf Editor
 
-[Windsurf Editor](https://codeium.com/windsurf) is an agentic IDE that combines AI assistance with developer workflows. It features an innovative AI Flow system that enables both collaborative and independent AI interactions while maintaining developer control.
+[Windsurf Editor](mdc:https:/codeium.com/windsurf) is an agentic IDE that combines AI assistance with developer workflows. It features an innovative AI Flow system that enables both collaborative and independent AI interactions while maintaining developer control.
 
 **Key features:**
 
@@ -344,7 +349,7 @@ Theia AI and Theia IDE's MCP integration provide users with flexibility, making 
 
 ### Witsy
 
-[Witsy](https://github.com/nbonamy/witsy) is an AI desktop assistant, supoorting Anthropic models and MCP servers as LLM tools.
+[Witsy](mdc:https:/github.com/nbonamy/witsy) is an AI desktop assistant, supoorting Anthropic models and MCP servers as LLM tools.
 
 **Key features:**
 
@@ -356,7 +361,7 @@ Theia AI and Theia IDE's MCP integration provide users with flexibility, making 
 
 ### Zed
 
-[Zed](https://zed.dev/docs/assistant/model-context-protocol) is a high-performance code editor with built-in MCP support, focusing on prompt templates and tool integration.
+[Zed](mdc:https:/zed.dev/docs/assistant/model-context-protocol) is a high-performance code editor with built-in MCP support, focusing on prompt templates and tool integration.
 
 **Key features:**
 
@@ -367,7 +372,7 @@ Theia AI and Theia IDE's MCP integration provide users with flexibility, making 
 
 ### OpenSumi
 
-[OpenSumi](https://github.com/opensumi/core) is a framework helps you quickly build AI Native IDE products.
+[OpenSumi](mdc:https:/github.com/opensumi/core) is a framework helps you quickly build AI Native IDE products.
 
 **Key features:**
 
@@ -376,7 +381,7 @@ Theia AI and Theia IDE's MCP integration provide users with flexibility, making 
 
 ### Daydreams
 
-[Daydreams](https://github.com/daydreamsai/daydreams) is a generative agent framework for executing anything onchain
+[Daydreams](mdc:https:/github.com/daydreamsai/daydreams) is a generative agent framework for executing anything onchain
 
 **Key features:**
 
@@ -385,14 +390,14 @@ Theia AI and Theia IDE's MCP integration provide users with flexibility, making 
 
 ### Apify MCP Tester
 
-[Apify MCP Tester](https://github.com/apify/tester-mcp-client) is an open-source client that connects to any MCP server using Server-Sent Events (SSE).
+[Apify MCP Tester](mdc:https:/github.com/apify/tester-mcp-client) is an open-source client that connects to any MCP server using Server-Sent Events (SSE).
 It is a standalone Apify Actor designed for testing MCP servers over SSE, with support for Authorization headers.
 It uses plain JavaScript (old-school style) and is hosted on Apify, allowing you to run it without any setup.
 
 **Key features:**
 
 * Connects to any MCP server via SSE.
-* Works with the [Apify MCP Server](https://apify.com/apify/actors-mcp-server) to interact with one or more Apify [Actors](https://apify.com/store).
+* Works with the [Apify MCP Server](mdc:https:/apify.com/apify/actors-mcp-server) to interact with one or more Apify [Actors](mdc:https:/apify.com/store).
 * Dynamically utilizes tools based on context and user queries (if supported by the server).
 
 ## Adding MCP support to your application
@@ -406,11 +411,11 @@ Benefits of adding MCP support:
 * Provide users with flexible integration options
 * Support local-first AI workflows
 
-To get started with implementing MCP in your application, check out our [Python](https://github.com/modelcontextprotocol/python-sdk) or [TypeScript SDK Documentation](https://github.com/modelcontextprotocol/typescript-sdk)
+To get started with implementing MCP in your application, check out our [Python](mdc:https:/github.com/modelcontextprotocol/python-sdk) or [TypeScript SDK Documentation](mdc:https:/github.com/modelcontextprotocol/typescript-sdk)
 
 ## Updates and corrections
 
-This list is maintained by the community. If you notice any inaccuracies or would like to update information about MCP support in your application, please submit a pull request or [open an issue in our documentation repository](https://github.com/modelcontextprotocol/docs/issues).
+This list is maintained by the community. If you notice any inaccuracies or would like to update information about MCP support in your application, please submit a pull request or [open an issue in our documentation repository](mdc:https:/github.com/modelcontextprotocol/docs/issues).
 
 
 # Contributing
@@ -418,11 +423,11 @@ Source: https://modelcontextprotocol.io/development/contributing
 
 How to participate in Model Context Protocol development
 
-We welcome contributions from the community! Please review our [contributing guidelines](https://github.com/modelcontextprotocol/.github/blob/main/CONTRIBUTING.md) for details on how to submit changes.
+We welcome contributions from the community! Please review our [contributing guidelines](mdc:https:/github.com/modelcontextprotocol/.github/blob/main/CONTRIBUTING.md) for details on how to submit changes.
 
-All contributors must adhere to our [Code of Conduct](https://github.com/modelcontextprotocol/.github/blob/main/CODE_OF_CONDUCT.md).
+All contributors must adhere to our [Code of Conduct](mdc:https:/github.com/modelcontextprotocol/.github/blob/main/CODE_OF_CONDUCT.md).
 
-For questions and discussions, please use [GitHub Discussions](https://github.com/orgs/modelcontextprotocol/discussions).
+For questions and discussions, please use [GitHub Discussions](mdc:https:/github.com/orgs/modelcontextprotocol/discussions).
 
 
 # Roadmap
@@ -438,13 +443,13 @@ We encourage community participation! Each section links to relevant discussions
 
 ## Remote MCP Support
 
-Our top priority is improving [remote MCP connections](https://github.com/modelcontextprotocol/specification/discussions/112), allowing clients to securely connect to MCP servers over the internet. Key initiatives include:
+Our top priority is improving [remote MCP connections](mdc:https:/github.com/modelcontextprotocol/specification/discussions/112), allowing clients to securely connect to MCP servers over the internet. Key initiatives include:
 
-* [**Authentication & Authorization**](https://github.com/modelcontextprotocol/specification/discussions/64): Adding standardized auth capabilities, particularly focused on OAuth 2.0 support.
+* [**Authentication & Authorization**](mdc:https:/github.com/modelcontextprotocol/specification/discussions/64): Adding standardized auth capabilities, particularly focused on OAuth 2.0 support.
 
-* [**Service Discovery**](https://github.com/modelcontextprotocol/specification/discussions/69): Defining how clients can discover and connect to remote MCP servers.
+* [**Service Discovery**](mdc:https:/github.com/modelcontextprotocol/specification/discussions/69): Defining how clients can discover and connect to remote MCP servers.
 
-* [**Stateless Operations**](https://github.com/modelcontextprotocol/specification/discussions/102): Thinking about whether MCP could encompass serverless environments too, where they will need to be mostly stateless.
+* [**Stateless Operations**](mdc:https:/github.com/modelcontextprotocol/specification/discussions/102): Thinking about whether MCP could encompass serverless environments too, where they will need to be mostly stateless.
 
 ## Reference Implementations
 
@@ -464,25 +469,25 @@ Looking ahead, we're exploring ways to make MCP servers more accessible. Some ar
 
 ## Agent Support
 
-We're expanding MCP's capabilities for [complex agentic workflows](https://github.com/modelcontextprotocol/specification/discussions/111), particularly focusing on:
+We're expanding MCP's capabilities for [complex agentic workflows](mdc:https:/github.com/modelcontextprotocol/specification/discussions/111), particularly focusing on:
 
-* [**Hierarchical Agent Systems**](https://github.com/modelcontextprotocol/specification/discussions/94): Improved support for trees of agents through namespacing and topology awareness.
+* [**Hierarchical Agent Systems**](mdc:https:/github.com/modelcontextprotocol/specification/discussions/94): Improved support for trees of agents through namespacing and topology awareness.
 
-* [**Interactive Workflows**](https://github.com/modelcontextprotocol/specification/issues/97): Better handling of user permissions and information requests across agent hierarchies, and ways to send output to users instead of models.
+* [**Interactive Workflows**](mdc:https:/github.com/modelcontextprotocol/specification/issues/97): Better handling of user permissions and information requests across agent hierarchies, and ways to send output to users instead of models.
 
-* [**Streaming Results**](https://github.com/modelcontextprotocol/specification/issues/117): Real-time updates from long-running agent operations.
+* [**Streaming Results**](mdc:https:/github.com/modelcontextprotocol/specification/issues/117): Real-time updates from long-running agent operations.
 
 ## Broader Ecosystem
 
 We're also invested in:
 
 * **Community-Led Standards Development**: Fostering a collaborative ecosystem where all AI providers can help shape MCP as an open standard through equal participation and shared governance, ensuring it meets the needs of diverse AI applications and use cases.
-* [**Additional Modalities**](https://github.com/modelcontextprotocol/specification/discussions/88): Expanding beyond text to support audio, video, and other formats.
+* [**Additional Modalities**](mdc:https:/github.com/modelcontextprotocol/specification/discussions/88): Expanding beyond text to support audio, video, and other formats.
 * \[**Standardization**] Considering standardization through a standardization body.
 
 ## Get Involved
 
-We welcome community participation in shaping MCP's future. Visit our [GitHub Discussions](https://github.com/orgs/modelcontextprotocol/discussions) to join the conversation and contribute your ideas.
+We welcome community participation in shaping MCP's future. Visit our [GitHub Discussions](mdc:https:/github.com/orgs/modelcontextprotocol/discussions) to join the conversation and contribute your ideas.
 
 
 # What's New
@@ -495,25 +500,25 @@ The latest updates and improvements to MCP
   * Added binary compatibility tracking to avoid breaking changes
   * Drop jdk requirements to JDK8
   * Added Claude Desktop integration with sample
-  * The full changelog can be found here: [https://github.com/modelcontextprotocol/kotlin-sdk/releases/tag/0.4.0](https://github.com/modelcontextprotocol/kotlin-sdk/releases/tag/0.4.0)
+  * The full changelog can be found here: [https://github.com/modelcontextprotocol/kotlin-sdk/releases/tag/0.4.0](mdc:https:/github.com/modelcontextprotocol/kotlin-sdk/releases/tag/0.4.0)
 </Update>
 
 <Update label="2025-03-26" description="Java SDK 0.8.1 released">
-  * Version [0.8.1](https://github.com/modelcontextprotocol/java-sdk/releases/tag/v0.8.1) of the MCP Java SDK has been released,
+  * Version [0.8.1](mdc:https:/github.com/modelcontextprotocol/java-sdk/releases/tag/v0.8.1) of the MCP Java SDK has been released,
     providing important bug fixes.
 </Update>
 
 <Update label="2025-03-24" description="C# SDK released">
   * We are exited to announce the availability of the MCP
-    [C# SDK](https://github.com/modelcontextprotocol/csharp-sdk/) developed by
-    [Peder Holdgaard Pedersen](http://github.com/PederHP) and Microsoft. This joins our growing
+    [C# SDK](mdc:https:/github.com/modelcontextprotocol/csharp-sdk) developed by
+    [Peder Holdgaard Pedersen](mdc:http:/github.com/PederHP) and Microsoft. This joins our growing
     list of supported languages. The C# SDK is also available as
-    [NuGet package](https://www.nuget.org/packages/ModelContextProtocol)
+    [NuGet package](mdc:https:/www.nuget.org/packages/ModelContextProtocol)
   * Python SDK 1.5.0 was released with multiple fixes and improvements.
 </Update>
 
 <Update label="2025-03-21" description="Java SDK 0.8.0 released">
-  * Version [0.8.0](https://github.com/modelcontextprotocol/java-sdk/releases/tag/v0.8.0) of the MCP Java SDK has been released,
+  * Version [0.8.0](mdc:https:/github.com/modelcontextprotocol/java-sdk/releases/tag/v0.8.0) of the MCP Java SDK has been released,
     delivering important session management improvements and bug fixes.
 </Update>
 
@@ -523,30 +528,30 @@ The latest updates and improvements to MCP
 
 <Update label="2025-02-14" description="Java SDK released">
   * We're excited to announce that the Java SDK developed by Spring AI at VMware Tanzu is now
-    the official [Java SDK](https://github.com/modelcontextprotocol/java-sdk) for MCP.
+    the official [Java SDK](mdc:https:/github.com/modelcontextprotocol/java-sdk) for MCP.
     This joins our existing Kotlin SDK in our growing list of supported languages.
     The Spring AI team will maintain the SDK as an integral part of the Model Context Protocol
     organization. We're thrilled to welcome them to the MCP community!
 </Update>
 
 <Update label="2025-01-27" description="Python SDK 1.2.1">
-  * Version [1.2.1](https://github.com/modelcontextprotocol/python-sdk/releases/tag/v1.2.1) of the MCP Python SDK has been released,
+  * Version [1.2.1](mdc:https:/github.com/modelcontextprotocol/python-sdk/releases/tag/v1.2.1) of the MCP Python SDK has been released,
     delivering important stability improvements and bug fixes.
 </Update>
 
 <Update label="2025-01-18" description="SDK and Server Improvements">
-  * Simplified, express-like API in the [TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
-  * Added 8 new clients to the [clients page](https://modelcontextprotocol.io/clients)
+  * Simplified, express-like API in the [TypeScript SDK](mdc:https:/github.com/modelcontextprotocol/typescript-sdk)
+  * Added 8 new clients to the [clients page](mdc:https:/modelcontextprotocol.io/clients)
 </Update>
 
 <Update label="2025-01-03" description="SDK and Server Improvements">
-  * FastMCP API in the [Python SDK](https://github.com/modelcontextprotocol/python-sdk)
-  * Dockerized MCP servers in the [servers repo](https://github.com/modelcontextprotocol/servers)
+  * FastMCP API in the [Python SDK](mdc:https:/github.com/modelcontextprotocol/python-sdk)
+  * Dockerized MCP servers in the [servers repo](mdc:https:/github.com/modelcontextprotocol/servers)
 </Update>
 
 <Update label="2024-12-21" description="Kotlin SDK released">
   * Jetbrains released a Kotlin SDK for MCP!
-  * For a sample MCP Kotlin server, check out [this repository](https://github.com/modelcontextprotocol/kotlin-sdk/tree/main/samples/kotlin-mcp-server)
+  * For a sample MCP Kotlin server, check out [this repository](mdc:https:/github.com/modelcontextprotocol/kotlin-sdk/tree/main/samples/kotlin-mcp-server)
 </Update>
 
 
@@ -662,7 +667,7 @@ The transport layer handles the actual communication between clients and servers
    * Uses Server-Sent Events for server-to-client messages
    * HTTP POST for client-to-server messages
 
-All transports use [JSON-RPC](https://www.jsonrpc.org/) 2.0 to exchange messages. See the [specification](https://spec.modelcontextprotocol.io) for detailed information about the Model Context Protocol message format.
+All transports use [JSON-RPC](mdc:https:/www.jsonrpc.org) 2.0 to exchange messages. See the [specification](mdc:https:/spec.modelcontextprotocol.io) for detailed information about the Model Context Protocol message format.
 
 ### Message types
 
@@ -1349,7 +1354,7 @@ Resources are a core primitive in the Model Context Protocol (MCP) that allow se
   * Other clients might automatically select resources based on heuristics
   * Some implementations may even allow the AI model itself to determine which resources to use
 
-  Server authors should be prepared to handle any of these interaction patterns when implementing resource support. In order to expose data to models automatically, server authors should use a **model-controlled** primitive such as [Tools](./tools).
+  Server authors should be prepared to handle any of these interaction patterns when implementing resource support. In order to expose data to models automatically, server authors should use a **model-controlled** primitive such as [Tools](mdc:tools).
 </Note>
 
 ## Overview
@@ -1425,7 +1430,7 @@ Servers expose a list of concrete resources via the `resources/list` endpoint. E
 
 ### Resource templates
 
-For dynamic resources, servers can expose [URI templates](https://datatracker.ietf.org/doc/html/rfc6570) that clients can use to construct valid resource URIs:
+For dynamic resources, servers can expose [URI templates](mdc:https:/datatracker.ietf.org/doc/html/rfc6570) that clients can use to construct valid resource URIs:
 
 ```typescript
 {
@@ -1941,7 +1946,7 @@ Tools in MCP allow servers to expose executable functions that can be invoked by
 * **Invocation**: Tools are called using the `tools/call` endpoint, where servers perform the requested operation and return results
 * **Flexibility**: Tools can range from simple calculations to complex API interactions
 
-Like [resources](/docs/concepts/resources), tools are identified by unique names and can include descriptions to guide their usage. However, unlike resources, tools represent dynamic operations that can modify state or interact with external systems.
+Like [resources](mdc:docs/concepts/resources), tools are identified by unique names and can include descriptions to guide their usage. However, unlike resources, tools represent dynamic operations that can modify state or interact with external systems.
 
 ## Tool definition structure
 
@@ -2248,7 +2253,7 @@ Transports in the Model Context Protocol (MCP) provide the foundation for commun
 
 ## Message Format
 
-MCP uses [JSON-RPC](https://www.jsonrpc.org/) 2.0 as its wire format. The transport layer is responsible for converting MCP protocol messages into JSON-RPC format for transmission and converting received JSON-RPC messages back into MCP protocol messages.
+MCP uses [JSON-RPC](mdc:https:/www.jsonrpc.org) 2.0 as its wire format. The transport layer is responsible for converting MCP protocol messages into JSON-RPC format for transmission and converting received JSON-RPC messages back into MCP protocol messages.
 
 There are three types of JSON-RPC messages used:
 
@@ -2676,7 +2681,7 @@ MCP provides several tools for debugging at different levels:
 1. **MCP Inspector**
    * Interactive debugging interface
    * Direct server testing
-   * See the [Inspector guide](/docs/tools/inspector) for details
+   * See the [Inspector guide](mdc:docs/tools/inspector) for details
 
 2. **Claude Desktop Developer Tools**
    * Integration testing
@@ -2805,20 +2810,20 @@ When servers fail to connect:
 
 1. Check Claude Desktop logs
 2. Verify server process is running
-3. Test standalone with [Inspector](/docs/tools/inspector)
+3. Test standalone with [Inspector](mdc:docs/tools/inspector)
 4. Verify protocol compatibility
 
 ## Implementing logging
 
 ### Server-side logging
 
-When building a server that uses the local stdio [transport](/docs/concepts/transports), all messages logged to stderr (standard error) will be captured by the host application (e.g., Claude Desktop) automatically.
+When building a server that uses the local stdio [transport](mdc:docs/concepts/transports), all messages logged to stderr (standard error) will be captured by the host application (e.g., Claude Desktop) automatically.
 
 <Warning>
   Local MCP servers should not log messages to stdout (standard out), as this will interfere with protocol operation.
 </Warning>
 
-For all [transports](/docs/concepts/transports), you can also provide logging to the client by sending a log message notification:
+For all [transports](mdc:docs/concepts/transports), you can also provide logging to the client by sending a log message notification:
 
 <Tabs>
   <Tab title="Python">
@@ -2862,7 +2867,7 @@ In client applications:
 ### Development cycle
 
 1. Initial Development
-   * Use [Inspector](/docs/tools/inspector) for basic testing
+   * Use [Inspector](mdc:docs/tools/inspector) for basic testing
    * Implement core functionality
    * Add logging points
 
@@ -2877,7 +2882,7 @@ To test changes efficiently:
 
 * **Configuration changes**: Restart Claude Desktop
 * **Server code changes**: Use Command-R to reload
-* **Quick iteration**: Use [Inspector](/docs/tools/inspector) during development
+* **Quick iteration**: Use [Inspector](mdc:docs/tools/inspector) during development
 
 ## Best practices
 
@@ -2921,7 +2926,7 @@ When encountering issues:
 
 1. **First Steps**
    * Check server logs
-   * Test with [Inspector](/docs/tools/inspector)
+   * Test with [Inspector](mdc:docs/tools/inspector)
    * Review configuration
    * Verify environment
 
@@ -2949,7 +2954,7 @@ Source: https://modelcontextprotocol.io/docs/tools/inspector
 
 In-depth guide to using the MCP Inspector for testing and debugging Model Context Protocol servers
 
-The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is an interactive developer tool for testing and debugging MCP servers. While the [Debugging Guide](/docs/tools/debugging) covers the Inspector as part of the overall debugging toolkit, this document provides a detailed exploration of the Inspector's features and capabilities.
+The [MCP Inspector](mdc:https:/github.com/modelcontextprotocol/inspector) is an interactive developer tool for testing and debugging MCP servers. While the [Debugging Guide](mdc:docs/tools/debugging) covers the Inspector as part of the overall debugging toolkit, this document provides a detailed exploration of the Inspector's features and capabilities.
 
 ## Getting started
 
@@ -2967,7 +2972,7 @@ npx @modelcontextprotocol/inspector <command> <arg1> <arg2>
 
 #### Inspecting servers from NPM or PyPi
 
-A common way to start server packages from [NPM](https://npmjs.com) or [PyPi](https://pypi.com).
+A common way to start server packages from [NPM](mdc:https:/npmjs.com) or [PyPi](mdc:https:/pypi.com).
 
 <Tabs>
   <Tab title="NPM package">
@@ -3023,7 +3028,7 @@ The Inspector provides several features for interacting with your MCP server:
 
 ### Server connection pane
 
-* Allows selecting the [transport](/docs/concepts/transports) for connecting to the server
+* Allows selecting the [transport](mdc:docs/concepts/transports) for connecting to the server
 * For local servers, supports customizing the command-line arguments and environment
 
 ### Resources tab
@@ -3100,67 +3105,67 @@ These official reference servers demonstrate core MCP features and SDK usage:
 
 ### Data and file systems
 
-* **[Filesystem](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem)** - Secure file operations with configurable access controls
-* **[PostgreSQL](https://github.com/modelcontextprotocol/servers/tree/main/src/postgres)** - Read-only database access with schema inspection capabilities
-* **[SQLite](https://github.com/modelcontextprotocol/servers/tree/main/src/sqlite)** - Database interaction and business intelligence features
-* **[Google Drive](https://github.com/modelcontextprotocol/servers/tree/main/src/gdrive)** - File access and search capabilities for Google Drive
+* **[Filesystem](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/filesystem)** - Secure file operations with configurable access controls
+* **[PostgreSQL](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/postgres)** - Read-only database access with schema inspection capabilities
+* **[SQLite](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/sqlite)** - Database interaction and business intelligence features
+* **[Google Drive](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/gdrive)** - File access and search capabilities for Google Drive
 
 ### Development tools
 
-* **[Git](https://github.com/modelcontextprotocol/servers/tree/main/src/git)** - Tools to read, search, and manipulate Git repositories
-* **[GitHub](https://github.com/modelcontextprotocol/servers/tree/main/src/github)** - Repository management, file operations, and GitHub API integration
-* **[GitLab](https://github.com/modelcontextprotocol/servers/tree/main/src/gitlab)** - GitLab API integration enabling project management
-* **[Sentry](https://github.com/modelcontextprotocol/servers/tree/main/src/sentry)** - Retrieving and analyzing issues from Sentry.io
+* **[Git](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/git)** - Tools to read, search, and manipulate Git repositories
+* **[GitHub](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/github)** - Repository management, file operations, and GitHub API integration
+* **[GitLab](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/gitlab)** - GitLab API integration enabling project management
+* **[Sentry](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/sentry)** - Retrieving and analyzing issues from Sentry.io
 
 ### Web and browser automation
 
-* **[Brave Search](https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search)** - Web and local search using Brave's Search API
-* **[Fetch](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch)** - Web content fetching and conversion optimized for LLM usage
-* **[Puppeteer](https://github.com/modelcontextprotocol/servers/tree/main/src/puppeteer)** - Browser automation and web scraping capabilities
+* **[Brave Search](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/brave-search)** - Web and local search using Brave's Search API
+* **[Fetch](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/fetch)** - Web content fetching and conversion optimized for LLM usage
+* **[Puppeteer](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/puppeteer)** - Browser automation and web scraping capabilities
 
 ### Productivity and communication
 
-* **[Slack](https://github.com/modelcontextprotocol/servers/tree/main/src/slack)** - Channel management and messaging capabilities
-* **[Google Maps](https://github.com/modelcontextprotocol/servers/tree/main/src/google-maps)** - Location services, directions, and place details
-* **[Memory](https://github.com/modelcontextprotocol/servers/tree/main/src/memory)** - Knowledge graph-based persistent memory system
+* **[Slack](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/slack)** - Channel management and messaging capabilities
+* **[Google Maps](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/google-maps)** - Location services, directions, and place details
+* **[Memory](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/memory)** - Knowledge graph-based persistent memory system
 
 ### AI and specialized tools
 
-* **[EverArt](https://github.com/modelcontextprotocol/servers/tree/main/src/everart)** - AI image generation using various models
-* **[Sequential Thinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking)** - Dynamic problem-solving through thought sequences
-* **[AWS KB Retrieval](https://github.com/modelcontextprotocol/servers/tree/main/src/aws-kb-retrieval-server)** - Retrieval from AWS Knowledge Base using Bedrock Agent Runtime
+* **[EverArt](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/everart)** - AI image generation using various models
+* **[Sequential Thinking](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking)** - Dynamic problem-solving through thought sequences
+* **[AWS KB Retrieval](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/aws-kb-retrieval-server)** - Retrieval from AWS Knowledge Base using Bedrock Agent Runtime
 
 ## Official integrations
 
 These MCP servers are maintained by companies for their platforms:
 
-* **[Axiom](https://github.com/axiomhq/mcp-server-axiom)** - Query and analyze logs, traces, and event data using natural language
-* **[Browserbase](https://github.com/browserbase/mcp-server-browserbase)** - Automate browser interactions in the cloud
-* **[Cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)** - Deploy and manage resources on the Cloudflare developer platform
-* **[E2B](https://github.com/e2b-dev/mcp-server)** - Execute code in secure cloud sandboxes
-* **[Neon](https://github.com/neondatabase/mcp-server-neon)** - Interact with the Neon serverless Postgres platform
-* **[Obsidian Markdown Notes](https://github.com/calclavia/mcp-obsidian)** - Read and search through Markdown notes in Obsidian vaults
-* **[Qdrant](https://github.com/qdrant/mcp-server-qdrant/)** - Implement semantic memory using the Qdrant vector search engine
-* **[Raygun](https://github.com/MindscapeHQ/mcp-server-raygun)** - Access crash reporting and monitoring data
-* **[Search1API](https://github.com/fatwang2/search1api-mcp)** - Unified API for search, crawling, and sitemaps
-* **[Stripe](https://github.com/stripe/agent-toolkit)** - Interact with the Stripe API
-* **[Tinybird](https://github.com/tinybirdco/mcp-tinybird)** - Interface with the Tinybird serverless ClickHouse platform
-* **[Weaviate](https://github.com/weaviate/mcp-server-weaviate)** - Enable Agentic RAG through your Weaviate collection(s)
+* **[Axiom](mdc:https:/github.com/axiomhq/mcp-server-axiom)** - Query and analyze logs, traces, and event data using natural language
+* **[Browserbase](mdc:https:/github.com/browserbase/mcp-server-browserbase)** - Automate browser interactions in the cloud
+* **[Cloudflare](mdc:https:/github.com/cloudflare/mcp-server-cloudflare)** - Deploy and manage resources on the Cloudflare developer platform
+* **[E2B](mdc:https:/github.com/e2b-dev/mcp-server)** - Execute code in secure cloud sandboxes
+* **[Neon](mdc:https:/github.com/neondatabase/mcp-server-neon)** - Interact with the Neon serverless Postgres platform
+* **[Obsidian Markdown Notes](mdc:https:/github.com/calclavia/mcp-obsidian)** - Read and search through Markdown notes in Obsidian vaults
+* **[Qdrant](mdc:https:/github.com/qdrant/mcp-server-qdrant)** - Implement semantic memory using the Qdrant vector search engine
+* **[Raygun](mdc:https:/github.com/MindscapeHQ/mcp-server-raygun)** - Access crash reporting and monitoring data
+* **[Search1API](mdc:https:/github.com/fatwang2/search1api-mcp)** - Unified API for search, crawling, and sitemaps
+* **[Stripe](mdc:https:/github.com/stripe/agent-toolkit)** - Interact with the Stripe API
+* **[Tinybird](mdc:https:/github.com/tinybirdco/mcp-tinybird)** - Interface with the Tinybird serverless ClickHouse platform
+* **[Weaviate](mdc:https:/github.com/weaviate/mcp-server-weaviate)** - Enable Agentic RAG through your Weaviate collection(s)
 
 ## Community highlights
 
 A growing ecosystem of community-developed servers extends MCP's capabilities:
 
-* **[Docker](https://github.com/ckreiling/mcp-server-docker)** - Manage containers, images, volumes, and networks
-* **[Kubernetes](https://github.com/Flux159/mcp-server-kubernetes)** - Manage pods, deployments, and services
-* **[Linear](https://github.com/jerhadf/linear-mcp-server)** - Project management and issue tracking
-* **[Snowflake](https://github.com/datawiz168/mcp-snowflake-service)** - Interact with Snowflake databases
-* **[Spotify](https://github.com/varunneal/spotify-mcp)** - Control Spotify playback and manage playlists
-* **[Todoist](https://github.com/abhiz123/todoist-mcp-server)** - Task management integration
+* **[Docker](mdc:https:/github.com/ckreiling/mcp-server-docker)** - Manage containers, images, volumes, and networks
+* **[Kubernetes](mdc:https:/github.com/Flux159/mcp-server-kubernetes)** - Manage pods, deployments, and services
+* **[Linear](mdc:https:/github.com/jerhadf/linear-mcp-server)** - Project management and issue tracking
+* **[Snowflake](mdc:https:/github.com/datawiz168/mcp-snowflake-service)** - Interact with Snowflake databases
+* **[Spotify](mdc:https:/github.com/varunneal/spotify-mcp)** - Control Spotify playback and manage playlists
+* **[Todoist](mdc:https:/github.com/abhiz123/todoist-mcp-server)** - Task management integration
 
 > **Note:** Community servers are untested and should be used at your own risk. They are not affiliated with or endorsed by Anthropic.
 
-For a complete list of community servers, visit the [MCP Servers Repository](https://github.com/modelcontextprotocol/servers).
+For a complete list of community servers, visit the [MCP Servers Repository](mdc:https:/github.com/modelcontextprotocol/servers).
 
 ## Getting started
 
@@ -3211,14 +3216,14 @@ To use an MCP server with Claude, add it to your configuration:
 
 ## Additional resources
 
-* [MCP Servers Repository](https://github.com/modelcontextprotocol/servers) - Complete collection of reference implementations and community servers
-* [Awesome MCP Servers](https://github.com/punkpeye/awesome-mcp-servers) - Curated list of MCP servers
-* [MCP CLI](https://github.com/wong2/mcp-cli) - Command-line inspector for testing MCP servers
-* [MCP Get](https://mcp-get.com) - Tool for installing and managing MCP servers
-* [Supergateway](https://github.com/supercorp-ai/supergateway) - Run MCP stdio servers over SSE
-* [Zapier MCP](https://zapier.com/mcp) - MCP Server with over 7,000+ apps and 30,000+ actions
+* [MCP Servers Repository](mdc:https:/github.com/modelcontextprotocol/servers) - Complete collection of reference implementations and community servers
+* [Awesome MCP Servers](mdc:https:/github.com/punkpeye/awesome-mcp-servers) - Curated list of MCP servers
+* [MCP CLI](mdc:https:/github.com/wong2/mcp-cli) - Command-line inspector for testing MCP servers
+* [MCP Get](mdc:https:/mcp-get.com) - Tool for installing and managing MCP servers
+* [Supergateway](mdc:https:/github.com/supercorp-ai/supergateway) - Run MCP stdio servers over SSE
+* [Zapier MCP](mdc:https:/zapier.com/mcp) - MCP Server with over 7,000+ apps and 30,000+ actions
 
-Visit our [GitHub Discussions](https://github.com/orgs/modelcontextprotocol/discussions) to engage with the MCP community.
+Visit our [GitHub Discussions](mdc:https:/github.com/orgs/modelcontextprotocol/discussions) to engage with the MCP community.
 
 
 # Introduction
@@ -3226,7 +3231,7 @@ Source: https://modelcontextprotocol.io/introduction
 
 Get started with the Model Context Protocol (MCP)
 
-<Note>C# SDK released! Check out [what else is new.](/development/updates)</Note>
+<Note>C# SDK released! Check out [what else is new.](mdc:development/updates)</Note>
 
 MCP is an open protocol that standardizes how applications provide context to LLMs. Think of MCP like a USB-C port for AI applications. Just as USB-C provides a standardized way to connect your devices to various peripherals and accessories, MCP provides a standardized way to connect AI models to different data sources and tools.
 
@@ -3350,16 +3355,16 @@ Dive deeper into MCP's core concepts and capabilities:
 
 ## Contributing
 
-Want to contribute? Check out our [Contributing Guide](/development/contributing) to learn how you can help improve MCP.
+Want to contribute? Check out our [Contributing Guide](mdc:development/contributing) to learn how you can help improve MCP.
 
 ## Support and Feedback
 
 Here's how to get help or provide feedback:
 
-* For bug reports and feature requests related to the MCP specification, SDKs, or documentation (open source), please [create a GitHub issue](https://github.com/modelcontextprotocol)
-* For discussions or Q\&A about the MCP specification, use the [specification discussions](https://github.com/modelcontextprotocol/specification/discussions)
-* For discussions or Q\&A about other MCP open source components, use the [organization discussions](https://github.com/orgs/modelcontextprotocol/discussions)
-* For bug reports, feature requests, and questions related to Claude.app and claude.ai's MCP integration, please see Anthropic's guide on [How to Get Support](https://support.anthropic.com/en/articles/9015913-how-to-get-support)
+* For bug reports and feature requests related to the MCP specification, SDKs, or documentation (open source), please [create a GitHub issue](mdc:https:/github.com/modelcontextprotocol)
+* For discussions or Q\&A about the MCP specification, use the [specification discussions](mdc:https:/github.com/modelcontextprotocol/specification/discussions)
+* For discussions or Q\&A about other MCP open source components, use the [organization discussions](mdc:https:/github.com/orgs/modelcontextprotocol/discussions)
+* For bug reports, feature requests, and questions related to Claude.app and claude.ai's MCP integration, please see Anthropic's guide on [How to Get Support](mdc:https:/support.anthropic.com/en/articles/9015913-how-to-get-support)
 
 
 # For Client Developers
@@ -3367,11 +3372,11 @@ Source: https://modelcontextprotocol.io/quickstart/client
 
 Get started building your own client that can integrate with all MCP servers.
 
-In this tutorial, you'll learn how to build a LLM-powered chatbot client that connects to MCP servers. It helps to have gone through the [Server quickstart](/quickstart/server) that guides you through the basic of building your first server.
+In this tutorial, you'll learn how to build a LLM-powered chatbot client that connects to MCP servers. It helps to have gone through the [Server quickstart](mdc:quickstart/server) that guides you through the basic of building your first server.
 
 <Tabs>
   <Tab title="Python">
-    [You can find the complete code for this tutorial here.](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/mcp-client-python)
+    [You can find the complete code for this tutorial here.](mdc:https:/github.com/modelcontextprotocol/quickstart-resources/tree/main/mcp-client-python)
 
     ## System Requirements
 
@@ -3411,7 +3416,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
 
     ## Setting Up Your API Key
 
-    You'll need an Anthropic API key from the [Anthropic Console](https://console.anthropic.com/settings/keys).
+    You'll need an Anthropic API key from the [Anthropic Console](mdc:https:/console.anthropic.com/settings/keys).
 
     Create a `.env` file to store it:
 
@@ -3623,7 +3628,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
         asyncio.run(main())
     ```
 
-    You can find the complete `client.py` file [here.](https://gist.github.com/zckly/f3f28ea731e096e53b39b47bf0a2d4b1)
+    You can find the complete `client.py` file [here.](mdc:https:/gist.github.com/zckly/f3f28ea731e096e53b39b47bf0a2d4b1)
 
     ## Key Components Explained
 
@@ -3778,7 +3783,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
   </Tab>
 
   <Tab title="Node">
-    [You can find the complete code for this tutorial here.](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/mcp-client-typescript)
+    [You can find the complete code for this tutorial here.](mdc:https:/github.com/modelcontextprotocol/quickstart-resources/tree/main/mcp-client-typescript)
 
     ## System Requirements
 
@@ -3864,7 +3869,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
 
     ## Setting Up Your API Key
 
-    You'll need an Anthropic API key from the [Anthropic Console](https://console.anthropic.com/settings/keys).
+    You'll need an Anthropic API key from the [Anthropic Console](mdc:https:/console.anthropic.com/settings/keys).
 
     Create a `.env` file to store it:
 
@@ -4179,11 +4184,11 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
   <Tab title="Java">
     <Note>
       This is a quickstart demo based on Spring AI MCP auto-configuration and boot starters.
-      To learn how to create sync and async MCP Clients manually, consult the [Java SDK Client](/sdk/java/mcp-client) documentation
+      To learn how to create sync and async MCP Clients manually, consult the [Java SDK Client](mdc:sdk/java/mcp-client) documentation
     </Note>
 
-    This example demonstrates how to build an interactive chatbot that combines Spring AI's Model Context Protocol (MCP) with the [Brave Search MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search). The application creates a conversational interface powered by Anthropic's Claude AI model that can perform internet searches through Brave Search, enabling natural language interactions with real-time web data.
-    [You can find the complete code for this tutorial here.](https://github.com/spring-projects/spring-ai-examples/tree/main/model-context-protocol/web-search/brave-chatbot)
+    This example demonstrates how to build an interactive chatbot that combines Spring AI's Model Context Protocol (MCP) with the [Brave Search MCP Server](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/brave-search). The application creates a conversational interface powered by Anthropic's Claude AI model that can perform internet searches through Brave Search, enabling natural language interactions with real-time web data.
+    [You can find the complete code for this tutorial here.](mdc:https:/github.com/spring-projects/spring-ai-examples/tree/main/model-context-protocol/web-search/brave-chatbot)
 
     ## System Requirements
 
@@ -4198,7 +4203,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
     ## Setting Up Your Environment
 
     1. Install npx (Node Package eXecute):
-       First, make sure to install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+       First, make sure to install [npm](mdc:https:/docs.npmjs.com/downloading-and-installing-node-js-and-npm)
        and then run:
        ```bash
        npm install -g npx
@@ -4352,7 +4357,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
   </Tab>
 
   <Tab title="Kotlin">
-    [You can find the complete code for this tutorial here.](https://github.com/modelcontextprotocol/kotlin-sdk/tree/main/samples/kotlin-mcp-client)
+    [You can find the complete code for this tutorial here.](mdc:https:/github.com/modelcontextprotocol/kotlin-sdk/tree/main/samples/kotlin-mcp-client)
 
     ## System Requirements
 
@@ -4364,7 +4369,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
     ## Setting up your environment
 
     First, let's install `java` and `gradle` if you haven't already.
-    You can download `java` from [official Oracle JDK website](https://www.oracle.com/java/technologies/downloads/).
+    You can download `java` from [official Oracle JDK website](mdc:https:/www.oracle.com/java/technologies/downloads).
     Verify your `java` installation:
 
     ```bash
@@ -4395,7 +4400,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
     After running `gradle init`, you will be presented with options for creating your project.
     Select **Application** as the project type, **Kotlin** as the programming language, and **Java 17** as the Java version.
 
-    Alternatively, you can create a Kotlin application using the [IntelliJ IDEA project wizard](https://kotlinlang.org/docs/jvm-get-started.html).
+    Alternatively, you can create a Kotlin application using the [IntelliJ IDEA project wizard](mdc:https:/kotlinlang.org/docs/jvm-get-started.html).
 
     After creating the project, add the following dependencies:
 
@@ -4442,7 +4447,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
 
     ## Setting up your API key
 
-    You'll need an Anthropic API key from the [Anthropic Console](https://console.anthropic.com/settings/keys).
+    You'll need an Anthropic API key from the [Anthropic Console](mdc:https:/console.anthropic.com/settings/keys).
 
     Set up your API key:
 
@@ -4760,7 +4765,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
   </Tab>
 
   <Tab title="C#">
-    [You can find the complete code for this tutorial here.](https://github.io/modelcontextprotocol/csharp-sdk/tree/main/samples/QuickstartClient)
+    [You can find the complete code for this tutorial here.](mdc:https:/github.io/modelcontextprotocol/csharp-sdk/tree/main/samples/QuickstartClient)
 
     ## System Requirements
 
@@ -4789,7 +4794,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
 
     ## Setting up your API key
 
-    You'll need an Anthropic API key from the [Anthropic Console](https://console.anthropic.com/settings/keys).
+    You'll need an Anthropic API key from the [Anthropic Console](mdc:https:/console.anthropic.com/settings/keys).
 
     ```bash
     dotnet user-secrets init
@@ -4914,7 +4919,7 @@ In this tutorial, you'll learn how to build a LLM-powered chatbot client that co
 
     ### 3. Query Processing
 
-    * Leverages [Microsoft.Extensions.AI](https://learn.microsoft.com/dotnet/ai/ai-extensions) for the chat client.
+    * Leverages [Microsoft.Extensions.AI](mdc:https:/learn.microsoft.com/dotnet/ai/ai-extensions) for the chat client.
     * Configures the `IChatClient` to use automatic tool (function) invocation.
     * The client reads user input and sends it to the server.
     * The server processes the query and returns a response.
@@ -4995,7 +5000,7 @@ We'll build a server that exposes two tools: `get-alerts` and `get-forecast`. Th
 </Frame>
 
 <Note>
-  Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have guides on [building your own client](/quickstart/client) as well as a [list of other clients here](/clients).
+  Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have guides on [building your own client](mdc:quickstart/client) as well as a [list of other clients here](mdc:clients).
 </Note>
 
 <Accordion title="Why Claude for Desktop and not Claude.ai?">
@@ -5014,7 +5019,7 @@ This tutorial will primarily focus on tools.
 
 <Tabs>
   <Tab title="Python">
-    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-python)
+    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](mdc:https:/github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-python)
 
     ### Prerequisite knowledge
 
@@ -5212,7 +5217,7 @@ This tutorial will primarily focus on tools.
     ## Testing your server with Claude for Desktop
 
     <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/quickstart/client) tutorial to build an MCP client that connects to the server we just built.
+      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](mdc:quickstart/client) tutorial to build an MCP client that connects to the server we just built.
     </Note>
 
     First, make sure you have Claude for Desktop installed. [You can install the latest version
@@ -5220,7 +5225,7 @@ This tutorial will primarily focus on tools.
 
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
 
-    For example, if you have [VS Code](https://code.visualstudio.com/) installed:
+    For example, if you have [VS Code](mdc:https:/code.visualstudio.com) installed:
 
     <Tabs>
       <Tab title="MacOS/Linux">
@@ -5295,7 +5300,7 @@ This tutorial will primarily focus on tools.
   </Tab>
 
   <Tab title="Node">
-    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-typescript)
+    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](mdc:https:/github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-typescript)
 
     ### Prerequisite knowledge
 
@@ -5310,7 +5315,7 @@ This tutorial will primarily focus on tools.
 
     ### Set up your environment
 
-    First, let's install Node.js and npm if you haven't already. You can download them from [nodejs.org](https://nodejs.org/).
+    First, let's install Node.js and npm if you haven't already. You can download them from [nodejs.org](mdc:https:/nodejs.org).
     Verify your Node.js installation:
 
     ```bash
@@ -5658,7 +5663,7 @@ This tutorial will primarily focus on tools.
     ## Testing your server with Claude for Desktop
 
     <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/quickstart/client) tutorial to build an MCP client that connects to the server we just built.
+      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](mdc:quickstart/client) tutorial to build an MCP client that connects to the server we just built.
     </Note>
 
     First, make sure you have Claude for Desktop installed. [You can install the latest version
@@ -5666,7 +5671,7 @@ This tutorial will primarily focus on tools.
 
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
 
-    For example, if you have [VS Code](https://code.visualstudio.com/) installed:
+    For example, if you have [VS Code](mdc:https:/code.visualstudio.com) installed:
 
     <Tabs>
       <Tab title="MacOS/Linux">
@@ -5733,23 +5738,23 @@ This tutorial will primarily focus on tools.
   <Tab title="Java">
     <Note>
       This is a quickstart demo based on Spring AI MCP auto-configuration and boot starters.
-      To learn how to create sync and async MCP Servers, manually, consult the [Java SDK Server](/sdk/java/mcp-server) documentation.
+      To learn how to create sync and async MCP Servers, manually, consult the [Java SDK Server](mdc:sdk/java/mcp-server) documentation.
     </Note>
 
     Let's get started with building our weather server!
-    [You can find the complete code for what we'll be building here.](https://github.com/spring-projects/spring-ai-examples/tree/main/model-context-protocol/weather/starter-stdio-server)
+    [You can find the complete code for what we'll be building here.](mdc:https:/github.com/spring-projects/spring-ai-examples/tree/main/model-context-protocol/weather/starter-stdio-server)
 
-    For more information, see the [MCP Server Boot Starter](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html) reference documentation.
-    For manual MCP Server implementation, refer to the [MCP Server Java SDK documentation](/sdk/java/mcp-server).
+    For more information, see the [MCP Server Boot Starter](mdc:https:/docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html) reference documentation.
+    For manual MCP Server implementation, refer to the [MCP Server Java SDK documentation](mdc:sdk/java/mcp-server).
 
     ### System requirements
 
     * Java 17 or higher installed.
-    * [Spring Boot 3.3.x](https://docs.spring.io/spring-boot/installing.html) or higher
+    * [Spring Boot 3.3.x](mdc:https:/docs.spring.io/spring-boot/installing.html) or higher
 
     ### Set up your environment
 
-    Use the [Spring Initializer](https://start.spring.io/) to bootstrap the project.
+    Use the [Spring Initializer](mdc:https:/start.spring.io) to bootstrap the project.
 
     You will need to add the following dependencies:
 
@@ -5798,7 +5803,7 @@ This tutorial will primarily focus on tools.
       ```
     </CodeGroup>
 
-    The [Server Configuration Properties](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html#_configuration_properties) documents all available properties.
+    The [Server Configuration Properties](mdc:https:/docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html#_configuration_properties) documents all available properties.
 
     Now let's dive into building your server.
 
@@ -5806,7 +5811,7 @@ This tutorial will primarily focus on tools.
 
     ### Weather Service
 
-    Let's implement a [WeatherService.java](https://github.com/spring-projects/spring-ai-examples/blob/main/model-context-protocol/weather/starter-stdio-server/src/main/java/org/springframework/ai/mcp/sample/server/WeatherService.java) that uses a REST client to query the data from the National Weather Service API:
+    Let's implement a [WeatherService.java](mdc:https:/github.com/spring-projects/spring-ai-examples/blob/main/model-context-protocol/weather/starter-stdio-server/src/main/java/org/springframework/ai/mcp/sample/server/WeatherService.java) that uses a REST client to query the data from the National Weather Service API:
 
     ```java
     @Service
@@ -5892,13 +5897,13 @@ This tutorial will primarily focus on tools.
     </Note>
 
     First, make sure you have Claude for Desktop installed.
-    [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
+    [You can install the latest version here.](mdc:https:/claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use.
     To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor.
     Make sure to create the file if it doesn't exist.
 
-    For example, if you have [VS Code](https://code.visualstudio.com/) installed:
+    For example, if you have [VS Code](mdc:https:/code.visualstudio.com) installed:
 
     <Tabs>
       <Tab title="MacOS/Linux">
@@ -6015,16 +6020,16 @@ This tutorial will primarily focus on tools.
 
     When you start your client application, the auto-configuration will create, automatically MCP clients from the claude\_desktop\_config.json.
 
-    For more information, see the [MCP Client Boot Starters](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-client-docs.html) reference documentation.
+    For more information, see the [MCP Client Boot Starters](mdc:https:/docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-client-docs.html) reference documentation.
 
     ## More Java MCP Server examples
 
-    The [starter-webflux-server](https://github.com/spring-projects/spring-ai-examples/tree/main/model-context-protocol/weather/starter-webflux-server) demonstrates how to create a MCP server using SSE transport.
+    The [starter-webflux-server](mdc:https:/github.com/spring-projects/spring-ai-examples/tree/main/model-context-protocol/weather/starter-webflux-server) demonstrates how to create a MCP server using SSE transport.
     It showcases how to define and register MCP Tools, Resources, and Prompts, using the Spring Boot's auto-configuration capabilities.
   </Tab>
 
   <Tab title="Kotlin">
-    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](https://github.com/modelcontextprotocol/kotlin-sdk/tree/main/samples/weather-stdio-server)
+    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](mdc:https:/github.com/modelcontextprotocol/kotlin-sdk/tree/main/samples/weather-stdio-server)
 
     ### Prerequisite knowledge
 
@@ -6040,7 +6045,7 @@ This tutorial will primarily focus on tools.
     ### Set up your environment
 
     First, let's install `java` and `gradle` if you haven't already.
-    You can download `java` from [official Oracle JDK website](https://www.oracle.com/java/technologies/downloads/).
+    You can download `java` from [official Oracle JDK website](mdc:https:/www.oracle.com/java/technologies/downloads).
     Verify your `java` installation:
 
     ```bash
@@ -6072,7 +6077,7 @@ This tutorial will primarily focus on tools.
     After running `gradle init`, you will be presented with options for creating your project.
     Select **Application** as the project type, **Kotlin** as the programming language, and **Java 17** as the Java version.
 
-    Alternatively, you can create a Kotlin application using the [IntelliJ IDEA project wizard](https://kotlinlang.org/docs/jvm-get-started.html).
+    Alternatively, you can create a Kotlin application using the [IntelliJ IDEA project wizard](mdc:https:/kotlinlang.org/docs/jvm-get-started.html).
 
     After creating the project, add the following dependencies:
 
@@ -6326,7 +6331,7 @@ This tutorial will primarily focus on tools.
     ## Testing your server with Claude for Desktop
 
     <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/quickstart/client) tutorial to build an MCP client that connects to the server we just built.
+      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](mdc:quickstart/client) tutorial to build an MCP client that connects to the server we just built.
     </Note>
 
     First, make sure you have Claude for Desktop installed. [You can install the latest version
@@ -6336,7 +6341,7 @@ This tutorial will primarily focus on tools.
     To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor.
     Make sure to create the file if it doesn't exist.
 
-    For example, if you have [VS Code](https://code.visualstudio.com/) installed:
+    For example, if you have [VS Code](mdc:https:/code.visualstudio.com) installed:
 
     <CodeGroup>
       ```bash MacOS/Linux
@@ -6392,7 +6397,7 @@ This tutorial will primarily focus on tools.
   </Tab>
 
   <Tab title="C#">
-    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](https://github.com/modelcontextprotocol/csharp-sdk/tree/main/samples/QuickstartWeatherServer)
+    Let's get started with building our weather server! [You can find the complete code for what we'll be building here.](mdc:https:/github.com/modelcontextprotocol/csharp-sdk/tree/main/samples/QuickstartWeatherServer)
 
     ### Prerequisite knowledge
 
@@ -6404,11 +6409,11 @@ This tutorial will primarily focus on tools.
 
     ### System requirements
 
-    * [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or higher installed.
+    * [.NET 8 SDK](mdc:https:/dotnet.microsoft.com/download/dotnet/8.0) or higher installed.
 
     ### Set up your environment
 
-    First, let's install `dotnet` if you haven't already. You can download `dotnet` from [official Microsoft .NET website](https://dotnet.microsoft.com/download/). Verify your `dotnet` installation:
+    First, let's install `dotnet` if you haven't already. You can download `dotnet` from [official Microsoft .NET website](mdc:https:/dotnet.microsoft.com/download). Verify your `dotnet` installation:
 
     ```bash
     dotnet --version
@@ -6435,8 +6440,8 @@ This tutorial will primarily focus on tools.
     </CodeGroup>
 
     After running `dotnet new console`, you will be presented with a new C# project.
-    You can open the project in your favorite IDE, such as [Visual Studio](https://visualstudio.microsoft.com/) or [Rider](https://www.jetbrains.com/rider/).
-    Alternatively, you can create a C# application using the [Visual Studio project wizard](https://learn.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-console?view=vs-2022).
+    You can open the project in your favorite IDE, such as [Visual Studio](mdc:https:/visualstudio.microsoft.com) or [Rider](mdc:https:/www.jetbrains.com/rider).
+    Alternatively, you can create a C# application using the [Visual Studio project wizard](mdc:https:/learn.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-console?view=vs-2022).
     After creating the project, add NuGet package for the Model Context Protocol SDK and hosting:
 
     ```bash
@@ -6555,13 +6560,13 @@ This tutorial will primarily focus on tools.
     ## Testing your server with Claude for Desktop
 
     <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/quickstart/client) tutorial to build an MCP client that connects to the server we just built.
+      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](mdc:quickstart/client) tutorial to build an MCP client that connects to the server we just built.
     </Note>
 
     First, make sure you have Claude for Desktop installed. [You can install the latest version
     here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
-    For example, if you have [VS Code](https://code.visualstudio.com/) installed:
+    For example, if you have [VS Code](mdc:https:/code.visualstudio.com) installed:
 
     <Tabs>
       <Tab title="MacOS/Linux">
@@ -6640,7 +6645,7 @@ After clicking on the hammer icon, you should see two tools listed:
   <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/available-mcp-tools.png" />
 </Frame>
 
-If your server isn't being picked up by Claude for Desktop, proceed to the [Troubleshooting](#troubleshooting) section for debugging tips.
+If your server isn't being picked up by Claude for Desktop, proceed to the [Troubleshooting](mdc:#troubleshooting) section for debugging tips.
 
 If the hammer icon has shown up, you can now test your server by running the following commands in Claude for Desktop:
 
@@ -6704,7 +6709,7 @@ When you ask a question:
 
     **None of this is working. What do I do?**
 
-    Please refer to our [debugging guide](/docs/tools/debugging) for better debugging tools and more detailed guidance.
+    Please refer to our [debugging guide](mdc:docs/tools/debugging) for better debugging tools and more detailed guidance.
   </Accordion>
 
   <Accordion title="Weather API Issues">
@@ -6729,7 +6734,7 @@ When you ask a question:
 </AccordionGroup>
 
 <Note>
-  For more advanced troubleshooting, check out our guide on [Debugging MCP](/docs/tools/debugging)
+  For more advanced troubleshooting, check out our guide on [Debugging MCP](mdc:docs/tools/debugging)
 </Note>
 
 ## Next steps
@@ -6758,7 +6763,7 @@ Source: https://modelcontextprotocol.io/quickstart/user
 
 Get started using pre-built servers in Claude for Desktop.
 
-In this tutorial, you will extend [Claude for Desktop](https://claude.ai/download) so that it can read from your computer's file system, write new files, move files, and even search files.
+In this tutorial, you will extend [Claude for Desktop](mdc:https:/claude.ai/download) so that it can read from your computer's file system, write new files, move files, and even search files.
 
 <Frame>
   <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/quickstart-filesystem.png" />
@@ -6768,7 +6773,7 @@ Don't worry — it will ask you for your permission before executing these actio
 
 ## 1. Download Claude for Desktop
 
-Start by downloading [Claude for Desktop](https://claude.ai/download), choosing either macOS or Windows. (Linux is not yet supported for Claude for Desktop.)
+Start by downloading [Claude for Desktop](mdc:https:/claude.ai/download), choosing either macOS or Windows. (Linux is not yet supported for Claude for Desktop.)
 
 Follow the installation instructions.
 
@@ -6780,7 +6785,7 @@ If you already have Claude for Desktop, make sure it's on the latest version by 
 
 ## 2. Add the Filesystem MCP Server
 
-To add this filesystem functionality, we will be installing a pre-built [Filesystem MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem) to Claude for Desktop. This is one of dozens of [servers](https://github.com/modelcontextprotocol/servers/tree/main) created by Anthropic and the community.
+To add this filesystem functionality, we will be installing a pre-built [Filesystem MCP Server](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/filesystem) to Claude for Desktop. This is one of dozens of [servers](mdc:https:/github.com/modelcontextprotocol/servers/tree/main) created by Anthropic and the community.
 
 Get started by opening up the Claude menu on your computer and select "Settings..." Please note that these are not the Claude Account Settings found in the app window itself.
 
@@ -6845,7 +6850,7 @@ Open up the configuration file in any text editor. Replace the file contents wit
 
 Make sure to replace `username` with your computer's username. The paths should point to valid directories that you want Claude to be able to access and modify. It's set up to work for Desktop and Downloads, but you can add more paths as well.
 
-You will also need [Node.js](https://nodejs.org) on your computer for this to run properly. To verify you have Node installed, open the command line on your computer.
+You will also need [Node.js](mdc:https:/nodejs.org) on your computer for this to run properly. To verify you have Node installed, open the command line on your computer.
 
 * On macOS, open the Terminal from your Applications folder
 * On Windows, press Windows + R, type "cmd", and press Enter
@@ -6856,12 +6861,12 @@ Once in the command line, verify you have Node installed by entering in the foll
 node --version
 ```
 
-If you get an error saying "command not found" or "node is not recognized", download Node from [nodejs.org](https://nodejs.org/).
+If you get an error saying "command not found" or "node is not recognized", download Node from [nodejs.org](mdc:https:/nodejs.org).
 
 <Tip>
   **How does the configuration file work?**
 
-  This configuration file tells Claude for Desktop which MCP servers to start up every time you start the application. In this case, we have added one server called "filesystem" that will use the Node `npx` command to install and run `@modelcontextprotocol/server-filesystem`. This server, described [here](https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem), will let you access your file system in Claude for Desktop.
+  This configuration file tells Claude for Desktop which MCP servers to start up every time you start the application. In this case, we have added one server called "filesystem" that will use the Node `npx` command to install and run `@modelcontextprotocol/server-filesystem`. This server, described [here](mdc:https:/github.com/modelcontextprotocol/servers/tree/main/src/filesystem), will let you access your file system in Claude for Desktop.
 </Tip>
 
 <Warning>
@@ -6886,7 +6891,7 @@ After clicking on the hammer icon, you should see the tools that come with the F
   <img src="https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/quickstart-tools.png" width="400" />
 </Frame>
 
-If your server isn't being picked up by Claude for Desktop, proceed to the [Troubleshooting](#troubleshooting) section for debugging tips.
+If your server isn't being picked up by Claude for Desktop, proceed to the [Troubleshooting](mdc:#troubleshooting) section for debugging tips.
 
 ## 4. Try it out!
 
@@ -6911,7 +6916,7 @@ As needed, Claude will call the relevant tools and seek your approval before tak
     1. Restart Claude for Desktop completely
     2. Check your `claude_desktop_config.json` file syntax
     3. Make sure the file paths included in `claude_desktop_config.json` are valid and that they are absolute and not relative
-    4. Look at [logs](#getting-logs-from-claude-for-desktop) to see why the server is not connecting
+    4. Look at [logs](mdc:#getting-logs-from-claude-for-desktop) to see why the server is not connecting
     5. In your command line, try manually running the server (replacing `username` as you did in `claude_desktop_config.json`) to see if you get any errors:
 
     <Tabs>
@@ -6967,7 +6972,7 @@ As needed, Claude will call the relevant tools and seek your approval before tak
   </Accordion>
 
   <Accordion title="None of this is working. What do I do?">
-    Please refer to our [debugging guide](/docs/tools/debugging) for better debugging tools and more detailed guidance.
+    Please refer to our [debugging guide](mdc:docs/tools/debugging) for better debugging tools and more detailed guidance.
   </Accordion>
 
   <Accordion title="ENOENT error and `${APPDATA}` in paths on Windows">
@@ -7033,7 +7038,7 @@ The MCP Client is a key component in the Model Context Protocol (MCP) architectu
 <Tip>
   The core `io.modelcontextprotocol.sdk:mcp` module provides STDIO and SSE client transport implementations  without requiring external web frameworks.
 
-  Spring-specific transport implementations are available as an **optional** dependency `io.modelcontextprotocol.sdk:mcp-spring-webflux` for [Spring Framework](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html) users.
+  Spring-specific transport implementations are available as an **optional** dependency `io.modelcontextprotocol.sdk:mcp-spring-webflux` for [Spring Framework](mdc:https:/docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html) users.
 </Tip>
 
 The client provides both synchronous and asynchronous APIs for flexibility in different application contexts.
@@ -7352,25 +7357,25 @@ Source: https://modelcontextprotocol.io/sdk/java/mcp-overview
 
 Introduction to the Model Context Protocol (MCP) Java SDK
 
-Java SDK for the [Model Context Protocol](https://modelcontextprotocol.org/docs/concepts/architecture)
+Java SDK for the [Model Context Protocol](mdc:https:/modelcontextprotocol.org/docs/concepts/architecture)
 enables standardized integration between AI models and tools.
 
 <Note>
   ### Breaking Changes in 0.8.x ⚠️
 
   **Note:** Version 0.8.x introduces several breaking changes including a new session-based architecture.
-  If you're upgrading from 0.7.0, please refer to the [Migration Guide](https://github.com/modelcontextprotocol/java-sdk/blob/main/migration-0.8.0.md) for detailed instructions.
+  If you're upgrading from 0.7.0, please refer to the [Migration Guide](mdc:https:/github.com/modelcontextprotocol/java-sdk/blob/main/migration-0.8.0.md) for detailed instructions.
 </Note>
 
 ## Features
 
 * MCP Client and MCP Server implementations supporting:
-  * Protocol [version compatibility negotiation](https://spec.modelcontextprotocol.io/specification/2024-11-05/basic/lifecycle/#initialization)
-  * [Tool](https://spec.modelcontextprotocol.io/specification/2024-11-05/server/tools/) discovery, execution, list change notifications
-  * [Resource](https://spec.modelcontextprotocol.io/specification/2024-11-05/server/resources/) management with URI templates
-  * [Roots](https://spec.modelcontextprotocol.io/specification/2024-11-05/client/roots/) list management and notifications
-  * [Prompt](https://spec.modelcontextprotocol.io/specification/2024-11-05/server/prompts/) handling and management
-  * [Sampling](https://spec.modelcontextprotocol.io/specification/2024-11-05/client/sampling/) support for AI model interactions
+  * Protocol [version compatibility negotiation](mdc:https:/spec.modelcontextprotocol.io/specification/2024-11-05/basic/lifecycle/#initialization)
+  * [Tool](mdc:https:/spec.modelcontextprotocol.io/specification/2024-11-05/server/tools) discovery, execution, list change notifications
+  * [Resource](mdc:https:/spec.modelcontextprotocol.io/specification/2024-11-05/server/resources) management with URI templates
+  * [Roots](mdc:https:/spec.modelcontextprotocol.io/specification/2024-11-05/client/roots) list management and notifications
+  * [Prompt](mdc:https:/spec.modelcontextprotocol.io/specification/2024-11-05/server/prompts) handling and management
+  * [Sampling](mdc:https:/spec.modelcontextprotocol.io/specification/2024-11-05/client/sampling) support for AI model interactions
 * Multiple transport implementations:
   * Default transports (included in core `mcp` module, no external web frameworks required):
     * Stdio-based transport for process-based communication
@@ -7384,14 +7389,14 @@ enables standardized integration between AI models and tools.
 <Tip>
   The core `io.modelcontextprotocol.sdk:mcp` module provides default STDIO and SSE client and server transport implementations without requiring external web frameworks.
 
-  Spring-specific transports are available as optional dependencies for convenience when using the [Spring Framework](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html).
+  Spring-specific transports are available as optional dependencies for convenience when using the [Spring Framework](mdc:https:/docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html).
 </Tip>
 
 ## Architecture
 
 The SDK follows a layered architecture with clear separation of concerns:
 
-![MCP Stack Architecture](https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/java/mcp-stack.svg)
+![MCP Stack Architecture](mdc:https:/mintlify.s3.us-west-1.amazonaws.com/mcp/images/java/mcp-stack.svg)
 
 * **Client/Server Layer (McpClient/McpServer)**: Both use McpSession for sync/async operations,
   with McpClient handling client-side protocol operations and McpServer managing server-side protocol operations.
@@ -7403,12 +7408,12 @@ The SDK follows a layered architecture with clear separation of concerns:
 The MCP Client is a key component in the Model Context Protocol (MCP) architecture, responsible for establishing and managing connections with MCP servers.
 It implements the client-side of the protocol.
 
-![Java MCP Client Architecture](https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/java/java-mcp-client-architecture.jpg)
+![Java MCP Client Architecture](mdc:https:/mintlify.s3.us-west-1.amazonaws.com/mcp/images/java/java-mcp-client-architecture.jpg)
 
 The MCP Server is a foundational component in the Model Context Protocol (MCP) architecture that provides tools, resources, and capabilities to clients.
 It implements the server-side of the protocol.
 
-![Java MCP Server Architecture](https://mintlify.s3.us-west-1.amazonaws.com/mcp/images/java/java-mcp-server-architecture.jpg)
+![Java MCP Server Architecture](mdc:https:/mintlify.s3.us-west-1.amazonaws.com/mcp/images/java/java-mcp-server-architecture.jpg)
 
 Key Interactions:
 
@@ -7542,7 +7547,7 @@ Learn how to implement and configure a Model Context Protocol (MCP) server
   ### Breaking Changes in 0.8.x ⚠️
 
   **Note:** Version 0.8.x introduces several breaking changes including a new session-based architecture.
-  If you're upgrading from 0.7.0, please refer to the [Migration Guide](https://github.com/modelcontextprotocol/java-sdk/blob/main/migration-0.8.0.md) for detailed instructions.
+  If you're upgrading from 0.7.0, please refer to the [Migration Guide](mdc:https:/github.com/modelcontextprotocol/java-sdk/blob/main/migration-0.8.0.md) for detailed instructions.
 </Note>
 
 ## Overview
@@ -7560,7 +7565,7 @@ The MCP Server is a foundational component in the Model Context Protocol (MCP) a
 <Tip>
   The core `io.modelcontextprotocol.sdk:mcp` module provides STDIO and SSE server transport implementations  without requiring external web frameworks.
 
-  Spring-specific transport implementations are available as an **optional** dependencies `io.modelcontextprotocol.sdk:mcp-spring-webflux`, `io.modelcontextprotocol.sdk:mcp-spring-webmvc` for [Spring Framework](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html) users.
+  Spring-specific transport implementations are available as an **optional** dependencies `io.modelcontextprotocol.sdk:mcp-spring-webflux`, `io.modelcontextprotocol.sdk:mcp-spring-webmvc` for [Spring Framework](mdc:https:/docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html) users.
 </Tip>
 
 The server supports both synchronous and asynchronous APIs, allowing for flexible integration in different application contexts.
@@ -7806,7 +7811,7 @@ Supported logging levels (in order of increasing severity): DEBUG (0), INFO (1),
 
 ### Tool Specification
 
-The Model Context Protocol allows servers to [expose tools](https://spec.modelcontextprotocol.io/specification/2024-11-05/server/tools/) that can be invoked by language models.
+The Model Context Protocol allows servers to [expose tools](mdc:https:/spec.modelcontextprotocol.io/specification/2024-11-05/server/tools) that can be invoked by language models.
 The Java SDK allows implementing a Tool Specifications with their handler functions.
 Tools enable AI models to perform calculations, access external APIs, query databases, and manipulate files:
 
@@ -7917,7 +7922,7 @@ The second arguments is a `McpSchema.ReadResourceRequest`.
 
 ### Prompt Specification
 
-As part of the [Prompting capabilities](https://spec.modelcontextprotocol.io/specification/2024-11-05/server/prompts/), MCP provides a standardized way for servers to expose prompt templates to clients.
+As part of the [Prompting capabilities](mdc:https:/spec.modelcontextprotocol.io/specification/2024-11-05/server/prompts), MCP provides a standardized way for servers to expose prompt templates to clients.
 The Prompt Specification is a structured template for AI model interactions that enables consistent message formatting, parameter substitution, context injection, response formatting, and instruction templating.
 
 <Tabs>
@@ -7958,9 +7963,9 @@ The first argument is `McpAsyncServerExchange` for client interaction, and the s
 
 ### Using Sampling from a Server
 
-To use [Sampling capabilities](https://spec.modelcontextprotocol.io/specification/2024-11-05/client/sampling/), connect to a client that supports sampling.
+To use [Sampling capabilities](mdc:https:/spec.modelcontextprotocol.io/specification/2024-11-05/client/sampling), connect to a client that supports sampling.
 No special server configuration is needed, but verify client sampling support before making requests.
-Learn about [client sampling support](./mcp-client#sampling-support).
+Learn about [client sampling support](mdc:mcp-client#sampling-support).
 
 Once connected to a compatible client, the server can request language model generations:
 
@@ -8078,8 +8083,8 @@ This guide will help you use LLMs to help you build custom Model Context Protoco
 
 Before starting, gather the necessary documentation to help Claude understand MCP:
 
-1. Visit [https://modelcontextprotocol.io/llms-full.txt](https://modelcontextprotocol.io/llms-full.txt) and copy the full documentation text
-2. Navigate to either the [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) or [Python SDK repository](https://github.com/modelcontextprotocol/python-sdk)
+1. Visit [https://modelcontextprotocol.io/llms-full.txt](mdc:https:/modelcontextprotocol.io/llms-full.txt) and copy the full documentation text
+2. Navigate to either the [MCP TypeScript SDK](mdc:https:/github.com/modelcontextprotocol/typescript-sdk) or [Python SDK repository](mdc:https:/github.com/modelcontextprotocol/python-sdk)
 3. Copy the README files and other relevant documentation
 4. Paste these documents into your conversation with Claude
 
