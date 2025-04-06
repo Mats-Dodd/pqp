@@ -1,7 +1,6 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
 import { Button } from "@/components/ui/button";
 
 interface Tool {
@@ -97,49 +96,49 @@ function App() {
   }
 
   return (
-    <main className="container">
-      <h1>MCP Tool Explorer</h1>
+    <main className="container mx-auto p-8 text-center max-w-6xl">
+      <h1 className="text-3xl font-bold mb-8 text-primary">MCP Tool Explorer</h1>
 
-      <div className="row">
+      <div className="flex justify-center mb-8 space-x-4">
         <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
+          <img src="/vite.svg" className="h-24 p-6 transition-[filter] duration-750 hover:drop-shadow-[0_0_2em_#747bff]" alt="Vite logo" />
         </a>
         <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
+          <img src="/tauri.svg" className="h-24 p-6 transition-[filter] duration-750 hover:drop-shadow-[0_0_2em_#24c8db]" alt="Tauri logo" />
         </a>
         <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+          <img src={reactLogo} className="h-24 p-6 transition-[filter] duration-750 hover:drop-shadow-[0_0_2em_#61dafb]" alt="React logo" />
         </a>
       </div>
 
-      <div className="section">
-        <h2>1. Start MCP Server</h2>
+      <div className="border border-border rounded-lg p-5 mb-5 bg-card text-card-foreground shadow-md text-left">
+        <h2 className="text-xl font-semibold text-primary mb-4">1. Start MCP Server</h2>
         <Button onClick={startService} disabled={serviceStarted}>
           {serviceStarted ? "Server Started" : "Start MCP Server"}
         </Button>
         {shellOutput && (
-          <div className="output-container">
-            <h3>Server Output:</h3>
-            <pre>{shellOutput}</pre>
+          <div className="bg-muted/90 text-muted-foreground p-4 rounded-lg mt-4 text-left overflow-x-auto">
+            <h3 className="font-semibold mb-2">Server Output:</h3>
+            <pre className="m-0 whitespace-pre-wrap text-sm">{shellOutput}</pre>
           </div>
         )}
       </div>
 
-      <div className="section">
-        <h2>2. List Available Tools</h2>
+      <div className="border border-border rounded-lg p-5 mb-5 bg-card text-card-foreground shadow-md text-left">
+        <h2 className="text-xl font-semibold text-primary mb-4">2. List Available Tools</h2>
         <Button onClick={listTools} disabled={!serviceStarted}>
           List Tools
         </Button>
         {tools.length > 0 && (
-          <div className="tools-list">
-            <h3>Available Tools:</h3>
-            <ul>
+          <div className="mt-4">
+            <h3 className="font-semibold mb-2">Available Tools:</h3>
+            <ul className="list-none p-0 grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
               {tools.map((tool) => (
-                <li key={tool.name}>
-                  <Button variant="link" onClick={() => setSelectedTool(tool.name)}>
+                <li key={tool.name} className="bg-background border border-border rounded-lg p-4 flex flex-col items-center text-center">
+                  <Button variant="link" onClick={() => setSelectedTool(tool.name)} className="text-lg font-medium p-0 h-auto">
                     {tool.name}
                   </Button>
-                  <p>{tool.description}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{tool.description}</p>
                 </li>
               ))}
             </ul>
@@ -147,20 +146,22 @@ function App() {
         )}
       </div>
 
-      <div className="section">
-        <h2>3. Call a Tool</h2>
-        <div className="tool-form">
-          <div>
-            <label>Selected Tool: </label>
-            <strong>{selectedTool || "None"}</strong>
+      <div className="border border-border rounded-lg p-5 mb-5 bg-card text-card-foreground shadow-md text-left">
+        <h2 className="text-xl font-semibold text-primary mb-4">3. Call a Tool</h2>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-start gap-1.5">
+            <label className="font-bold">Selected Tool: </label>
+            <strong className="font-mono text-primary">{selectedTool || "None"}</strong>
           </div>
-          <div>
-            <label>Arguments (JSON):</label>
+          <div className="flex flex-col items-start gap-1.5">
+            <label htmlFor="toolArgsTextarea" className="font-bold">Arguments (JSON):</label>
             <textarea
+              id="toolArgsTextarea"
               value={toolArgs}
               onChange={(e) => setToolArgs(e.target.value)}
               rows={5}
               placeholder='{"key": "value"}'
+              className="w-full p-2.5 rounded border border-input bg-background font-mono text-sm"
             />
           </div>
           <Button onClick={callTool} disabled={!selectedTool}>
@@ -168,9 +169,9 @@ function App() {
           </Button>
         </div>
         {toolResult && (
-          <div className="output-container">
-            <h3>Tool Result:</h3>
-            <pre>{toolResult}</pre>
+          <div className="bg-muted/90 text-muted-foreground p-4 rounded-lg mt-4 text-left overflow-x-auto">
+            <h3 className="font-semibold mb-2">Tool Result:</h3>
+            <pre className="m-0 whitespace-pre-wrap text-sm">{toolResult}</pre>
           </div>
         )}
       </div>
