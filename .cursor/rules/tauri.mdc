@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Youre using tauri v 2.  If ever in doubt consult the documentation for it.  https://v2.tauri.app/start/

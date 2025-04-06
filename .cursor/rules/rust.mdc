@@ -1,0 +1,37 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Here are rules to follow when writing rust code
+
+1. Avoid unwrap(): Prefer explicit error handling over .unwrap() or .expect(). If necessary, use meaningful .expect() messages.
+
+2. Minimize Clones: Avoid unnecessary data cloning; prefer borrowing or referencing data whenever possible.
+
+
+3. Explicit Errors: Use Result and Option types to handle errors explicitly.
+
+
+The project is a tauri app where the rust code lives in src-tauri and is structured as 
+
+src-tauri/
+├── Cargo.toml
+├── Cargo.lock
+├── src/
+│   ├── main.rs         # Entry point for a binary crate
+│   ├── lib.rs          # Entry point for a library crate
+│   ├── services/
+│   │   ├── service_a/
+│   │   │   ├── service.rs   
+│   │   │   └── mod.rs  
+│   │   └── service_b/
+│   │       ├── service.rs   
+│   │       └── mod.rs  
+│   └── commands/
+│   │   ├── service_a_commands.rs   
+│   │   └──  service_b_commands.rs   
+├── README.md
+└── LICENSE
+
+Where service a/b/c etc may be something like file, version control, ai etc
