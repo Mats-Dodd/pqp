@@ -1,13 +1,12 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 use std::sync::{Arc, Mutex};
-use tauri::{Manager, Runtime};
+use tauri::Manager;
 
 pub mod services;
 pub mod commands;
 
 use services::mcp::ServiceManager;
 use commands::mcp_commands::{
-    greet,
     start_service,
     list_tools,
     call_tool,
@@ -22,7 +21,6 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .manage(Arc::new(Mutex::new(ServiceManager::default())))
         .invoke_handler(tauri::generate_handler![
-            greet,
             start_service,
             list_tools,
             call_tool,
