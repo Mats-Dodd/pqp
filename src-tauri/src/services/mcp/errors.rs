@@ -3,8 +3,9 @@ use std::error::Error;
 use std::io;
 use rmcp::{
     ServiceError,
-    model::{JsonRpcError, ErrorCode},
+    model::JsonRpcError
 };
+use tokio::task::JoinError;
 
 #[derive(Debug)]
 pub enum McpError {
@@ -15,6 +16,7 @@ pub enum McpError {
     SerializationError(String),
     InvalidArguments(String),
     JsonRpcError(JsonRpcError),
+    TaskJoinError(String),
 }
 
 impl fmt::Display for McpError {
@@ -27,6 +29,7 @@ impl fmt::Display for McpError {
             McpError::SerializationError(msg) => write!(f, "Serialization error: {}", msg),
             McpError::InvalidArguments(msg) => write!(f, "Invalid arguments: {}", msg),
             McpError::JsonRpcError(err) => write!(f, "JSON-RPC error: {:?}", err),
+            McpError::TaskJoinError(msg) => write!(f, "Task join/cancellation error: {}", msg),
         }
     }
 }
@@ -65,6 +68,13 @@ impl From<ServiceError> for McpError {
 impl From<serde_json::Error> for McpError {
     fn from(err: serde_json::Error) -> Self {
         McpError::SerializationError(err.to_string())
+    }
+}
+
+// Add Conversion from JoinError
+impl From<JoinError> for McpError {
+    fn from(err: JoinError) -> Self {
+        McpError::TaskJoinError(err.to_string())
     }
 }
 
