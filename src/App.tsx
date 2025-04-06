@@ -4,7 +4,6 @@ import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 import { Button } from "@/components/ui/button";
 
-// Define interfaces for type safety
 interface Tool {
   name: string;
   description: string;
@@ -23,19 +22,13 @@ interface ToolCallResponse {
 }
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+
   const [shellOutput, setShellOutput] = useState("");
   const [serviceStarted, setServiceStarted] = useState(false);
   const [tools, setTools] = useState<Tool[]>([]);
   const [selectedTool, setSelectedTool] = useState("");
   const [toolArgs, setToolArgs] = useState("{}");
   const [toolResult, setToolResult] = useState("");
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
 
   async function startService() {
     try {
