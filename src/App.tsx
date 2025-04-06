@@ -42,7 +42,12 @@ function App() {
       setShellOutput("Starting MCP server...");
       const result = await invoke("start_service", {
         serviceName: "mcp-server",
-        path: "/Users/matthewdodd/Documents",
+        executable: "npx",
+        args: [
+          "-y",
+          "@modelcontextprotocol/server-filesystem",
+          "/Users/matthewdodd/Documents"
+        ]
       });
       console.log("Server result:", result);
       setShellOutput(JSON.stringify(result, null, 2));
