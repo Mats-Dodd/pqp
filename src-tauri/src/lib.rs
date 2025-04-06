@@ -1,6 +1,13 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 use tauri::Manager;
-
+use rmcp::{
+    ServiceExt,
+    model::{CallToolRequestParam, GetPromptRequestParam, ReadResourceRequestParam},
+    object,
+    transport::TokioChildProcess,
+};
+use tokio::process::Command;
+use std::error::Error;
 
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -9,51 +16,27 @@ fn greet(name: &str) -> String {
 
 #[tauri::command]
 async fn run_shell_command(app_handle: tauri::AppHandle) -> Result<String, String> {
-    use tauri_plugin_shell::{ShellExt, process::CommandEvent};
-    
-    // Start the MCP server process
-    let (mut rx, _child) = app_handle.shell()
-        .command("npx")
-        .args(["-y", "@modelcontextprotocol/server-filesystem", "/Users/matthewdodd/documents"])
-        .spawn()
-        .map_err(|e| format!("Failed to start MCP server: {}", e))?;
+    let child_process = TokioChildProcess::new(
+        Command::new("npx")
+            .arg("-y")
+            .arg("@modelcontextprotocol/server-filesystem")
+            .arg("/Users/matthewdodd/documents"),
+    ).map_err(|e| e.to_string())?;
 
-    // Collect output
-    let mut output = String::new();
-    let mut success = true;
-    
-    // Process command events
-    while let Some(event) = rx.recv().await {
-        match event {
-            CommandEvent::Stdout(line) => {
-                let line = String::from_utf8_lossy(&line);
-                println!("stdout: {}", line);
-                output.push_str(&line);
-                output.push('\n');
-            }
-            CommandEvent::Stderr(line) => {
-                let line = String::from_utf8_lossy(&line);
-                println!("stderr: {}", line);
-                output.push_str(&line);
-                output.push('\n');
-            }
-            CommandEvent::Error(err) => {
-                success = false;
-                output.push_str(&format!("Error: {}\n", err));
-            }
-            CommandEvent::Terminated(payload) => {
-                success = payload.code == Some(0);
-            }
-            _ => {}
-        }
-    }
+    let service = ().serve(child_process)
+        .await
+        .map_err(|e| e.to_string())?;
 
-    // Return result
-    if success {
-        Ok(output)
-    } else {
-        Err(format!("MCP server failed to start\nOutput: {}", output))
-    }
+    // Initialize
+    let server_info = service.peer_info();
+    println!("Server info: {:?}", server_info);
+
+    // List tools
+    let tools = service.list_all_tools()
+        .await
+        .map_err(|e| e.to_string())?;
+    println!("Tools: {:?}", tools);
+    Ok(format!("Found {} tools", tools.len()))
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
