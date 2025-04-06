@@ -7,7 +7,6 @@ use rmcp::{
     transport::TokioChildProcess,
 };
 use tokio::process::Command;
-use std::error::Error;
 
 #[tauri::command]
 fn greet(name: &str) -> String {
