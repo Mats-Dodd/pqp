@@ -2,6 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
+import { Button } from "@/components/ui/button";
 
 // Define interfaces for type safety
 interface Tool {
@@ -120,9 +121,9 @@ function App() {
 
       <div className="section">
         <h2>1. Start MCP Server</h2>
-        <button onClick={startService} disabled={serviceStarted}>
+        <Button onClick={startService} disabled={serviceStarted}>
           {serviceStarted ? "Server Started" : "Start MCP Server"}
-        </button>
+        </Button>
         {shellOutput && (
           <div className="output-container">
             <h3>Server Output:</h3>
@@ -133,18 +134,18 @@ function App() {
 
       <div className="section">
         <h2>2. List Available Tools</h2>
-        <button onClick={listTools} disabled={!serviceStarted}>
+        <Button onClick={listTools} disabled={!serviceStarted}>
           List Tools
-        </button>
+        </Button>
         {tools.length > 0 && (
           <div className="tools-list">
             <h3>Available Tools:</h3>
             <ul>
               {tools.map((tool) => (
                 <li key={tool.name}>
-                  <button onClick={() => setSelectedTool(tool.name)}>
+                  <Button variant="link" onClick={() => setSelectedTool(tool.name)}>
                     {tool.name}
-                  </button>
+                  </Button>
                   <p>{tool.description}</p>
                 </li>
               ))}
@@ -169,9 +170,9 @@ function App() {
               placeholder='{"key": "value"}'
             />
           </div>
-          <button onClick={callTool} disabled={!selectedTool}>
+          <Button onClick={callTool} disabled={!selectedTool}>
             Call Tool
-          </button>
+          </Button>
         </div>
         {toolResult && (
           <div className="output-container">
