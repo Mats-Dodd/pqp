@@ -1,0 +1,476 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+1. Design Philosophy
+This app adheres to a minimalist, functional aesthetic defined by:
+
+Precision and consistency (Monospace, Grid-based).
+
+Clarity, readability, and visual hierarchy (Swiss design).
+
+Technical elegance (Metadata, annotations, functional minimalism).
+
+2. Typography
+Font: 
+- Sans-serif: Inter, Helvetica Neue, Arial, sans-serif (for normal text)
+- Monospace: JetBrains Mono, IBM Plex Mono, Source Code Pro (for code elements)
+
+Font sizes (base 16px):
+
+Titles (h1): 2rem (32px)
+
+Subtitles (h2): 1.5rem (24px)
+
+Body/Standard Text: 1rem (16px)
+
+Metadata/Annotations: 0.75rem (12px)
+
+Line Height: 1.5 (150% of font size)
+Letter spacing: Default (0em)
+
+Typography Usage Rules:
+
+Use sans-serif fonts for normal text content, UI elements, and navigation.
+
+Use monospace fonts exclusively for code blocks, ASCII art, technical annotations, and grid-aligned elements.
+
+Maintain strict alignment to horizontal/vertical grids.
+
+Avoid excessive font-weight variations; rely primarily on size, spacing, and position to establish hierarchy.
+
+3. Grid System
+The layout grid is rigid, modular, and strictly enforced across all devices:
+
+Base Grid Unit: 1ch (width of "0" character)
+
+Vertical Unit: Line height of body text (24px)
+
+Horizontal Spacing: Multiples of 1ch
+
+Vertical Spacing: Multiples of body line-height (24px)
+
+Grid Configurations:
+
+Desktop: 12-column grid, each column width: multiples of 4ch, gutter: 2ch
+
+Tablet: 8-column grid, column width multiples of 4ch, gutter: 2ch
+
+Mobile: 4-column grid, column width multiples of 4ch, gutter: 1ch
+
+All elements MUST precisely snap to grid lines.
+
+4. Color Palette
+Primary color scheme: Monochromatic (Black & White)
+
+Background: #101010 (Dark Charcoal)
+
+Text: #FFFFFF (Pure White)
+
+Grid lines (if visible): #1F1F1F (Very dark grey)
+
+Accent colors (used sparingly for interactive states/highlights):
+
+Swiss Red: #E30613
+
+Electric Blue: #00AEEF
+
+Bright Yellow: #FFEB00
+
+Color Usage Rules:
+
+Use accents sparingly to highlight interaction, warnings, or key information.
+
+No gradients; solid colors only.
+
+5. Layout & Composition
+A. Visual Hierarchy & Balance
+Asymmetrical layouts are preferred, carefully balanced with whitespace.
+
+Heavy content blocks balanced by generous negative space.
+
+B. Whitespace
+Intentional and generous whitespace, multiples of grid units.
+
+Do not overcrowd elements; simplicity and clarity take precedence.
+
+6. Components and Elements
+A. Buttons and Interaction Elements
+Box-drawn ASCII-inspired outlines strictly within grid boundaries.
+
+Padding strictly defined in ch units (padding: 1ch 2ch).
+
+B. Input fields
+Monospace character spacing, box outlines precisely aligned to grid.
+
+Input caret always precisely one character-width wide.
+
+C. ASCII Art and Visualizations
+Incorporate ASCII-style diagrams, charts, box outlines, grids.
+
+ASCII graphics precisely snap to the grid units.
+
+D. Vertical Text Elements
+Used minimally, e.g., for timestamps, metadata, or grid coordinates.
+
+Precisely rotated at 90° angles; text alignment to grid mandatory.
+
+7. Technical Annotations & Metadata
+Include small typographic elements, referencing technical details like:
+
+Version numbers (v1.02)
+
+Grid coordinates (X:04 Y:12)
+
+Time/date stamps (2025.04.01 13:04 UTC)
+
+Server status indicators (Online, Latency: 24ms)
+
+These should always be positioned subtly, aligned vertically or horizontally along grid lines.
+
+8. Responsiveness & Breakpoints
+The UI adjusts in discrete increments based strictly on character width units (ch) and line-height increments to maintain monospace integrity:
+
+Breakpoint adjustments: occur at clearly defined multiples of character widths (ch) rather than arbitrary pixels.
+
+Content blocks rearrange vertically at lower widths, still maintaining perfect alignment.
+
+Example CSS media query:
+
+```css
+@media screen and (max-width: 80ch) {
+  .container {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+```
+
+9. Interaction & Animations
+Animations: Minimalist, limited to subtle fade-ins or transitions under 200ms duration.
+
+Interaction states (hover, active): Clearly communicated with simple color accent changes (Swiss Red, Electric Blue).
+
+Cursor: Custom monospace-like block cursor (▮) for input fields.
+
+10. Accessibility
+High contrast ratio (WCAG AAA compliance).
+
+Strict adherence to semantic HTML.
+
+Keyboard-navigable grid elements, consistent focus states with clearly defined outlines (e.g., ASCII-styled box highlighting).
+
+11. Example UI Structure (Homepage)
+```
++---------------------------------------------------------------+
+| AI App v1.02                                      X:04 Y:01   |
+|---------------------------------------------------------------|
+|                                                               |
+|     AI APP NAME                                               |
+|                                                               |
+|     Predictive Analytics Dashboard                            |
+|                                                               |
+|---------------------------------------------------------------|
+| ▮ Input Query: [Enter data here]         Status: Online       |
+|                                                               |
+| [ Analyze ] [ Clear ]                                         |
+|                                                               |
+|---------------------------------------------------------------|
+| Output:                                                       |
+|                                                               |
+|    +-----------------------------------------------+          |
+|    | ASCII-Generated Chart                         |          |
+|    |                                               |          |
+|    |   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄                      |          |
+|    |   ██████████████████████                      |          |
+|    |   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                      |          |
+|    +-----------------------------------------------+          |
+|                                                               |
+|---------------------------------------------------------------|
+| 2025.04.01 13:04 UTC                               Latency:24ms|
++---------------------------------------------------------------+
+```
+
+All sections strictly adhere to the monospace grid.
+
+Clear separation, metadata annotations, sparse accents.
+
+Conclusion & Development Notes
+This specification provides a clear, detailed guide to achieving a visually precise, technically sophisticated, and functionally minimal UI. Developers should strictly adhere to these guidelines to preserve the integrity of the aesthetic and functional clarity of the design.
+
+Developers must verify all UI layouts against grid alignment.
+
+UI should be regularly tested for responsive breakpoints and accessibility compliance.
+
+Embrace deliberate minimalism, clarity, and structured elegance at every design/development step.
+
+This approach ensures your AI app communicates a robust, precise, and deeply technical personality, uniquely merging modern web aesthetics with classic Swiss design traditions.
+
+## Advanced Design Refinements
+
+These additional refinements strengthen the combination of monospace precision and Swiss design principles:
+
+### 1. Typographic Scale Contrast
+- Create more pronounced size differences between heading levels (1:1.5 ratio)
+- Add a micro-text size (0.625rem/10px) for technical annotations that need extreme precision
+- Use graduated sizing for nested UI elements to create visual hierarchy
+
+### 2. Visual Rhythm with Borders
+- Use border-left (or right) patterns for content categorization while maintaining grid alignment
+- Consider pixel-perfect 1px borders for non-interactive elements and 2px for interactive elements
+- Create rhythm through consistent border patterns (solid for containers, dashed for expandable regions)
+
+### 3. Negative Space as Interface Elements
+- Emphasize the Swiss design principle of using whitespace as a functional element
+- Create "invisible grids" where only content defines boundaries
+- Use negative space to group related items without explicit containers
+
+### 4. Color Function Mapping
+- Define specific semantic purposes for each accent color:
+  - Swiss Red (#E30613): Destructive actions, errors, critical alerts
+  - Electric Blue (#00AEEF): Informational elements, links, primary actions
+  - Bright Yellow (#FFEB00): Warnings, attention-requiring elements, highlighting
+- Add a subtle neutral palette (very dark grays: #151515, #1A1A1A, #202020) for less important UI regions
+
+### 5. Typographic Details
+- Add `font-variant-numeric: tabular-nums` for all numerical displays to ensure alignment
+- Consider `text-rendering: geometricPrecision` for monospace elements requiring perfect alignment
+- Use consistent letter-spacing (-0.02em) for sans-serif headings to improve readability
+
+### 6. Grid Refinements
+- Add baseline alignment rules, ensuring text in different containers align to the same invisible baseline
+- Consider a secondary micro-grid (0.5ch) for extremely precise positioning of decorative elements
+- Create a "golden ratio" relationship between major content blocks (1:1.618)
+
+### 7. State Indicators
+- Create a system of monospaced symbols for different states:
+  • (filled circle): Active/On
+  ○ (empty circle): Inactive/Off
+  ■ (filled square): Complete/Locked
+  □ (empty square): Incomplete/Unlocked
+  ▴ (up triangle): Ascending/Increasing
+  ▾ (down triangle): Descending/Decreasing
+- Employ a consistent system to indicate loading, error, success states
+
+### 8. Hybrid Components
+- Design components that combine sans-serif interface elements with monospaced data displays
+- Example: Labels in sans-serif with accompanying values in monospace
+- Create clear guidelines for when to use each font family within complex components
+
+## Tailwind CSS Implementation
+
+### 🎨 Tailwind Configuration (tailwind.config.js)
+First, customize Tailwind to strictly enforce your grid, typography, colors, and spacing:
+
+```js
+// tailwind.config.js
+module.exports = {
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  theme: {
+    fontFamily: {
+      sans: ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
+      mono: ['JetBrains Mono', 'IBM Plex Mono', 'Source Code Pro', 'monospace'],
+    },
+    fontSize: {
+      xs: '0.75rem',  // 12px
+      base: '1rem',   // 16px
+      lg: '1.5rem',   // 24px
+      xl: '2rem',     // 32px
+    },
+    lineHeight: {
+      tight: '1.2',
+      normal: '1.5',
+    },
+    colors: {
+      black: '#101010',
+      white: '#FFFFFF',
+      grid: '#1F1F1F',
+      accent: {
+        red: '#E30613',
+        blue: '#00AEEF',
+        yellow: '#FFEB00',
+      },
+    },
+    spacing: {
+      px: '1px',
+      0: '0px',
+      1: '0.25rem',  // 4px
+      2: '0.5rem',   // 8px
+      3: '0.75rem',  // 12px
+      4: '1rem',     // 16px
+      6: '1.5rem',   // 24px (matches your vertical unit)
+      8: '2rem',     // 32px
+      'ch': '1ch',   // character width unit
+    },
+    extend: {
+      gridTemplateColumns: {
+        '12-mono': 'repeat(12, minmax(0, 4ch))',
+        '8-mono': 'repeat(8, minmax(0, 4ch))',
+        '4-mono': 'repeat(4, minmax(0, 4ch))',
+      },
+      borderWidth: {
+        DEFAULT: '1px',
+      },
+      cursor: {
+        'block': 'text',
+      },
+    },
+  },
+  plugins: [],
+};
+```
+
+### 📏 CSS Customizations (Global CSS)
+Add global styles to ensure proper font usage and alignment:
+
+```css
+@layer base {
+  html, body {
+    @apply font-sans text-white bg-black leading-normal;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  pre, code, .monospace {
+    @apply font-mono;
+  }
+}
+```
+
+### 🚩 Tailwind Component Guidelines
+
+#### 1. Grid Layout
+```jsx
+<div class="grid grid-cols-12-mono gap-x-2 ch gap-y-6">
+  <!-- Content strictly aligned -->
+</div>
+```
+- `grid-cols-12-mono` aligns columns to 4ch increments.
+- Use `gap-x-2` (2ch gutters) for horizontal spacing and `gap-y-6` (24px) for vertical spacing.
+
+Responsive Breakpoints:
+```jsx
+<div class="grid grid-cols-12-mono gap-x-2 ch gap-y-6 md:grid-cols-8-mono sm:grid-cols-4-mono">
+```
+
+#### 2. Typography
+Titles & Body (Sans-serif):
+```jsx
+<h1 class="text-xl font-sans">AI App Title</h1>
+<h2 class="text-lg font-sans">Section Title</h2>
+<p class="text-base font-sans">Body Text</p>
+```
+
+Code & Technical Elements (Monospace):
+```jsx
+<pre class="font-mono text-base">Code block</pre>
+<span class="font-mono text-xs">Metadata / annotations</span>
+```
+
+#### 3. Whitespace & Alignment
+Use defined spacing units:
+```jsx
+<div class="p-4"> <!-- 16px -->
+<div class="py-6 px-2 ch"> <!-- 24px vertically, 2ch horizontally -->
+```
+
+#### 4. Buttons & Inputs
+Buttons:
+```jsx
+<button class="px-2 ch py-1 border border-grid hover:border-accent-red hover:text-accent-red transition-colors duration-200">
+  Analyze
+</button>
+```
+
+Input Fields:
+```jsx
+<input 
+  class="px-2 ch py-1 border border-grid bg-black caret-accent-blue outline-none focus:border-accent-blue transition-colors duration-200"
+  placeholder="Enter data here"
+/>
+```
+
+#### 5. ASCII / Box-drawn Visuals
+Wrap ASCII content in preformatted blocks:
+```jsx
+<pre class="p-2 ch border border-grid overflow-x-auto">
++------------------+
+|  ASCII DIAGRAM   |
++------------------+
+</pre>
+```
+
+#### 6. Colors & Accent Usage
+Use accents sparingly for interactive states or highlights:
+```jsx
+<!-- Interactive highlight -->
+<button class="hover:border-accent-yellow hover:text-accent-yellow">Clear</button>
+
+<!-- Error/warning state -->
+<div class="border-accent-red text-accent-red">Error detected</div>
+```
+
+#### 7. Metadata & Technical Annotations
+```jsx
+<div class="text-xs text-accent-blue">
+  2025.04.01 13:04 UTC
+</div>
+```
+
+#### 8. Interaction & Animation
+Minimal Tailwind transitions:
+```jsx
+<button class="transition-colors duration-200 hover:text-accent-red">Submit</button>
+```
+
+### 📱 Responsive Implementation
+Apply responsive utilities at precisely defined grid breakpoints:
+```jsx
+<div class="grid grid-cols-12-mono md:grid-cols-8-mono sm:grid-cols-4-mono">
+  <!-- Responsive grid adapts strictly according to character-grid -->
+</div>
+```
+
+### ✅ Example Tailwind-Based Page Layout
+A practical template layout for your app:
+```jsx
+<div class="min-h-screen p-4">
+  <header class="mb-6 flex justify-between">
+    <h1 class="text-xl">AI Application</h1>
+    <div class="font-mono text-xs">v1.02 | Online | Latency: 24ms</div>
+  </header>
+
+  <main class="grid grid-cols-12-mono gap-x-2 ch gap-y-6">
+    <section class="col-span-12 md:col-span-8-mono">
+      <input class="w-full py-1 px-2 ch border border-grid bg-black outline-none focus:border-accent-blue transition duration-200" placeholder="Input Query" />
+    </section>
+
+    <section class="col-span-12 md:col-span-4-mono flex gap-2 ch">
+      <button class="px-2 ch py-1 border border-grid hover:border-accent-red transition duration-200">Analyze</button>
+      <button class="px-2 ch py-1 border border-grid hover:border-accent-yellow transition duration-200">Clear</button>
+    </section>
+
+    <section class="col-span-12 border border-grid p-2 ch overflow-auto">
+      <pre class="font-mono">
++------------------------+
+|      ASCII CHART       |
+| ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ |
+| ██████████████████████ |
+| ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ |
++------------------------+
+      </pre>
+    </section>
+  </main>
+
+  <footer class="mt-6 font-mono text-xs">
+    <div>2025.04.01 13:04 UTC</div>
+  </footer>
+</div>
+```
+
+### 🛠️ Developer Notes:
+- Ensure strict adherence to these Tailwind guidelines.
+- Regularly validate elements against the defined grid system and responsiveness.
+- Always prefer utility classes for layout consistency.
