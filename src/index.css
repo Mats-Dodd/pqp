@@ -1,12 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
+
+/* Import the fonts */
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: #101010;
+  --foreground: #FFFFFF;
+  --grid: #1F1F1F;
+  --accent-red: #E30613;
+  --accent-blue: #00AEEF;
+  --accent-yellow: #FFEB00;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -111,10 +119,30 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html, body {
+    @apply font-sans text-white bg-black leading-normal;
+    font-variant-numeric: tabular-nums;
+    text-rendering: geometricPrecision;
+    letter-spacing: -0.02em;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans;
+  }
+
+  code, pre, .monospace {
+    @apply font-mono;
+    letter-spacing: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Grid lines for development - can be toggled */
+  .show-grid {
+    background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px),
+                      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: 1ch 1.5rem;
   }
 } 
