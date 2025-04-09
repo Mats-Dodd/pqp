@@ -145,4 +145,14 @@
                       linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
     background-size: 1ch 1.5rem;
   }
+  
+  /* Hide scrollbar but maintain scrollability */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari, Opera and WebView (Tauri) */
+  }
 } 

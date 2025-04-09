@@ -2,6 +2,7 @@ import { useChat } from "./hooks/useChat";
 import { ChatMessageList } from "./components/ui/chat/chat-message-list";
 import { ChatInput } from "./components/ui/chat/chat-input";
 import { ChatBubble, ChatBubbleMessage } from "./components/ui/chat/chat-bubble";
+import { Button } from "./components/ui/button";
 
 function App() {
   const {
@@ -24,52 +25,48 @@ function App() {
   const timestamp = new Date().toISOString().replace('T', ' ').replace(/\..+/, ' UTC');
   
   return (
-    <main className="min-h-screen bg-black text-white p-4 ch show-grid">
-      <header className="flex justify-between items-center mb-6 border border-grid p-2 ch">
-        <h1 className="text-xl font-sans">AI Chat App</h1>
-        <div className="font-mono text-xs">v0.1.0 | {timestamp}</div>
-      </header>
-      
-      <div className="grid grid-cols-12-mono gap-2 ch mb-6 border border-grid">
-        <div className="col-span-12 p-2 ch overflow-hidden">
-          <ChatMessageList ref={messagesEndRef}>
-            {messages.map((message, index) => (
-              <ChatBubble 
-                key={index} 
-                variant={message.role === "user" ? "sent" : "received"}
-              >
-                <ChatBubbleMessage>{message.content}</ChatBubbleMessage>
-              </ChatBubble>
-            ))}
-          </ChatMessageList>
-        </div>
+    <main className="h-screen bg-black text-white px-6 ch py-6 show-grid flex flex-col">
+      <div className="flex-1 overflow-y-auto mb-6 max-w-[80ch] mx-auto w-full">
+        <ChatMessageList ref={messagesEndRef}>
+          {messages.map((message, index) => (
+            <ChatBubble 
+              key={index} 
+              variant={message.role === "user" ? "sent" : "received"}
+            >
+              <ChatBubbleMessage>{message.content}</ChatBubbleMessage>
+            </ChatBubble>
+          ))}
+        </ChatMessageList>
       </div>
 
-      <div className="grid grid-cols-12-mono gap-2 ch">
-        <div className="col-span-10 border border-grid">
-          <ChatInput
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="▮ Input Query"
-            disabled={isLoading}
-          />
+      <div className="flex-shrink-0 max-w-[80ch] mx-auto w-full">
+        <div className="mb-3 relative">
+          <div className="border border-grid w-full">
+            <ChatInput
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="▮"
+              disabled={isLoading}
+            />
+          </div>
+          <div className="absolute bottom-2 right-2 font-mono">
+            <Button 
+              onClick={handleSendMessage} 
+              disabled={!input.trim() || isLoading}
+              variant="outline"
+              className="px-1.5 ch py-0.5 border border-grid hover:border-accent-blue hover:text-accent-blue transition-colors duration-200 disabled:opacity-50 font-mono rounded-none shadow-none text-xs"
+            >
+              [Analyze]
+            </Button>
+          </div>
         </div>
-        <div className="col-span-2 font-mono">
-          <button 
-            onClick={handleSendMessage} 
-            disabled={!input.trim() || isLoading}
-            className="w-full h-full px-2 ch py-1 border border-grid hover:border-accent-blue hover:text-accent-blue transition-colors duration-200 disabled:opacity-50 font-mono"
-          >
-            [ Analyze ]
-          </button>
-        </div>
+        
+        <footer className="font-mono text-xs flex justify-between mb-3">
+          <div>{timestamp}</div>
+          <div>Status: {isLoading ? 'Processing' : 'Online'}</div>
+        </footer>
       </div>
-      
-      <footer className="mt-6 font-mono text-xs flex justify-between">
-        <div>{timestamp}</div>
-        <div>Status: {isLoading ? 'Processing' : 'Online'}</div>
-      </footer>
     </main>
   );
 }

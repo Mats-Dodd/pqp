@@ -1,7 +1,7 @@
 ---
-description: Describes the frontend setup using React, Vite, Tailwind v4, and shadcn/ui.
-globs: 
-alwaysApply: true
+description: 
+globs: *.tsx
+alwaysApply: false
 ---
 The frontend is a react app with vite, styled with Tailwind v4, and uses shadcn/ui for components.
 
