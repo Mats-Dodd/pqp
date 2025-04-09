@@ -25,4 +25,6 @@ my-react-app/
 └── package.json
 
 
-Use shadcn for components.  
+Use shadcn for basic components and shadcn-chat for any chat components
+
+React components should be called like chat-message-list.tsx
