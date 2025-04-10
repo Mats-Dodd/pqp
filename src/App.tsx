@@ -26,7 +26,20 @@ function App() {
   
   return (
     <main className="h-screen bg-black text-white px-6 ch py-6 show-grid flex flex-col">
-      <div className="flex-1 overflow-y-auto mb-6 max-w-[80ch] mx-auto w-full">
+      <header className="flex-shrink-0 max-w-[80ch] mx-auto w-full pb-6">
+        <div className="flex flex-col">
+          <div className="flex justify-between items-baseline">
+            <h1 className="text-xl font-sans leading-normal tracking-tight">Nilla</h1>
+            <div className="font-mono text-xs tabular-nums">v0.0.1</div>
+          </div>
+          <div className="font-mono text-xs flex justify-between items-baseline">
+            <div>Yours to discover</div>
+            <div className="tabular-nums">{timestamp}</div>
+          </div>
+        </div>
+      </header>
+
+      <div className="flex-1 overflow-hidden max-w-[80ch] mx-auto w-full pt-6">
         <ChatMessageList ref={messagesEndRef}>
           {messages.map((message, index) => (
             <ChatBubble 
@@ -39,8 +52,8 @@ function App() {
         </ChatMessageList>
       </div>
 
-      <div className="flex-shrink-0 max-w-[80ch] mx-auto w-full">
-        <div className="mb-3 relative">
+      <div className="flex-shrink-0 max-w-[80ch] mx-auto w-full pt-3">
+        <div className="relative">
           <div className="border border-grid w-full">
             <ChatInput
               value={input}
@@ -62,8 +75,7 @@ function App() {
           </div>
         </div>
         
-        <footer className="font-mono text-xs flex justify-between mb-3">
-          <div>{timestamp}</div>
+        <footer className="font-mono text-xs flex justify-between mt-3">
           <div>Status: {isLoading ? 'Processing' : 'Online'}</div>
         </footer>
       </div>
