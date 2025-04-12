@@ -35,8 +35,13 @@ const ChatBubble = React.forwardRef<HTMLDivElement, ChatBubbleProps>(
     <div
       className={cn(
         chatBubbleVariant({ variant, layout, className }),
-        "relative group",
+        "relative group"
       )}
+      style={{
+        marginTop: "var(--line-height)",
+        marginBottom: "var(--line-height)",
+        ...(props.style || {})
+      }}
       ref={ref}
       {...props}
     >
@@ -94,6 +99,7 @@ interface ChatBubbleMessageProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof chatBubbleMessageVariants> {
   isLoading?: boolean;
+  charOffset?: number;
 }
 
 const ChatBubbleMessage = React.forwardRef<
@@ -101,15 +107,20 @@ const ChatBubbleMessage = React.forwardRef<
   ChatBubbleMessageProps
 >(
   (
-    { className, variant, layout, isLoading = false, children, ...props },
+    { className, variant, layout, isLoading = false, charOffset = 0, children, ...props },
     ref,
   ) => (
     <div
       className={cn(
         chatBubbleMessageVariants({ variant, layout, className }),
-        "break-words max-w-full whitespace-pre-wrap font-mono"
+        "break-words max-w-full whitespace-pre-wrap font-mono chat-grid-aligned"
       )}
-      style={{ padding: "calc(var(--line-height)/2)" }}
+      style={{ 
+        padding: "var(--line-height) 1ch var(--line-height)",
+        lineHeight: "var(--line-height)",
+        ...(props.style || {}),
+        ["--char-offset" as any]: charOffset
+      }}
       ref={ref}
       {...props}
     >

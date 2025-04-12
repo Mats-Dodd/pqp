@@ -152,6 +152,7 @@
     background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px),
                       linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
     background-size: 1ch var(--line-height);
+    background-position: 0 0;
   }
   
   /* Border utility classes for the monospace grid design */
@@ -188,5 +189,19 @@
   
   .scrollbar-hide::-webkit-scrollbar {
     display: none;             /* Chrome, Safari, Opera and WebView (Tauri) */
+  }
+
+  /* Chat bubble grid alignment */
+  .chat-grid-aligned {
+    position: relative;
+    left: calc(var(--char-offset, 0) * 1ch);
+    /* Ensure text baseline aligns with grid lines */
+    display: block;
+    box-sizing: border-box;
+  }
+
+  /* Ensure text content inside chat bubbles aligns with grid lines */
+  .chat-grid-aligned > * {
+    line-height: var(--line-height);
   }
 } 

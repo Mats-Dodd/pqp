@@ -3,7 +3,7 @@ import { ChatMessageList } from "./components/ui/chat/chat-message-list";
 import { ChatInput } from "./components/ui/chat/chat-input";
 import { ChatBubble, ChatBubbleMessage } from "./components/ui/chat/chat-bubble";
 import { Button } from "./components/ui/button";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 function App() {
   const [showGrid, setShowGrid] = useState(true);
@@ -25,17 +25,38 @@ function App() {
   
   const toggleGrid = () => setShowGrid(prev => !prev);
   
+  // Calculate grid alignment offsets for each message
+  const messagesWithOffset = useMemo(() => {
+    return messages.map(message => {
+      // For perfect grid alignment, calculate a simple offset
+      // that ensures text starts precisely at a grid line
+      
+      // Always use a consistent offset of 0 to align with grid lines
+      // The component's padding will handle the correct positioning
+      const charOffset = 0;
+      
+      return { ...message, charOffset };
+    });
+  }, [messages]);
+  
   return (
     <main className={`h-screen font-mono font-medium bg-black text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''} flex flex-col`}>
       <div className="flex-1 overflow-hidden max-w-[80ch] mx-auto w-full" style={{ width: "calc(round(down, 100%, 1ch))" }}>
         <ChatMessageList ref={messagesEndRef}>
-          {messages.map((message, index) => (
+          {messagesWithOffset.map((message, index) => (
             <ChatBubble 
               key={index} 
               variant={message.role === "user" ? "sent" : "received"}
-              className="mb-[var(--line-height)]"
             >
-              <ChatBubbleMessage className="p-[calc(var(--line-height)/2)]">{message.content}</ChatBubbleMessage>
+              <ChatBubbleMessage 
+                className="whitespace-pre-wrap break-words"
+                style={{ 
+                  lineHeight: "var(--line-height)",
+                }}
+                charOffset={message.charOffset}
+              >
+                {message.content}
+              </ChatBubbleMessage>
             </ChatBubble>
           ))}
         </ChatMessageList>
