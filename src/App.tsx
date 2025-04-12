@@ -3,13 +3,14 @@ import { ChatMessageList } from "./components/ui/chat/chat-message-list";
 import { ChatInput } from "./components/ui/chat/chat-input";
 import { ChatBubble, ChatBubbleMessage } from "./components/ui/chat/chat-bubble";
 import { Button } from "./components/ui/button";
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./components/ui/dropdown-menu";
+import { invoke } from '@tauri-apps/api/core';
 
 function App() {
   const [showGrid, setShowGrid] = useState(true);
@@ -17,6 +18,8 @@ function App() {
   const dragStartYRef = useRef(0);
   const startHeightRef = useRef(0);
   const [modelsOpen, setModelsOpen] = useState(false); // Add state for dropdown menu
+  const [services, setServices] = useState<string[]>([]);
+  const [mcpOpen, setMcpOpen] = useState(false);
   
   const {
     messages,
@@ -26,6 +29,25 @@ function App() {
     handleSendMessage,
     messagesEndRef,
   } = useChat();
+
+  // Fetch services when component mounts or when MCP dropdown opens
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const servicesList = await invoke<string[]>('get_services');
+        console.log(servicesList);
+        setServices(servicesList);
+      } catch (error) {
+        console.error('Failed to fetch services:', error);
+        // Set empty array or some default values if fetch fails
+        setServices([]);
+      }
+    };
+
+    if (mcpOpen) {
+      fetchServices();
+    }
+  }, [mcpOpen]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -143,7 +165,7 @@ function App() {
               <DropdownMenuTrigger 
                 className="px-1ch py-0 h-auto hover:text-[var(--accent-color)] transition-colors duration-200 font-mono text-xs text-[#D6A97A]"
               >
-                [Models]
+                {'<Models>'}
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="end" 
@@ -161,6 +183,35 @@ function App() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            
+            <DropdownMenu open={mcpOpen} onOpenChange={setMcpOpen}>
+              <DropdownMenuTrigger 
+                className="px-1ch py-0 h-auto hover:text-[var(--accent-color)] transition-colors duration-200 font-mono text-xs text-[#D6A97A]"
+              >
+                {'<MCP>'}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="end" 
+                className="font-mono text-xs bg-black border-2 border-[var(--text-color)] rounded-none shadow-lg p-0 z-50"
+                style={{ lineHeight: 'var(--line-height)' }}
+              >
+                {services.length > 0 ? (
+                  services.map((service, index) => (
+                    <DropdownMenuItem 
+                      key={index}
+                      className="px-2ch py-0 h-[var(--line-height)] hover:bg-[rgba(214,169,122,0.1)] hover:text-[#D6A97A] text-white cursor-pointer"
+                    >
+                      {service}
+                    </DropdownMenuItem>
+                  ))
+                ) : (
+                  <DropdownMenuItem className="px-2ch py-0 h-[var(--line-height)] text-white cursor-default">
+                    No services found
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
             <Button 
               onClick={toggleGrid} 
               variant="ghost"
