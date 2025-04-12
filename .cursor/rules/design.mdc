@@ -1,476 +1,183 @@
 ---
 description: 
-globs: 
-alwaysApply: true
+globs: *.jsx,*.tsx
+alwaysApply: false
 ---
-1. Design Philosophy
-This app adheres to a minimalist, functional aesthetic defined by:
+wickstrom.tech
+How I Built “The Monospace Web”
+Oskar Wickström
 
-Precision and consistency (Monospace, Grid-based).
+Sept 26, 2024
 
-Clarity, readability, and visual hierarchy (Swiss design).
+Recently, I published The Monospace Web, a minimalist design exploration. It all started with this innocent post, yearning for a simpler web. Perhaps too typewriter-nostalgic, but it was an interesting starting point. After some hacking and sharing early screenshots, @noteed asked for grid alignment, and down the rabbit hole I went.
 
-Technical elegance (Metadata, annotations, functional minimalism).
+This morphed into a technical challenge, while still having that creative aspect that I started with. Subsequent screenshots with the fixed grid and responsive tables sparked a lot of interest. About a week later I published the source, and since then there’s been a lot of forks. People use it for their personal web sites, mostly, but also for apps.
 
-2. Typography
-Font: 
-- Sans-serif: Inter, Helvetica Neue, Arial, sans-serif (for normal text)
-- Monospace: JetBrains Mono, IBM Plex Mono, Source Code Pro (for code elements)
+I’d like to explain how it works. Not everything, just focusing on the most interesting parts.
 
-Font sizes (base 16px):
+The Fixed Grid
+This design aligns everything, horizontally and vertically, to a fixed grid. Like a table with equal-size cells. Every text character should be exactly contained in a cell in that grid. Borders and other visual elements may span cells more freely.
 
-Titles (h1): 2rem (32px)
+The big idea here is to use the ch unit in CSS. I actually did not know about it before this experiment. The ch unit is described in CSS Values and Units Module Level 4:
 
-Subtitles (h2): 1.5rem (24px)
+Represents the typical advance measure of European alphanumeric characters, and measured as the used advance measure of the “0” (ZERO, U+0030) glyph in the font used to render it.
 
-Body/Standard Text: 1rem (16px)
+Further, it notes:
 
-Metadata/Annotations: 0.75rem (12px)
+This measurement is an approximation (and in monospace fonts, an exact measure) of a single narrow glyph’s advance measure, thus allowing measurements based on an expected glyph count.
 
-Line Height: 1.5 (150% of font size)
-Letter spacing: Default (0em)
+Fantastic! A cell is thus 1ch wide. And the cell height is equal to the line-height. In order to refer to the line height in calculations, it’s extracted as a CSS variable:
 
-Typography Usage Rules:
-
-Use sans-serif fonts for normal text content, UI elements, and navigation.
-
-Use monospace fonts exclusively for code blocks, ASCII art, technical annotations, and grid-aligned elements.
-
-Maintain strict alignment to horizontal/vertical grids.
-
-Avoid excessive font-weight variations; rely primarily on size, spacing, and position to establish hierarchy.
-
-3. Grid System
-The layout grid is rigid, modular, and strictly enforced across all devices:
-
-Base Grid Unit: 1ch (width of "0" character)
-
-Vertical Unit: Line height of body text (24px)
-
-Horizontal Spacing: Multiples of 1ch
-
-Vertical Spacing: Multiples of body line-height (24px)
-
-Grid Configurations:
-
-Desktop: 12-column grid, each column width: multiples of 4ch, gutter: 2ch
-
-Tablet: 8-column grid, column width multiples of 4ch, gutter: 2ch
-
-Mobile: 4-column grid, column width multiples of 4ch, gutter: 1ch
-
-All elements MUST precisely snap to grid lines.
-
-4. Color Palette
-Primary color scheme: Monochromatic (Black & White)
-
-Background: #101010 (Dark Charcoal)
-
-Text: #FFFFFF (Pure White)
-
-Grid lines (if visible): #1F1F1F (Very dark grey)
-
-Accent colors (used sparingly for interactive states/highlights):
-
-Swiss Red: #E30613
-
-Electric Blue: #00AEEF
-
-Bright Yellow: #FFEB00
-
-Color Usage Rules:
-
-Use accents sparingly to highlight interaction, warnings, or key information.
-
-No gradients; solid colors only.
-
-5. Layout & Composition
-A. Visual Hierarchy & Balance
-Asymmetrical layouts are preferred, carefully balanced with whitespace.
-
-Heavy content blocks balanced by generous negative space.
-
-B. Whitespace
-Intentional and generous whitespace, multiples of grid units.
-
-Do not overcrowd elements; simplicity and clarity take precedence.
-
-6. Components and Elements
-A. Buttons and Interaction Elements
-Box-drawn ASCII-inspired outlines strictly within grid boundaries.
-
-Padding strictly defined in ch units (padding: 1ch 2ch).
-
-B. Input fields
-Monospace character spacing, box outlines precisely aligned to grid.
-
-Input caret always precisely one character-width wide.
-
-C. ASCII Art and Visualizations
-Incorporate ASCII-style diagrams, charts, box outlines, grids.
-
-ASCII graphics precisely snap to the grid units.
-
-D. Vertical Text Elements
-Used minimally, e.g., for timestamps, metadata, or grid coordinates.
-
-Precisely rotated at 90° angles; text alignment to grid mandatory.
-
-7. Technical Annotations & Metadata
-Include small typographic elements, referencing technical details like:
-
-Version numbers (v1.02)
-
-Grid coordinates (X:04 Y:12)
-
-Time/date stamps (2025.04.01 13:04 UTC)
-
-Server status indicators (Online, Latency: 24ms)
-
-These should always be positioned subtly, aligned vertically or horizontally along grid lines.
-
-8. Responsiveness & Breakpoints
-The UI adjusts in discrete increments based strictly on character width units (ch) and line-height increments to maintain monospace integrity:
-
-Breakpoint adjustments: occur at clearly defined multiples of character widths (ch) rather than arbitrary pixels.
-
-Content blocks rearrange vertically at lower widths, still maintaining perfect alignment.
-
-Example CSS media query:
-
-```css
-@media screen and (max-width: 80ch) {
-  .container {
-    grid-template-columns: repeat(8, 1fr);
-  }
+:root {
+  --line-height: 1.2rem;
 }
-```
+So far there’s no actual grid on the page. This is just a way of measuring and sizing elements based on the width and height of monospace characters. Every element must take up space evenly divisible by the dimensions of a cell; if it’s top left corner starts at a cell, then its bottom right must do so as well. That means that all elements, given that their individual sizes respect the grid, line up properly.
 
-9. Interaction & Animations
-Animations: Minimalist, limited to subtle fade-ins or transitions under 200ms duration.
+The Font
+I’ve chosen JetBrains Mono for the font. It looks great, sure, but there’s a more important reason for this particular choice: it has good support for box-drawing characters at greater line heights. Most monospace fonts I tried broke at line heights above 110% or so. Lines and blocks were chopped up vertically. With JetBrains Mono, I can set it to 120% before it starts to become choppy.
 
-Interaction states (hover, active): Clearly communicated with simple color accent changes (Swiss Red, Electric Blue).
+I suspect Pragmata Pro or Berkeley Mono might work in this regard, but I haven’t tried them yet.
 
-Cursor: Custom monospace-like block cursor (▮) for input fields.
+Also, if you want to use this design and with a greater line height, you can probably do so if you don’t need box-drawing characters. Then you may also consider pretty much any monospace font. Why not use web-safe ones, trimming down the page weight by about 600kB!
 
-10. Accessibility
-High contrast ratio (WCAG AAA compliance).
+To avoid alternate glyphs for numbers, keeping everything aligned to the grid, I set:
 
-Strict adherence to semantic HTML.
-
-Keyboard-navigable grid elements, consistent focus states with clearly defined outlines (e.g., ASCII-styled box highlighting).
-
-11. Example UI Structure (Homepage)
-```
-+---------------------------------------------------------------+
-| AI App v1.02                                      X:04 Y:01   |
-|---------------------------------------------------------------|
-|                                                               |
-|     AI APP NAME                                               |
-|                                                               |
-|     Predictive Analytics Dashboard                            |
-|                                                               |
-|---------------------------------------------------------------|
-| ▮ Input Query: [Enter data here]         Status: Online       |
-|                                                               |
-| [ Analyze ] [ Clear ]                                         |
-|                                                               |
-|---------------------------------------------------------------|
-| Output:                                                       |
-|                                                               |
-|    +-----------------------------------------------+          |
-|    | ASCII-Generated Chart                         |          |
-|    |                                               |          |
-|    |   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄                      |          |
-|    |   ██████████████████████                      |          |
-|    |   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀                      |          |
-|    +-----------------------------------------------+          |
-|                                                               |
-|---------------------------------------------------------------|
-| 2025.04.01 13:04 UTC                               Latency:24ms|
-+---------------------------------------------------------------+
-```
-
-All sections strictly adhere to the monospace grid.
-
-Clear separation, metadata annotations, sparse accents.
-
-Conclusion & Development Notes
-This specification provides a clear, detailed guide to achieving a visually precise, technically sophisticated, and functionally minimal UI. Developers should strictly adhere to these guidelines to preserve the integrity of the aesthetic and functional clarity of the design.
-
-Developers must verify all UI layouts against grid alignment.
-
-UI should be regularly tested for responsive breakpoints and accessibility compliance.
-
-Embrace deliberate minimalism, clarity, and structured elegance at every design/development step.
-
-This approach ensures your AI app communicates a robust, precise, and deeply technical personality, uniquely merging modern web aesthetics with classic Swiss design traditions.
-
-## Advanced Design Refinements
-
-These additional refinements strengthen the combination of monospace precision and Swiss design principles:
-
-### 1. Typographic Scale Contrast
-- Create more pronounced size differences between heading levels (1:1.5 ratio)
-- Add a micro-text size (0.625rem/10px) for technical annotations that need extreme precision
-- Use graduated sizing for nested UI elements to create visual hierarchy
-
-### 2. Visual Rhythm with Borders
-- Use border-left (or right) patterns for content categorization while maintaining grid alignment
-- Consider pixel-perfect 1px borders for non-interactive elements and 2px for interactive elements
-- Create rhythm through consistent border patterns (solid for containers, dashed for expandable regions)
-
-### 3. Negative Space as Interface Elements
-- Emphasize the Swiss design principle of using whitespace as a functional element
-- Create "invisible grids" where only content defines boundaries
-- Use negative space to group related items without explicit containers
-
-### 4. Color Function Mapping
-- Define specific semantic purposes for each accent color:
-  - Swiss Red (#E30613): Destructive actions, errors, critical alerts
-  - Electric Blue (#00AEEF): Informational elements, links, primary actions
-  - Bright Yellow (#FFEB00): Warnings, attention-requiring elements, highlighting
-- Add a subtle neutral palette (very dark grays: #151515, #1A1A1A, #202020) for less important UI regions
-
-### 5. Typographic Details
-- Add `font-variant-numeric: tabular-nums` for all numerical displays to ensure alignment
-- Consider `text-rendering: geometricPrecision` for monospace elements requiring perfect alignment
-- Use consistent letter-spacing (-0.02em) for sans-serif headings to improve readability
-
-### 6. Grid Refinements
-- Add baseline alignment rules, ensuring text in different containers align to the same invisible baseline
-- Consider a secondary micro-grid (0.5ch) for extremely precise positioning of decorative elements
-- Create a "golden ratio" relationship between major content blocks (1:1.618)
-
-### 7. State Indicators
-- Create a system of monospaced symbols for different states:
-  • (filled circle): Active/On
-  ○ (empty circle): Inactive/Off
-  ■ (filled square): Complete/Locked
-  □ (empty square): Incomplete/Unlocked
-  ▴ (up triangle): Ascending/Increasing
-  ▾ (down triangle): Descending/Decreasing
-- Employ a consistent system to indicate loading, error, success states
-
-### 8. Hybrid Components
-- Design components that combine sans-serif interface elements with monospaced data displays
-- Example: Labels in sans-serif with accompanying values in monospace
-- Create clear guidelines for when to use each font family within complex components
-
-## Tailwind CSS Implementation
-
-### 🎨 Tailwind Configuration (tailwind.config.js)
-First, customize Tailwind to strictly enforce your grid, typography, colors, and spacing:
-
-```js
-// tailwind.config.js
-module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
-  theme: {
-    fontFamily: {
-      sans: ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
-      mono: ['JetBrains Mono', 'IBM Plex Mono', 'Source Code Pro', 'monospace'],
-    },
-    fontSize: {
-      xs: '0.75rem',  // 12px
-      base: '1rem',   // 16px
-      lg: '1.5rem',   // 24px
-      xl: '2rem',     // 32px
-    },
-    lineHeight: {
-      tight: '1.2',
-      normal: '1.5',
-    },
-    colors: {
-      black: '#101010',
-      white: '#FFFFFF',
-      grid: '#1F1F1F',
-      accent: {
-        red: '#E30613',
-        blue: '#00AEEF',
-        yellow: '#FFEB00',
-      },
-    },
-    spacing: {
-      px: '1px',
-      0: '0px',
-      1: '0.25rem',  // 4px
-      2: '0.5rem',   // 8px
-      3: '0.75rem',  // 12px
-      4: '1rem',     // 16px
-      6: '1.5rem',   // 24px (matches your vertical unit)
-      8: '2rem',     // 32px
-      'ch': '1ch',   // character width unit
-    },
-    extend: {
-      gridTemplateColumns: {
-        '12-mono': 'repeat(12, minmax(0, 4ch))',
-        '8-mono': 'repeat(8, minmax(0, 4ch))',
-        '4-mono': 'repeat(4, minmax(0, 4ch))',
-      },
-      borderWidth: {
-        DEFAULT: '1px',
-      },
-      cursor: {
-        'block': 'text',
-      },
-    },
-  },
-  plugins: [],
-};
-```
-
-### 📏 CSS Customizations (Global CSS)
-Add global styles to ensure proper font usage and alignment:
-
-```css
-@layer base {
-  html, body {
-    @apply font-sans text-white bg-black leading-normal;
-  }
-
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-
-  pre, code, .monospace {
-    @apply font-mono;
-  }
+:root {
+  font-variant-numeric: tabular-nums lining-nums;
 }
-```
+And, for a unified thickness of borders, text, and underlines:
 
-### 🚩 Tailwind Component Guidelines
+:root {
+  --border-thickness: 2px;
+  font-weight: 500;
+  text-decoration-thickness: var(--border-thickness);
+}
+This gives the design that thick and sturdy feel.
 
-#### 1. Grid Layout
-```jsx
-<div class="grid grid-cols-12-mono gap-x-2 ch gap-y-6">
-  <!-- Content strictly aligned -->
-</div>
-```
-- `grid-cols-12-mono` aligns columns to 4ch increments.
-- Use `gap-x-2` (2ch gutters) for horizontal spacing and `gap-y-6` (24px) for vertical spacing.
+The Body
+The body element is the main container in the page. It is at most 80 characters wide. (Huh, I wonder where that number came from?)
 
-Responsive Breakpoints:
-```jsx
-<div class="grid grid-cols-12-mono gap-x-2 ch gap-y-6 md:grid-cols-8-mono sm:grid-cols-4-mono">
-```
+Now for one of the key tricks! I wanted this design to be reasonably responsive. For a viewport width smaller than 84ch (80ch and 4ch of padding), the body width needs to be some smaller width that is still evenly divisible by the cell dimensions. This can be accomplished with CSS rounding:
 
-#### 2. Typography
-Titles & Body (Sans-serif):
-```jsx
-<h1 class="text-xl font-sans">AI App Title</h1>
-<h2 class="text-lg font-sans">Section Title</h2>
-<p class="text-base font-sans">Body Text</p>
-```
+body {
+    padding: var(--line-height) 2ch;
+    max-width: calc(min(80ch, round(down, 100%, 1ch)));
+}
+This way, the body shrinks in steps according to the grid.
 
-Code & Technical Elements (Monospace):
-```jsx
-<pre class="font-mono text-base">Code block</pre>
-<span class="font-mono text-xs">Metadata / annotations</span>
-```
+The Horizontal Rule
+Surprisingly, the custom horizontal rule styling was a fiddly enterprise. I wanted it to feel heavy, with double lines. The lines are vertically centered around the break between two cells:
 
-#### 3. Whitespace & Alignment
-Use defined spacing units:
-```jsx
-<div class="p-4"> <!-- 16px -->
-<div class="py-6 px-2 ch"> <!-- 24px vertically, 2ch horizontally -->
-```
+The horizontal ruler
+The horizontal ruler
+To respect the grid, the top and bottom spacing needs to be calculated. But padding won’t work, and margin interacts with adjacent elements’ margins, so this required two elements:
 
-#### 4. Buttons & Inputs
-Buttons:
-```jsx
-<button class="px-2 ch py-1 border border-grid hover:border-accent-red hover:text-accent-red transition-colors duration-200">
-  Analyze
-</button>
-```
+hr {
+  position: relative;
+  display: block;
+  height: var(--line-height);
+  margin: calc(var(--line-height) * 1.5) 0;
+  border: none;
+  color: var(--text-color);
+}
 
-Input Fields:
-```jsx
-<input 
-  class="px-2 ch py-1 border border-grid bg-black caret-accent-blue outline-none focus:border-accent-blue transition-colors duration-200"
-  placeholder="Enter data here"
-/>
-```
+hr:after {
+  display: block;
+  content: "";
+  position: absolute;
+  top: calc(var(--line-height) / 2 - var(--border-thickness));
+  left: 0;
+  width: 100%;
+  border-top: calc(var(--border-thickness) * 3) double var(--text-color);
+  height: 0;
+}
+The hr itself is just a container that takes up space; 4 lines in total. The hr:after pseudo-element draws the two lines, using border-top-style, at the vertical center of the hr.
 
-#### 5. ASCII / Box-drawn Visuals
-Wrap ASCII content in preformatted blocks:
-```jsx
-<pre class="p-2 ch border border-grid overflow-x-auto">
-+------------------+
-|  ASCII DIAGRAM   |
-+------------------+
-</pre>
-```
+The Table
+Table styling was probably the trickiest. Recalling the principles from the beginning, every character must be perfectly aligned with the grid. But I wanted vertical padding of table cells to be half the line height. A full line height worth of padding is way too airy.
 
-#### 6. Colors & Accent Usage
-Use accents sparingly for interactive states or highlights:
-```jsx
-<!-- Interactive highlight -->
-<button class="hover:border-accent-yellow hover:text-accent-yellow">Clear</button>
+Table alignment
 
-<!-- Error/warning state -->
-<div class="border-accent-red text-accent-red">Error detected</div>
-```
+This requires the table being horizontally offset by half the width of a character, and vertically offset by half the line height.
 
-#### 7. Metadata & Technical Annotations
-```jsx
-<div class="text-xs text-accent-blue">
-  2025.04.01 13:04 UTC
-</div>
-```
+table {
+  position: relative;
+  top: calc(var(--line-height) / 2);
+  width: calc(round(down, 100%, 1ch));
+  border-collapse: collapse;
+}
+Cell padding is calculated based on cell size and borders, to keep grid alignment:
 
-#### 8. Interaction & Animation
-Minimal Tailwind transitions:
-```jsx
-<button class="transition-colors duration-200 hover:text-accent-red">Submit</button>
-```
+th, td {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: 
+    calc((var(--line-height) / 2))
+    calc(1ch - var(--border-thickness) / 2)
+    calc((var(--line-height) / 2) - (var(--border-thickness)))
+  ;
+  line-height: var(--line-height);
+}
+Finally, the first row must have slightly less vertical padding to compensate for the top border. This is hacky, and would be nicer to solve with some kind of negative margin on the table. But then I’d be back in margin interaction land, and I don’t like it there.
 
-### 📱 Responsive Implementation
-Apply responsive utilities at precisely defined grid breakpoints:
-```jsx
-<div class="grid grid-cols-12-mono md:grid-cols-8-mono sm:grid-cols-4-mono">
-  <!-- Responsive grid adapts strictly according to character-grid -->
-</div>
-```
+table tbody tr:first-child > * {
+  padding-top: calc(
+    (var(--line-height) / 2) - var(--border-thickness)
+  );
+}
+Another quirk is that columns need to have set sizes. All but one should use the width-min class, and the remaining should use width-auto. Otherwise, cells divide the available width in a way that doesn’t align with the grid.
 
-### ✅ Example Tailwind-Based Page Layout
-A practical template layout for your app:
-```jsx
-<div class="min-h-screen p-4">
-  <header class="mb-6 flex justify-between">
-    <h1 class="text-xl">AI Application</h1>
-    <div class="font-mono text-xs">v1.02 | Online | Latency: 24ms</div>
-  </header>
+The Layout Grid
+I also included a grid class for showcasing how a grid layout helper could work. Much like the 12-column systems found in CSS frameworks, but funkier. To use it, you simply slap on a grid class on a container. It uses a glorious hack to count the children in pure CSS:
 
-  <main class="grid grid-cols-12-mono gap-x-2 ch gap-y-6">
-    <section class="col-span-12 md:col-span-8-mono">
-      <input class="w-full py-1 px-2 ch border border-grid bg-black outline-none focus:border-accent-blue transition duration-200" placeholder="Input Query" />
-    </section>
+.grid > * {
+  flex: 0 0 calc(
+    round(
+      down, 
+      (100% - (1ch * (var(--grid-cells) - 1))) / var(--grid-cells),
+      1ch
+    )
+  );
+}
+.grid:has(> :last-child:nth-child(1)) { --grid-cells: 1; }
+.grid:has(> :last-child:nth-child(2)) { --grid-cells: 2; }
+.grid:has(> :last-child:nth-child(3)) { --grid-cells: 3; }
+.grid:has(> :last-child:nth-child(4)) { --grid-cells: 4; }
+.grid:has(> :last-child:nth-child(5)) { --grid-cells: 5; }
+.grid:has(> :last-child:nth-child(6)) { --grid-cells: 6; }
+.grid:has(> :last-child:nth-child(7)) { --grid-cells: 7; }
+.grid:has(> :last-child:nth-child(8)) { --grid-cells: 8; }
+.grid:has(> :last-child:nth-child(9)) { --grid-cells: 9; }
+Look at it go!
 
-    <section class="col-span-12 md:col-span-4-mono flex gap-2 ch">
-      <button class="px-2 ch py-1 border border-grid hover:border-accent-red transition duration-200">Analyze</button>
-      <button class="px-2 ch py-1 border border-grid hover:border-accent-yellow transition duration-200">Clear</button>
-    </section>
+The responsive layout grid in action
+The responsive layout grid in action
+Unlike with tables, the layout grid rows don’t have to fill the width. Depending on your viewport width, you’ll see a ragged right margin. However, by setting flex-grow: 1; on one of the children, that one grows to fill up the remaining width.
 
-    <section class="col-span-12 border border-grid p-2 ch overflow-auto">
-      <pre class="font-mono">
-+------------------------+
-|      ASCII CHART       |
-| ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ |
-| ██████████████████████ |
-| ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ |
-+------------------------+
-      </pre>
-    </section>
-  </main>
+The Media Elements
+Images and video grow to fill the width. But they have their own proportions, making vertical alignment a problem. How many multiples of the line height should the height of the media be? I couldn’t figure out a way to calculate this with CSS alone.
 
-  <footer class="mt-6 font-mono text-xs">
-    <div>2025.04.01 13:04 UTC</div>
-  </footer>
-</div>
-```
+Media element with adjusted bottom padding (the figcaption below lines up with the grid)
+Media element with adjusted bottom padding (the figcaption below lines up with the grid)
+One option was a preprocessor step that would calculate and set the ratio of every such element as a CSS variable, and then have CSS calculate a padding-bottom based on the ratio and the width:
 
-### 🛠️ Developer Notes:
-- Ensure strict adherence to these Tailwind guidelines.
-- Regularly validate elements against the defined grid system and responsiveness.
-- Always prefer utility classes for layout consistency.
+<img style="--ratio: 0.821377" ... >
+However, I eventually settled for small chunk of JavaScript to calculate the difference, and set an appropriate padding-bottom. Ending up in JavaScript was inevitable, I suppose.
+
+Summary
+There are many small things I haven’t shown in detail, including:
+
+the debug grid overlay, which you see in the screenshots
+ordered list numbering
+the tree-rendered list
+various form controls and buttons
+the custom details element
+But I think I’ve covered the most significant bits. For a full tour, have a look at the source code.
+
+There are still bugs, like alignment not working the same in all browsers, and not working at all in some cases. I’m not sure why yet, and I might try to fix it in at least Firefox and Chromium. Those are the ones I can test with easily.
+
+This has been a fun project, and I’ve learned a bunch of new CSS tricks. Also, the amount of positive feedback has been overwhelming. Of course, there’s been some negative feedback as well, not to be dismissed. I do agree with the concern about legibility. Monospace fonts can be beautiful and very useful, but they’re probably not the best for prose or otherwise long bodies of text.
+
+Some have asked for reusable themes or some form of published artifact. I won’t spend time maintaining such packages, but I encourage those who would. Fork it, tweak it, build new cool things with it!
+
+Finally, I’ll note that I’m happy with how the overall feel of this design turned out, even setting aside the monospace aspect. Maybe it would work with a proportional, or perhaps semi-proportional, font as well?
+

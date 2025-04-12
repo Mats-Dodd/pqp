@@ -7,7 +7,7 @@ import { useState, useMemo, useRef } from "react";
 
 function App() {
   const [showGrid, setShowGrid] = useState(true);
-  const [inputHeight, setInputHeight] = useState(1); // Height in line-height units
+  const [inputHeight, setInputHeight] = useState(3); // Increased default height from 1 to 3
   const dragStartYRef = useRef(0);
   const startHeightRef = useRef(0);
   
@@ -99,25 +99,31 @@ function App() {
             onMouseDown={handleDragStart}
           />
           
-          <div className="border-grid w-full flex">
+          <div className="border-2 border-[var(--text-color)] w-full flex overflow-hidden" style={{ 
+            height: `calc(var(--line-height) * ${inputHeight})` 
+          }}>
             <ChatInput
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="▮"
               disabled={isLoading}
-              className="font-mono flex-grow"
+              className="font-mono flex-grow border-0 px-2ch py-0 focus:ring-0 focus:outline-none bg-transparent resize-none"
               style={{ 
                 lineHeight: 'var(--line-height)',
-                height: `calc(var(--line-height) * ${inputHeight})` 
+                height: `calc(var(--line-height) * ${inputHeight})`,
+                width: `calc(round(down, 100% - 1ch, 2ch))`
               }}
             />
             <Button 
               onClick={handleSendMessage} 
               disabled={!input.trim() || isLoading}
               variant="outline"
-              className="px-1ch py-0 h-auto border-0 border-l border-l-[var(--text-color)] border-solid hover:border-l-[var(--accent-color)] hover:text-[var(--accent-color)] transition-colors duration-200 disabled:opacity-50 font-mono rounded-none shadow-none text-xs"
-              style={{ height: `calc(var(--line-height) * ${inputHeight})` }}
+              className="px-2ch py-0 h-auto border-0 border-l-2 border-l-[var(--text-color)] border-solid hover:border-l-[var(--accent-color)] hover:text-[var(--accent-color)] transition-colors duration-200 disabled:opacity-50 font-mono rounded-none shadow-none text-xs"
+              style={{ 
+                height: `calc(var(--line-height) * ${inputHeight})`,
+                width: "11.5ch"
+              }}
             >
               [Find out]
             </Button>
