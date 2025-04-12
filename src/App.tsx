@@ -4,12 +4,19 @@ import { ChatInput } from "./components/ui/chat/chat-input";
 import { ChatBubble, ChatBubbleMessage } from "./components/ui/chat/chat-bubble";
 import { Button } from "./components/ui/button";
 import { useState, useMemo, useRef } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./components/ui/dropdown-menu";
 
 function App() {
   const [showGrid, setShowGrid] = useState(true);
-  const [inputHeight, setInputHeight] = useState(3); // Increased default height from 1 to 3
+  const [inputHeight, setInputHeight] = useState(4); // Increased default height from 1 to 3
   const dragStartYRef = useRef(0);
   const startHeightRef = useRef(0);
+  const [modelsOpen, setModelsOpen] = useState(false); // Add state for dropdown menu
   
   const {
     messages,
@@ -99,7 +106,7 @@ function App() {
             onMouseDown={handleDragStart}
           />
           
-          <div className="border-2 border-[var(--text-color)] w-full flex overflow-hidden" style={{ 
+          <div className="border-2 border-[var(--text-color)] w-full flex overflow-hidden relative" style={{ 
             height: `calc(var(--line-height) * ${inputHeight})` 
           }}>
             <ChatInput
@@ -112,17 +119,16 @@ function App() {
               style={{ 
                 lineHeight: 'var(--line-height)',
                 height: `calc(var(--line-height) * ${inputHeight})`,
-                width: `calc(round(down, 100% - 1ch, 2ch))`
+                width: "100%"
               }}
             />
             <Button 
               onClick={handleSendMessage} 
               disabled={!input.trim() || isLoading}
               variant="outline"
-              className="px-2ch py-0 h-auto border-0 border-l-2 border-l-[var(--text-color)] border-solid hover:border-l-[var(--accent-color)] hover:text-[var(--accent-color)] transition-colors duration-200 disabled:opacity-50 font-mono rounded-none shadow-none text-xs"
+              className="absolute bottom-0 right-0 px-2ch py-0 h-[var(--line-height)] border-0 hover:text-[var(--accent-color)] transition-colors duration-200 disabled:opacity-50 font-mono rounded-none shadow-none text-xs text-[#D6A97A]"
               style={{ 
-                height: `calc(var(--line-height) * ${inputHeight})`,
-                width: "11.5ch"
+                width: "11ch"
               }}
             >
               [Find out]
@@ -132,14 +138,38 @@ function App() {
         
         <footer className="font-mono text-xs flex justify-between mt-[var(--line-height)]">
           <div>Status: {isLoading ? 'Processing' : 'Online'}</div>
-          <Button 
-            onClick={toggleGrid} 
-            variant="ghost"
-            size="sm"
-            className="px-1ch py-0 h-auto hover:text-[var(--accent-color)] transition-colors duration-200 font-mono text-xs"
-          >
-            [Debug]
-          </Button>
+          <div className="flex items-center gap-4">
+            <DropdownMenu open={modelsOpen} onOpenChange={setModelsOpen}>
+              <DropdownMenuTrigger 
+                className="px-1ch py-0 h-auto hover:text-[var(--accent-color)] transition-colors duration-200 font-mono text-xs text-[#D6A97A]"
+              >
+                [Models]
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="end" 
+                className="font-mono text-xs bg-black border-2 border-[var(--text-color)] rounded-none shadow-lg p-0 z-50"
+                style={{ lineHeight: 'var(--line-height)' }}
+              >
+                <DropdownMenuItem className="px-2ch py-0 h-[var(--line-height)] hover:bg-[rgba(214,169,122,0.1)] hover:text-[#D6A97A] text-white cursor-pointer">
+                  Claude 3 Opus
+                </DropdownMenuItem>
+                <DropdownMenuItem className="px-2ch py-0 h-[var(--line-height)] hover:bg-[rgba(214,169,122,0.1)] hover:text-[#D6A97A] text-white cursor-pointer">
+                  Claude 3 Sonnet
+                </DropdownMenuItem>
+                <DropdownMenuItem className="px-2ch py-0 h-[var(--line-height)] hover:bg-[rgba(214,169,122,0.1)] hover:text-[#D6A97A] text-white cursor-pointer">
+                  Claude 3 Haiku
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button 
+              onClick={toggleGrid} 
+              variant="ghost"
+              size="sm"
+              className="px-1ch py-0 h-auto hover:text-[var(--accent-color)] transition-colors duration-200 font-mono text-xs"
+            >
+              [Debug]
+            </Button>
+          </div>
         </footer>
       </div>
     </main>
