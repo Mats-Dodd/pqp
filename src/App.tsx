@@ -3,8 +3,10 @@ import { ChatMessageList } from "./components/ui/chat/chat-message-list";
 import { ChatInput } from "./components/ui/chat/chat-input";
 import { ChatBubble, ChatBubbleMessage } from "./components/ui/chat/chat-bubble";
 import { Button } from "./components/ui/button";
+import { useState } from "react";
 
 function App() {
+  const [showGrid, setShowGrid] = useState(true);
   const {
     messages,
     input,
@@ -21,8 +23,10 @@ function App() {
     }
   };
   
+  const toggleGrid = () => setShowGrid(prev => !prev);
+  
   return (
-    <main className="h-screen font-mono font-medium bg-black text-white px-2ch py-[var(--line-height)] show-grid flex flex-col">
+    <main className={`h-screen font-mono font-medium bg-black text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''} flex flex-col`}>
       <div className="flex-1 overflow-hidden max-w-[80ch] mx-auto w-full" style={{ width: "calc(round(down, 100%, 1ch))" }}>
         <ChatMessageList ref={messagesEndRef}>
           {messages.map((message, index) => (
@@ -55,13 +59,21 @@ function App() {
               variant="outline"
               className="px-1ch py-0 h-auto border-0 border-l border-l-[var(--text-color)] border-solid hover:border-l-[var(--accent-color)] hover:text-[var(--accent-color)] transition-colors duration-200 disabled:opacity-50 font-mono rounded-none shadow-none text-xs"
             >
-              [Analyze]
+              [Find out]
             </Button>
           </div>
         </div>
         
         <footer className="font-mono text-xs flex justify-between mt-[var(--line-height)]">
           <div>Status: {isLoading ? 'Processing' : 'Online'}</div>
+          <Button 
+            onClick={toggleGrid} 
+            variant="ghost"
+            size="sm"
+            className="px-1ch py-0 h-auto hover:text-[var(--accent-color)] transition-colors duration-200 font-mono text-xs"
+          >
+            [Debug]
+          </Button>
         </footer>
       </div>
     </main>

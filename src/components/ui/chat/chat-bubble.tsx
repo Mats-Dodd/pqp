@@ -76,8 +76,8 @@ const chatBubbleMessageVariants = cva("border-grid", {
   variants: {
     variant: {
       received:
-        "bg-black text-white",
-      sent: "bg-black text-[var(--accent-color)] border-[var(--accent-color)]",
+        "text-[var(--accent-color)] border-0",
+      sent: "text-[var(--accent-color)] border-[var(--accent-color)]",
     },
     layout: {
       default: "",
