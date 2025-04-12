@@ -11,11 +11,12 @@ const ChatInput = React.forwardRef<HTMLTextAreaElement, ChatInputProps>(
       ref={ref}
       name="message"
       className={cn(
-        "w-full h-12 px-2 ch py-1 bg-black text-white font-mono border-0",
+        "w-full px-2ch py-[calc(var(--line-height)/2)] bg-black text-white font-mono border-0",
         "placeholder:text-grid focus:outline-none resize-none",
-        "caret-accent-blue focus-visible:ring-0",
+        "caret-[var(--accent-color)] focus-visible:ring-0",
         className,
       )}
+      style={{ lineHeight: "var(--line-height)" }}
       {...props}
     />
   ),

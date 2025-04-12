@@ -8,6 +8,13 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Monospace Web Design Variables */
+  --line-height: 1.2rem;
+  --border-thickness: 2px;
+  --text-color: #FFFFFF;
+  --accent-color: #00AEEF;
+  
+  /* Original Variables */
   --radius: 0.625rem;
   --background: #101010;
   --foreground: #FFFFFF;
@@ -120,14 +127,14 @@
 
 @layer base {
   html, body {
-    @apply font-sans text-white bg-black leading-normal;
-    font-variant-numeric: tabular-nums;
+    @apply font-mono font-medium text-white bg-black;
+    font-variant-numeric: tabular-nums lining-nums;
     text-rendering: geometricPrecision;
-    letter-spacing: -0.02em;
+    line-height: var(--line-height);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans;
+    @apply font-mono font-medium;
   }
 
   code, pre, .monospace {
@@ -137,13 +144,40 @@
 
   * {
     box-sizing: border-box;
+    text-decoration-thickness: var(--border-thickness);
   }
   
   /* Grid lines for development - can be toggled */
   .show-grid {
     background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px),
                       linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-    background-size: 1ch 1.5rem;
+    background-size: 1ch var(--line-height);
+  }
+  
+  /* Border utility classes for the monospace grid design */
+  .border-grid {
+    border: var(--border-thickness) solid var(--text-color);
+  }
+
+  /* Horizontal rule styling for the monospace grid design */
+  hr {
+    position: relative;
+    display: block;
+    height: var(--line-height);
+    margin: calc(var(--line-height) * 1.5) 0;
+    border: none;
+    color: var(--text-color);
+  }
+
+  hr:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: calc(var(--line-height) / 2 - var(--border-thickness));
+    left: 0;
+    width: 100%;
+    border-top: calc(var(--border-thickness) * 3) double var(--text-color);
+    height: 0;
   }
   
   /* Hide scrollbar but maintain scrollability */

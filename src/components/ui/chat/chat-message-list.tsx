@@ -29,23 +29,25 @@ const ChatMessageList = React.forwardRef<HTMLDivElement, ChatMessageListProps>(
           onTouchMove={disableAutoScroll}
           {...props}
         >
-          <div className="flex flex-col gap-4 ch pt-3 pb-3">
+          <div className="flex flex-col gap-[var(--line-height)]">
             {children}
           </div>
         </div>
 
         {!isAtBottom && (
-          <Button
-            onClick={() => {
-              scrollToBottom();
-            }}
-            size="icon"
-            variant="outline"
-            className="absolute bottom-4 right-2 ch inline-flex border border-grid hover:border-accent-blue hover:text-accent-blue rounded-none"
-            aria-label="Scroll to bottom"
-          >
-            <ArrowDown className="h-4 w-4" />
-          </Button>
+          <div className="absolute bottom-[var(--line-height)] right-0 flex justify-end w-full">
+            <Button
+              onClick={() => {
+                scrollToBottom();
+              }}
+              size="icon"
+              variant="outline"
+              className="border-grid hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] rounded-none mr-2ch"
+              aria-label="Scroll to bottom"
+            >
+              <ArrowDown className="h-4 w-4" />
+            </Button>
+          </div>
         )}
       </div>
     );

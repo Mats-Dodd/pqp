@@ -20,62 +20,47 @@ function App() {
       handleSendMessage();
     }
   };
-
-  // Get current timestamp in the format YYYY.MM.DD HH:MM UTC
-  const timestamp = new Date().toISOString().replace('T', ' ').replace(/\..+/, ' UTC');
   
   return (
-    <main className="h-screen bg-black text-white px-6 ch py-6 show-grid flex flex-col">
-      <header className="flex-shrink-0 max-w-[80ch] mx-auto w-full pb-6">
-        <div className="flex flex-col">
-          <div className="flex justify-between items-baseline">
-            <h1 className="text-xl font-sans leading-normal tracking-tight">Nilla</h1>
-            <div className="font-mono text-xs tabular-nums">v0.0.1</div>
-          </div>
-          <div className="font-mono text-xs flex justify-between items-baseline">
-            <div>Yours to discover</div>
-            <div className="tabular-nums">{timestamp}</div>
-          </div>
-        </div>
-      </header>
-
-      <div className="flex-1 overflow-hidden max-w-[80ch] mx-auto w-full pt-6">
+    <main className="h-screen font-mono font-medium bg-black text-white px-2ch py-[var(--line-height)] show-grid flex flex-col">
+      <div className="flex-1 overflow-hidden max-w-[80ch] mx-auto w-full" style={{ width: "calc(round(down, 100%, 1ch))" }}>
         <ChatMessageList ref={messagesEndRef}>
           {messages.map((message, index) => (
             <ChatBubble 
               key={index} 
               variant={message.role === "user" ? "sent" : "received"}
+              className="mb-[var(--line-height)]"
             >
-              <ChatBubbleMessage>{message.content}</ChatBubbleMessage>
+              <ChatBubbleMessage className="p-[calc(var(--line-height)/2)]">{message.content}</ChatBubbleMessage>
             </ChatBubble>
           ))}
         </ChatMessageList>
       </div>
 
-      <div className="flex-shrink-0 max-w-[80ch] mx-auto w-full pt-3">
+      <div className="flex-shrink-0 max-w-[80ch] mx-auto w-full mt-[var(--line-height)]" style={{ width: "calc(round(down, 100%, 1ch))" }}>
         <div className="relative">
-          <div className="border border-grid w-full">
+          <div className="border-grid w-full flex">
             <ChatInput
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="▮"
               disabled={isLoading}
+              className="font-mono flex-grow"
+              style={{ lineHeight: 'var(--line-height)' }}
             />
-          </div>
-          <div className="absolute bottom-2 right-2 font-mono">
             <Button 
               onClick={handleSendMessage} 
               disabled={!input.trim() || isLoading}
               variant="outline"
-              className="px-1.5 ch py-0.5 border border-grid hover:border-accent-blue hover:text-accent-blue transition-colors duration-200 disabled:opacity-50 font-mono rounded-none shadow-none text-xs"
+              className="px-1ch py-0 h-auto border-0 border-l border-l-[var(--text-color)] border-solid hover:border-l-[var(--accent-color)] hover:text-[var(--accent-color)] transition-colors duration-200 disabled:opacity-50 font-mono rounded-none shadow-none text-xs"
             >
               [Analyze]
             </Button>
           </div>
         </div>
         
-        <footer className="font-mono text-xs flex justify-between mt-3">
+        <footer className="font-mono text-xs flex justify-between mt-[var(--line-height)]">
           <div>Status: {isLoading ? 'Processing' : 'Online'}</div>
         </footer>
       </div>

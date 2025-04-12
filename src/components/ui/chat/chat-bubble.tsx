@@ -7,7 +7,7 @@ import { Button } from "../button";
 
 // ChatBubble
 const chatBubbleVariant = cva(
-  "flex gap-2 ch max-w-[60%] items-end relative group",
+  "flex gap-2ch max-w-[60%] items-end relative group",
   {
     variants: {
       variant: {
@@ -72,12 +72,12 @@ const ChatBubbleAvatar: React.FC<ChatBubbleAvatarProps> = ({
 );
 
 // ChatBubbleMessage
-const chatBubbleMessageVariants = cva("p-2 ch border", {
+const chatBubbleMessageVariants = cva("border-grid", {
   variants: {
     variant: {
       received:
-        "bg-black text-white border-grid",
-      sent: "bg-black text-accent-blue border-accent-blue",
+        "bg-black text-white",
+      sent: "bg-black text-[var(--accent-color)] border-[var(--accent-color)]",
     },
     layout: {
       default: "",
@@ -107,13 +107,14 @@ const ChatBubbleMessage = React.forwardRef<
     <div
       className={cn(
         chatBubbleMessageVariants({ variant, layout, className }),
-        "break-words max-w-full whitespace-pre-wrap font-mono",
+        "break-words max-w-full whitespace-pre-wrap font-mono"
       )}
+      style={{ padding: "calc(var(--line-height)/2)" }}
       ref={ref}
       {...props}
     >
       {isLoading ? (
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2ch">
           <MessageLoading />
         </div>
       ) : (
@@ -135,7 +136,7 @@ const ChatBubbleTimestamp: React.FC<ChatBubbleTimestampProps> = ({
   className,
   ...props
 }) => (
-  <div className={cn("text-xs mt-2 text-right font-mono", className)} {...props}>
+  <div className={cn("text-xs mt-[var(--line-height)] text-right font-mono", className)} {...props}>
     {timestamp}
   </div>
 );
