@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 
 export interface MCPServiceConfig {
@@ -21,12 +21,15 @@ export function useMCPServices() {
   const [services, setServices] = useState<string[]>([]);
   const [serviceStarted, setServiceStarted] = useState(false);
   const [shellOutput, setShellOutput] = useState<string>("");
+  const initializationRef = useRef(false);
   
   useEffect(() => {
-    if (!serviceStarted) {
+    // Only start the service if it hasn't been started and we haven't attempted to start it yet
+    if (!serviceStarted && !initializationRef.current) {
+      initializationRef.current = true;
       startService();
     }
-  }, []);
+  }, [serviceStarted]);
   
   async function startService(config: MCPServiceConfig = DEFAULT_SERVICE) {
     try {
@@ -39,7 +42,6 @@ export function useMCPServices() {
         args: config.args
       });
       
-      console.log("Service result:", result);
       setShellOutput(JSON.stringify(result, null, 2));
       setServiceStarted(true);
       return result;
@@ -53,7 +55,6 @@ export function useMCPServices() {
   async function fetchServices() {
     try {
       const servicesList = await invoke<string[]>('get_services');
-      console.log('Available services:', servicesList);
       setServices(servicesList);
       return servicesList;
     } catch (error) {
