@@ -20,6 +20,8 @@ function App() {
   const [modelsOpen, setModelsOpen] = useState(false); // Add state for dropdown menu
   const [services, setServices] = useState<string[]>([]);
   const [mcpOpen, setMcpOpen] = useState(false);
+  const [serviceStarted, setServiceStarted] = useState(false);
+  const [shellOutput, setShellOutput] = useState<string>("");
   
   const {
     messages,
@@ -29,6 +31,17 @@ function App() {
     handleSendMessage,
     messagesEndRef,
   } = useChat();
+
+  // Start MCP server when the component mounts
+  useEffect(() => {
+    const startMcpServer = async () => {
+      if (!serviceStarted) {
+        await startService();
+      }
+    };
+    
+    startMcpServer();
+  }, []);
 
   // Fetch services when component mounts or when MCP dropdown opens
   useEffect(() => {
@@ -48,6 +61,28 @@ function App() {
       fetchServices();
     }
   }, [mcpOpen]);
+
+  async function startService() {
+    try {
+      console.log("Starting MCP server...");
+      setShellOutput("Starting MCP server...");
+      const result = await invoke("start_service", {
+        serviceName: "filesystem",
+        executable: "npx",
+        args: [
+          "-y",
+          "@modelcontextprotocol/server-filesystem",
+          "/Users/matthewdodd/Documents"
+        ]
+      });
+      console.log("Server result:", result);
+      setShellOutput(JSON.stringify(result, null, 2));
+      setServiceStarted(true);
+    } catch (error) {
+      console.error("Server error:", error);
+      setShellOutput(`Error: ${JSON.stringify(error, null, 2)}`);
+    }
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -159,7 +194,7 @@ function App() {
         </div>
         
         <footer className="font-mono text-xs flex justify-between mt-[var(--line-height)]">
-          <div>Status: {isLoading ? 'Processing' : 'Online'}</div>
+          <div>Status: {isLoading ? 'Processing' : serviceStarted ? 'MCP Server Running' : 'Online'}</div>
           <div className="flex items-center gap-4">
             <DropdownMenu open={modelsOpen} onOpenChange={setModelsOpen}>
               <DropdownMenuTrigger 
