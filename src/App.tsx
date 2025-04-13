@@ -7,6 +7,7 @@ import { ResizableChatInput } from "./components/chat/resizable-chat-input";
 import { ChatFooter } from "./components/chat/chat-footer";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import LayoutIcon from "./assets/layout.svg";
 
 function App() {
   const [modelsOpen, setModelsOpen] = useState(false);
@@ -45,14 +46,16 @@ function App() {
   
   return (
     <SidebarProvider>
-      {/* Relative container for sidebar and trigger */}
-      <div className="relative">
-        {/* Positioned SidebarTrigger relative to the container */}
-        <div className="absolute top-[var(--line-height)] left-2ch z-20">
-          <SidebarTrigger />
-        </div>
-        <AppSidebar />
+      {/* Fixed position SidebarTrigger */}
+      <div className="fixed top-[var(--line-height)] left-2ch z-20">
+        <SidebarTrigger>
+          <img src={LayoutIcon} alt="Toggle Sidebar" className="w-5 h-5 brightness-0 invert" />
+        </SidebarTrigger>
       </div>
+      
+      {/* Sidebar */}
+      <AppSidebar />
+      
       <main className="flex-1 flex flex-col">
         <div className={`flex-1 flex flex-col font-mono font-medium bg-black text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''}`}>
           <ChatMessageArea 
