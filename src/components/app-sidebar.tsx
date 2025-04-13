@@ -8,7 +8,8 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarGroupLabel,
-  SidebarGroupContent
+  SidebarGroupContent,
+  SidebarTrigger
 } from "@/components/ui/sidebar";
 import { Home, Settings } from "lucide-react"; // Example icons
 
@@ -30,6 +31,7 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
+        {/* Removed SidebarTrigger from here */}
         {/* You can add a logo or title here */}
       </SidebarHeader>
       <SidebarContent>

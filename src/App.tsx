@@ -45,13 +45,16 @@ function App() {
   
   return (
     <SidebarProvider>
-      <AppSidebar />
+      {/* Relative container for sidebar and trigger */}
+      <div className="relative">
+        {/* Positioned SidebarTrigger relative to the container */}
+        <div className="absolute top-[var(--line-height)] left-2ch z-20">
+          <SidebarTrigger />
+        </div>
+        <AppSidebar />
+      </div>
       <main className="flex-1 flex flex-col">
         <div className={`flex-1 flex flex-col font-mono font-medium bg-black text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''}`}>
-          <div className="absolute top-[var(--line-height)] left-2ch z-20">
-             <SidebarTrigger />
-          </div>
-         
           <ChatMessageArea 
             messages={messages}
             messagesEndRef={messagesEndRef}
