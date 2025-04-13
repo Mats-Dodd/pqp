@@ -49,7 +49,7 @@ function App() {
       {/* Fixed position SidebarTrigger */}
       <div className="fixed top-[var(--line-height)] left-2ch z-20">
         <SidebarTrigger>
-          <img src={LayoutIcon} alt="Toggle Sidebar" className="w-5 h-5 brightness-0 invert" />
+          <img src={LayoutIcon} alt="Toggle Sidebar" className="w-5 h-5" />
         </SidebarTrigger>
       </div>
       
