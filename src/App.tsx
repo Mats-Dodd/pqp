@@ -5,6 +5,8 @@ import { useDebugGrid } from "./hooks/useDebugGrid";
 import { ChatMessageArea } from "./components/chat/chat-message-area";
 import { ResizableChatInput } from "./components/chat/resizable-chat-input";
 import { ChatFooter } from "./components/chat/chat-footer";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 function App() {
   const [modelsOpen, setModelsOpen] = useState(false);
@@ -42,34 +44,43 @@ function App() {
   };
   
   return (
-    <main className={`h-screen font-mono font-medium bg-black text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''} flex flex-col`}>
-      <ChatMessageArea 
-        messages={messages}
-        messagesEndRef={messagesEndRef}
-      />
+    <SidebarProvider>
+      <AppSidebar />
+      <main className="flex-1 flex flex-col">
+        <div className={`flex-1 flex flex-col font-mono font-medium bg-black text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''}`}>
+          <div className="absolute top-[var(--line-height)] left-2ch z-20">
+             <SidebarTrigger />
+          </div>
+         
+          <ChatMessageArea 
+            messages={messages}
+            messagesEndRef={messagesEndRef}
+          />
 
-      <div className="flex-shrink-0 max-w-[80ch] mx-auto w-full mt-[var(--line-height)]" style={{ width: "calc(round(down, 100%, 1ch))" }}>
-        <ResizableChatInput
-          input={input}
-          setInput={setInput}
-          isLoading={isLoading}
-          handleSendMessage={handleSendMessage}
-        />
-        
-        <ChatFooter
-          isLoading={isLoading}
-          serviceStarted={serviceStarted}
-          services={services}
-          modelsOpen={modelsOpen}
-          setModelsOpen={setModelsOpen}
-          mcpOpen={mcpOpen}
-          setMcpOpen={setMcpOpen}
-          onToggleGrid={toggleGrid}
-          onSelectModel={handleSelectModel}
-          onSelectService={handleSelectService}
-        />
-      </div>
-    </main>
+          <div className="flex-shrink-0 max-w-[80ch] mx-auto w-full mt-[var(--line-height)]" style={{ width: "calc(round(down, 100%, 1ch))" }}>
+            <ResizableChatInput
+              input={input}
+              setInput={setInput}
+              isLoading={isLoading}
+              handleSendMessage={handleSendMessage}
+            />
+            
+            <ChatFooter
+              isLoading={isLoading}
+              serviceStarted={serviceStarted}
+              services={services}
+              modelsOpen={modelsOpen}
+              setModelsOpen={setModelsOpen}
+              mcpOpen={mcpOpen}
+              setMcpOpen={setMcpOpen}
+              onToggleGrid={toggleGrid}
+              onSelectModel={handleSelectModel}
+              onSelectService={handleSelectService}
+            />
+          </div>
+        </div>
+      </main>
+    </SidebarProvider>
   );
 }
 
