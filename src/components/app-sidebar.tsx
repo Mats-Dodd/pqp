@@ -28,7 +28,7 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="font-mono font-medium bg-[#1F1F1F] text-white border-r border-grid">
+    <Sidebar className="font-mono font-medium bg-[#1F1F1F] text-white">
       <SidebarHeader className="p-2ch flex items-center">
         PQP
       </SidebarHeader>
