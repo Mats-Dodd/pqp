@@ -17,7 +17,7 @@ const anthropic = initAnthropicClient();
 export const sendMessageToAnthropic = async (messages: Message[]) => {
   try {
     const response = await anthropic.messages.create({
-      model: "claude-3-haiku-20240307",
+      model: "claude-3-7-sonnet-20250219",
       max_tokens: 1000,
       messages: messages.map((msg) => ({
         role: msg.role,
