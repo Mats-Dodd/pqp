@@ -4,6 +4,7 @@ use futures_util::StreamExt;
 use std::env;
 use dotenv::dotenv;
 use tauri_plugin_http::reqwest;
+use serde_json::{json, Value};
 
 #[derive(Deserialize)]
 struct AnthropicRequestPayload {
@@ -12,6 +13,21 @@ struct AnthropicRequestPayload {
     // We might need to refine this based on what useChat actually sends.
     #[serde(flatten)]
     anthropic_data: serde_json::Value,
+}
+
+// Anthropic's event data structure for streaming
+#[derive(Deserialize, Debug)]
+struct AnthropicEvent {
+    #[serde(rename = "type")]
+    event_type: String,
+    delta: Option<AnthropicDelta>,
+    message: Option<Value>,
+    usage: Option<Value>,
+}
+
+#[derive(Deserialize, Debug)]
+struct AnthropicDelta {
+    text: Option<String>,
 }
 
 #[tauri::command]
@@ -24,8 +40,6 @@ pub async fn stream_api_request(window: Window, payload: String) -> Result<(), S
     let api_key = match api_key_result {
         Ok(key) => {
             println!("ANTHROPIC_API_KEY loaded successfully."); // Added log
-            // Avoid logging the actual key for security:
-            // println!("Loaded key (partial): {}...", &key[..std::cmp::min(key.len(), 5)]);
             key
         }
         Err(e) => {
@@ -51,18 +65,8 @@ pub async fn stream_api_request(window: Window, payload: String) -> Result<(), S
     println!("hello from rust");
 
     // Deserialize the payload received from the frontend
-    // For now, let's assume the payload string is the direct JSON body needed by Anthropic
-    // This might need adjustment if useChat wraps it.
-    // let request_payload: AnthropicRequestPayload = serde_json::from_str(&payload)
-    //     .map_err(|e| format!("Failed to parse payload: {}", e))?;
-
-    // Directly use the payload string for now, assuming it's the correct JSON format.
-    // Ensure 'stream: true' is set by the frontend or add it here if needed.
     let body_json: serde_json::Value = serde_json::from_str(&payload)
          .map_err(|e| format!("Failed to parse payload into JSON Value: {}", e))?;
-
-    // TODO: Add logic here to ensure stream: true is set in body_json if not already present.
-
 
     let client = reqwest::Client::new();
     let response = client.post("https://api.anthropic.com/v1/messages")
@@ -84,26 +88,118 @@ pub async fn stream_api_request(window: Window, payload: String) -> Result<(), S
     }
 
     let mut stream = response.bytes_stream();
+    let mut buffer = String::new();
+    
+    // Track whether we've sent a start event
+    let mut started = false;
 
     while let Some(item) = stream.next().await {
         match item {
             Ok(chunk) => {
                 // Convert bytes to string - handle potential UTF-8 errors
                 match String::from_utf8(chunk.to_vec()) {
-                     Ok(chunk_string) => {
-                        window.emit("anthropic-stream-chunk", &chunk_string)
-                              .map_err(|e| format!("Failed to emit chunk event: {}", e))?;
-                     }
+                    Ok(chunk_string) => {
+                        // Anthropic uses Server-Sent Events format with "data: {json}" lines
+                        buffer.push_str(&chunk_string);
+                        
+                        // Process complete SSE events
+                        while let Some(pos) = buffer.find("\n\n") {
+                            let event_data = buffer[..pos].to_string();
+                            buffer = buffer[pos + 2..].to_string();
+                            
+                            // Process each line in the event
+                            for line in event_data.lines() {
+                                if line.starts_with("data: ") {
+                                    let json_str = &line[6..]; // Skip "data: "
+                                    
+                                    if json_str == "[DONE]" {
+                                        // End of stream
+                                        continue;
+                                    }
+                                    
+                                    // Parse Anthropic's JSON
+                                    match serde_json::from_str::<AnthropicEvent>(json_str) {
+                                        Ok(event) => {
+                                            // Transform to Vercel AI SDK format
+                                            match event.event_type.as_str() {
+                                                "content_block_delta" => {
+                                                    if let Some(delta) = event.delta {
+                                                        if let Some(text) = delta.text {
+                                                            // Text part: 0:"example"\n
+                                                            let vercel_format = format!("0:{}\n", 
+                                                                serde_json::to_string(&text)
+                                                                .unwrap_or_else(|_| "\"\"".to_string()));
+                                                            
+                                                            window.emit("anthropic-stream-chunk", &vercel_format)
+                                                                .map_err(|e| format!("Failed to emit chunk event: {}", e))?;
+                                                        }
+                                                    }
+                                                },
+                                                "message_start" => {
+                                                    // Mark that we've started processing
+                                                    started = true;
+                                                    
+                                                    // Start step part: f:{"messageId":"step_123"}\n
+                                                    if let Some(message) = &event.message {
+                                                        if let Some(message_id) = message.get("id") {
+                                                            let start_step = format!("f:{}\n", 
+                                                                serde_json::to_string(&json!({
+                                                                    "messageId": message_id
+                                                                })).unwrap_or_else(|_| "{}".to_string()));
+                                                            
+                                                            window.emit("anthropic-stream-chunk", &start_step)
+                                                                .map_err(|e| format!("Failed to emit start step event: {}", e))?;
+                                                        }
+                                                    }
+                                                },
+                                                "message_delta" => {
+                                                    // Content deltas are handled in content_block_delta
+                                                },
+                                                "message_stop" => {
+                                                    // Finish step part
+                                                    let finish_step = format!("e:{}\n", 
+                                                        serde_json::to_string(&json!({
+                                                            "finishReason": "stop",
+                                                            "usage": event.usage.clone().unwrap_or(json!({})),
+                                                            "isContinued": false
+                                                        })).unwrap_or_else(|_| "{}".to_string()));
+                                                    
+                                                    window.emit("anthropic-stream-chunk", &finish_step)
+                                                        .map_err(|e| format!("Failed to emit finish step event: {}", e))?;
+                                                    
+                                                    // Finish message part
+                                                    let finish_message = format!("d:{}\n", 
+                                                        serde_json::to_string(&json!({
+                                                            "finishReason": "stop",
+                                                            "usage": event.usage.unwrap_or(json!({}))
+                                                        })).unwrap_or_else(|_| "{}".to_string()));
+                                                    
+                                                    window.emit("anthropic-stream-chunk", &finish_message)
+                                                        .map_err(|e| format!("Failed to emit finish message event: {}", e))?;
+                                                },
+                                                _ => {
+                                                    // Unknown event type, log for debugging
+                                                    println!("Unknown event type: {}", event.event_type);
+                                                }
+                                            }
+                                        },
+                                        Err(e) => {
+                                            println!("Failed to parse Anthropic event: {}, json: {}", e, json_str);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     Err(e) => {
-                         let error_msg = format!("Failed to decode chunk as UTF-8: {}", e);
-                         window.emit("anthropic-stream-error", &error_msg).map_err(|e| format!("Failed to emit UTF-8 error event: {}", e))?;
-                         // Decide whether to continue or break here based on error severity
+                        let error_msg = format!("Failed to decode chunk as UTF-8: {}", e);
+                        window.emit("anthropic-stream-error", &error_msg).map_err(|e| format!("Failed to emit UTF-8 error event: {}", e))?;
                     }
                 }
             }
             Err(e) => {
                 let error_msg = format!("Error reading stream chunk: {}", e);
-                 window.emit("anthropic-stream-error", &error_msg).map_err(|e| format!("Failed to emit stream read error event: {}", e))?;
+                window.emit("anthropic-stream-error", &error_msg).map_err(|e| format!("Failed to emit stream read error event: {}", e))?;
                 return Err(error_msg); // Stop processing on stream error
             }
         }

@@ -10,7 +10,7 @@ import { customTauriFetch } from './custom-fetch';
  * configured here.
  */
 export const anthropicProvider = createAnthropic({
-  fetch: customTauriFetch,
+  fetch: customTauriFetch as typeof fetch,
 });
 
 // Default model to use
@@ -59,12 +59,21 @@ export async function handleChatRequest(request: Request): Promise<Response> {
     console.log('handleChatRequest: Prepared direct Anthropic payload');
     
     // Call our customTauriFetch with a payload formatted exactly as the Rust backend expects
-    return customTauriFetch('https://api.anthropic.com/v1/messages', {
+    const response = await customTauriFetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: anthropicPayload,
+    });
+    
+    // Return the response with the Vercel AI SDK data stream header
+    return new Response(response.body, {
+      headers: {
+        'Content-Type': 'text/plain', 
+        'Transfer-Encoding': 'chunked',
+        'x-vercel-ai-data-stream': 'v1'
+      }
     });
   } catch (error) {
     console.error('Error processing chat request:', error);
