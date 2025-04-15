@@ -56,13 +56,19 @@ function App() {
       {/* Sidebar */}
       <AppSidebar />
       
-      <main className="flex-1 flex flex-col overflow-y-auto">
-        <div className={`flex-1 flex flex-col font-mono font-medium text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''}`}>
-          <ChatMessageArea 
-            messages={messages}
-            messagesEndRef={messagesEndRef}
-          />
+      {/* Main content area takes remaining space */}
+      <main className="flex-1 flex flex-col h-screen"> {/* Occupy full height */}
+        {/* Inner container manages layout and scrolling */}
+        <div className={`flex-1 flex flex-col font-mono font-medium text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''} overflow-hidden`}> {/* Fill space, manage overflow */}
+          {/* Message area grows and scrolls */}
+          <div className="flex-1 overflow-y-auto">
+            <ChatMessageArea
+              messages={messages}
+              messagesEndRef={messagesEndRef}
+            />
+          </div>
 
+          {/* Input area remains fixed at the bottom */}
           <div className="flex-shrink-0 max-w-[80ch] mx-auto w-full mt-[var(--line-height)]" style={{ width: "calc(round(down, 100%, 1ch))" }}>
             <ResizableChatInput
               input={input}
