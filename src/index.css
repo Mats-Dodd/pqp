@@ -16,9 +16,12 @@
   
   /* Original Variables */
   --radius: 0.625rem;
-  --background: #101010;
-  --foreground: #FFFFFF;
+  --background: #121212; /* Updated base background */
+  --secondary-background: #1C1C1C; /* New secondary background */
+  --foreground: #E0E0E0; /* Primary text */
   --grid: #1F1F1F;
+  --border-color: #444444; /* New border color */
+  --hover-background: #2A2A2A; /* Hover background, reusing sidebar accent */
   --accent-red: #E30613;
   --accent-blue: #00AEEF;
   --accent-yellow: #FFEB00;
@@ -31,11 +34,11 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: #B0B0B0; /* Secondary/Muted text */
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
+  --border: var(--border-color); /* Use defined border color */
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -43,7 +46,7 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: #1F1F1F;
+  --sidebar: var(--secondary-background);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -69,7 +72,7 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --border: var(--border-color); /* Use defined border color */
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -110,6 +113,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-hover-background: var(--hover-background);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -127,7 +131,8 @@
 
 @layer base {
   html, body {
-    @apply font-mono font-medium text-white bg-black;
+    @apply font-mono font-medium text-foreground;
+    background-color: #121212; /* Set global background color */
     font-variant-numeric: tabular-nums lining-nums;
     text-rendering: geometricPrecision;
     line-height: var(--line-height);

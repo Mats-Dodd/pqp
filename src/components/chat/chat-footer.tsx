@@ -29,7 +29,7 @@ export function ChatFooter({
 }: ChatFooterProps) {
   return (
     <footer className="font-mono text-xs flex justify-between mt-[var(--line-height)]">
-      <div>Status: {isLoading ? 'Processing' : serviceStarted ? 'MCP Server Running' : 'Online'}</div>
+      <div className="text-muted-foreground">Status: {isLoading ? 'Processing' : serviceStarted ? 'MCP Server Running' : 'Online'}</div>
       <div className="flex items-center gap-4">
         <ModelsDropdown 
           open={modelsOpen} 
@@ -48,7 +48,7 @@ export function ChatFooter({
           onClick={onToggleGrid} 
           variant="ghost"
           size="sm"
-          className="px-1ch py-0 h-auto hover:text-[var(--accent-color)] transition-colors duration-200 font-mono text-xs"
+          className="px-1ch py-0 h-auto transition-colors duration-200 font-mono text-xs text-[#D6A97A]"
         >
           [Debug]
         </Button>

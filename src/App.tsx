@@ -57,7 +57,7 @@ function App() {
       <AppSidebar />
       
       <main className="flex-1 flex flex-col overflow-y-auto">
-        <div className={`flex-1 flex flex-col font-mono font-medium bg-black text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''}`}>
+        <div className={`flex-1 flex flex-col font-mono font-medium text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''}`}>
           <ChatMessageArea 
             messages={messages}
             messagesEndRef={messagesEndRef}

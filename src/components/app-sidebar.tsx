@@ -43,7 +43,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton 
                     asChild 
-                    className="px-2ch py-[calc(var(--line-height)/2)] hover:bg-[#2A2A2A] transition-colors"
+                    className="px-2ch py-[calc(var(--line-height)/2)] hover:bg-hover-background transition-colors"
                   >
                     <a href={item.url} className="flex items-center gap-2ch">
                       <item.icon className="size-[var(--line-height)]"/>
