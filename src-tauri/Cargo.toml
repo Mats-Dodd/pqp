@@ -30,4 +30,7 @@ rmcp = {version = "0.1.5", features = [
     "tower"
 ] }
 tokio = "1.44.2"
+tauri-plugin-http = "2"
+futures-util = "0.3.31"
+dotenv = "0.15.0"
 

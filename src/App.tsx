@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useChat } from "./hooks/useChat";
+import { useState, useEffect, useRef } from "react";
+import { useChat } from "@ai-sdk/react";
 import { useMCPServices } from "./hooks/useMCPServices";
 import { useDebugGrid } from "./hooks/useDebugGrid";
 import { ChatMessageArea } from "./components/chat/chat-message-area";
@@ -8,23 +8,37 @@ import { ChatFooter } from "./components/chat/chat-footer";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import LayoutIcon from "./assets/layout.svg";
+import { setupApiRoutes } from "./lib/api-routes";
+
+// Set up API route interception (replaces the need for Next.js API routes)
+setupApiRoutes();
 
 function App() {
   const [modelsOpen, setModelsOpen] = useState(false);
   const [mcpOpen, setMcpOpen] = useState(false);
+  
+  // Standard useChat configuration that works with our intercepted /api/chat endpoint
   const {
     messages,
     input,
+    handleInputChange,
+    handleSubmit,
     isLoading,
-    setInput,
-    handleSendMessage,
-    messagesEndRef,
-  } = useChat();
+    error,
+  } = useChat({
+    api: '/api/chat',
+    // No need for special model/fetch overrides anymore, as they're handled by our API route
+  });
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
   
   const {
     services,
     serviceStarted,
-    startService,
     fetchServices
   } = useMCPServices();
   
@@ -34,14 +48,21 @@ function App() {
     if (mcpOpen) {
       fetchServices();
     }
-  }, [mcpOpen]);
+  }, [mcpOpen, fetchServices]);
   
-  const handleSelectModel = (model: string) => {
-    console.log(`Selected model: ${model}`);
+  const handleSelectModel = (modelId: string) => {
+    console.log(`Selected model: ${modelId}`);
+    // TODO: Implement logic to update the model - this would now need to be handled
+    // at the API route level by updating the defaultModel in ai-provider.ts
   };
   
   const handleSelectService = (service: string) => {
     console.log(`Selected service: ${service}`);
+  };
+  
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSubmit(e);
   };
   
   return (
@@ -57,38 +78,37 @@ function App() {
       <AppSidebar />
       
       {/* Main content area takes remaining space */}
-      <main className="flex-1 flex flex-col h-screen"> {/* Occupy full height */}
-        {/* Inner container manages layout and scrolling */}
-        <div className={`flex-1 flex flex-col font-mono font-medium text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''} overflow-hidden`}> {/* Fill space, manage overflow */}
-          {/* Message area grows and scrolls */}
+      <main className="flex-1 flex flex-col h-screen">
+        <div className={`flex-1 flex flex-col font-mono font-medium text-white px-2ch py-[var(--line-height)] ${showGrid ? 'show-grid' : ''} overflow-hidden`}>
           <div className="flex-1 overflow-y-auto">
+            {error && <div className="text-red-500 p-2">Error: {error.message}</div>}
             <ChatMessageArea
               messages={messages}
               messagesEndRef={messagesEndRef}
             />
           </div>
 
-          {/* Input area remains fixed at the bottom */}
           <div className="flex-shrink-0 max-w-[80ch] mx-auto w-full mt-[var(--line-height)]" style={{ width: "calc(round(down, 100%, 1ch))" }}>
-            <ResizableChatInput
-              input={input}
-              setInput={setInput}
-              isLoading={isLoading}
-              handleSendMessage={handleSendMessage}
-            />
-            
-            <ChatFooter
-              isLoading={isLoading}
-              serviceStarted={serviceStarted}
-              services={services}
-              modelsOpen={modelsOpen}
-              setModelsOpen={setModelsOpen}
-              mcpOpen={mcpOpen}
-              setMcpOpen={setMcpOpen}
-              onToggleGrid={toggleGrid}
-              onSelectModel={handleSelectModel}
-              onSelectService={handleSelectService}
-            />
+            <form onSubmit={handleFormSubmit}>
+              <ResizableChatInput
+                input={input}
+                handleInputChange={handleInputChange}
+                isLoading={isLoading}
+              />
+              
+              <ChatFooter
+                isLoading={isLoading}
+                serviceStarted={serviceStarted}
+                services={services}
+                modelsOpen={modelsOpen}
+                setModelsOpen={setModelsOpen}
+                mcpOpen={mcpOpen}
+                setMcpOpen={setMcpOpen}
+                onToggleGrid={toggleGrid}
+                onSelectModel={handleSelectModel}
+                onSelectService={handleSelectService}
+              />
+            </form>
           </div>
         </div>
       </main>

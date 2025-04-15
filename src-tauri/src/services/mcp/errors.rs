@@ -1,10 +1,7 @@
-use std::fmt;
+use rmcp::{model::JsonRpcError, ServiceError};
 use std::error::Error;
+use std::fmt;
 use std::io;
-use rmcp::{
-    ServiceError,
-    model::JsonRpcError
-};
 use tokio::task::JoinError;
 
 #[derive(Debug)]
@@ -76,4 +73,4 @@ impl From<McpError> for String {
     fn from(err: McpError) -> Self {
         err.to_string()
     }
-} 
+}
