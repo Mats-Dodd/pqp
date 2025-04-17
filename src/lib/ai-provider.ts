@@ -1,35 +1,20 @@
 import { createAnthropic } from '@ai-sdk/anthropic';
-import { streamText } from 'ai';
 import { customTauriFetch } from './custom-fetch';
 
-/**
- * Creates an Anthropic provider instance configured to route requests
- * through our custom Tauri fetch function (which invokes the Rust backend).
- * 
- * API keys and base URLs are handled by the Rust backend, so they are not
- * configured here.
- */
+
 export const anthropicProvider = createAnthropic({
   fetch: customTauriFetch as typeof fetch,
 });
 
-// Default model to use
 export const defaultModel = 'claude-3-haiku-20240307';
 
-/**
- * Simulates a server API route handler for /api/chat
- * This is designed to be used with monkeyPatchFetch to intercept fetch requests
- * Processes AI chat messages using the Anthropic provider
- */
 export async function handleChatRequest(request: Request): Promise<Response> {
   try {
     console.log('handleChatRequest: Processing request', request.method);
     
-    // Parse the incoming request body - this is coming from useChat
     const body = await request.json();
     console.log('handleChatRequest: Request body parsed', body);
     
-    // Extract messages from the body
     const { messages } = body;
     
     if (!messages || !Array.isArray(messages)) {
@@ -38,9 +23,6 @@ export async function handleChatRequest(request: Request): Promise<Response> {
     
     console.log('handleChatRequest: Messages extracted', messages);
     
-    // Transform messages to a format compatible with Anthropic API
-    // - Remove 'parts' field which causes the "Extra inputs are not permitted" error
-    // - Keep 'role' and 'content' only
     const transformedMessages = messages.map(msg => ({
       role: msg.role,
       content: msg.content
@@ -48,7 +30,6 @@ export async function handleChatRequest(request: Request): Promise<Response> {
     
     console.log('handleChatRequest: Transformed messages', transformedMessages);
     
-    // Create a raw request directly to the Anthropic API but routed through our custom fetch
     const anthropicPayload = JSON.stringify({
       model: defaultModel,
       messages: transformedMessages,
@@ -58,7 +39,6 @@ export async function handleChatRequest(request: Request): Promise<Response> {
     
     console.log('handleChatRequest: Prepared direct Anthropic payload');
     
-    // Call our customTauriFetch with a payload formatted exactly as the Rust backend expects
     const response = await customTauriFetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -67,7 +47,6 @@ export async function handleChatRequest(request: Request): Promise<Response> {
       body: anthropicPayload,
     });
     
-    // Return the response with the Vercel AI SDK data stream header
     return new Response(response.body, {
       headers: {
         'Content-Type': 'text/plain', 
@@ -89,7 +68,3 @@ export async function handleChatRequest(request: Request): Promise<Response> {
     );
   }
 }
-
-// Example of how to use it (similar to App.tsx):
-// import { anthropicProvider } from './ai-provider';
-// const model = anthropicProvider('claude-3-haiku-20240307'); 
