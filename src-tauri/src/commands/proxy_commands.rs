@@ -32,27 +32,25 @@ struct AnthropicDelta {
 
 #[tauri::command]
 pub async fn stream_api_request(window: Window, payload: String) -> Result<(), String> {
-    dotenv().ok(); // Load .env file
-    println!("Attempting to load ANTHROPIC_API_KEY from .env"); // Added log
+    dotenv().ok(); 
+    println!("Attempting to load ANTHROPIC_API_KEY from .env"); 
 
     let api_key_result = env::var("ANTHROPIC_API_KEY");
 
     let api_key = match api_key_result {
         Ok(key) => {
-            println!("ANTHROPIC_API_KEY loaded successfully."); // Added log
+            println!("ANTHROPIC_API_KEY loaded successfully."); 
             key
         }
         Err(e) => {
             let error_msg = format!("Failed to load ANTHROPIC_API_KEY: {}", e);
-            println!("{}", error_msg); // Added log
-            // Emit error back to frontend if key not found
+            println!("{}", error_msg); 
             window.emit("anthropic-stream-error", &error_msg).map_err(|e_emit| format!("Failed to emit API key error event: {}", e_emit))?;
             return Err(error_msg);
         }
     };
 
     // --- TEMPORARY LOGGING --- 
-    // Log redacted key just before use to be 100% sure
     let key_len = api_key.len();
     let redacted_key = if key_len > 10 {
         format!("{}...{}", &api_key[..5], &api_key[key_len-5..])
@@ -64,7 +62,6 @@ pub async fn stream_api_request(window: Window, payload: String) -> Result<(), S
 
     println!("hello from rust");
 
-    // Deserialize the payload received from the frontend
     let body_json: serde_json::Value = serde_json::from_str(&payload)
          .map_err(|e| format!("Failed to parse payload into JSON Value: {}", e))?;
 
