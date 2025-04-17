@@ -5,22 +5,30 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
+interface Model {
+  id: string;
+  name: string;
+}
+
 interface ModelsDropdownProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSelectModel?: (model: string) => void;
+  onSelectModel?: (modelId: string) => void; 
+  selectedModelId: string;
 }
 
-export function ModelsDropdown({ open, onOpenChange, onSelectModel }: ModelsDropdownProps) {
-  const models = [
-    "Claude 3 Opus",
-    "Claude 3 Sonnet",
-    "Claude 3 Haiku"
+export function ModelsDropdown({ open, onOpenChange, onSelectModel, selectedModelId }: ModelsDropdownProps) {
+  const models: Model[] = [
+    { id: "claude-3-5-sonnet-latest", name: "Claude 3.5 Sonnet" },
+    { id: "claude-3-7-sonnet-latest", name: "Claude 3.7 Sonnet" },
+    { id: "claude-3-5-haiku-latest", name: "Claude 3.5 Haiku" }
   ];
   
-  const handleSelect = (model: string) => {
+  const selectedModel = models.find(model => model.id === selectedModelId);
+  
+  const handleSelect = (modelId: string) => { 
     if (onSelectModel) {
-      onSelectModel(model);
+      onSelectModel(modelId); 
     }
   };
   
@@ -29,7 +37,7 @@ export function ModelsDropdown({ open, onOpenChange, onSelectModel }: ModelsDrop
       <DropdownMenuTrigger 
         className="px-1ch py-0 h-auto hover:text-[var(--accent-color)] transition-colors duration-200 font-mono text-xs text-[#D6A97A]"
       >
-        {'<Models>'}
+        {selectedModel ? selectedModel.name : 'Select Model'}
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="end" 
@@ -39,10 +47,10 @@ export function ModelsDropdown({ open, onOpenChange, onSelectModel }: ModelsDrop
         {models.map((model, index) => (
           <DropdownMenuItem 
             key={index} 
-            onClick={() => handleSelect(model)}
+            onClick={() => handleSelect(model.id)} 
             className="px-2ch py-0 h-[var(--line-height)] hover:bg-[rgba(214,169,122,0.1)] hover:text-[#D6A97A] text-white cursor-pointer"
           >
-            {model}
+            {model.name} 
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

@@ -12,6 +12,7 @@ interface ChatFooterProps {
   setMcpOpen: (open: boolean) => void;
   onToggleGrid: () => void;
   onSelectModel?: (model: string) => void;
+  selectedModelId: string;
   onSelectService?: (service: string) => void;
 }
 
@@ -25,6 +26,7 @@ export function ChatFooter({
   setMcpOpen,
   onToggleGrid,
   onSelectModel,
+  selectedModelId,
   onSelectService
 }: ChatFooterProps) {
   return (
@@ -35,6 +37,7 @@ export function ChatFooter({
           open={modelsOpen} 
           onOpenChange={setModelsOpen}
           onSelectModel={onSelectModel}
+          selectedModelId={selectedModelId}
         />
         
         <MCPServicesDropdown

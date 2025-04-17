@@ -9,12 +9,14 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import LayoutIcon from "./assets/layout.svg";
 import { setupApiRoutes } from "./lib/api-routes";
+import { defaultModel } from "./lib/ai-provider";
 
 setupApiRoutes();
 
 function App() {
   const [modelsOpen, setModelsOpen] = useState(false);
   const [mcpOpen, setMcpOpen] = useState(false);
+  const [selectedModel, setSelectedModel] = useState<string>(defaultModel);
   
   const {
     messages,
@@ -25,6 +27,9 @@ function App() {
     error,
   } = useChat({
     api: '/api/chat',
+    body: {
+      model: selectedModel,
+    },
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -48,7 +53,8 @@ function App() {
   }, [mcpOpen, fetchServices]);
   
   const handleSelectModel = (modelId: string) => {
-    console.log(`Selected model: ${modelId}`);
+    console.log(`Selected model ID: ${modelId}`);
+    setSelectedModel(modelId);
   };
   
   const handleSelectService = (service: string) => {
@@ -57,7 +63,11 @@ function App() {
   
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleSubmit(e);
+    handleSubmit(e, {
+      body: {
+        model: selectedModel,
+      },
+    });
   };
   
   return (
@@ -98,6 +108,7 @@ function App() {
                 setMcpOpen={setMcpOpen}
                 onToggleGrid={toggleGrid}
                 onSelectModel={handleSelectModel}
+                selectedModelId={selectedModel}
                 onSelectService={handleSelectService}
               />
             </form>

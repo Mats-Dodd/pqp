@@ -17,11 +17,14 @@ export async function handleChatRequest(request: Request): Promise<Response> {
     
     const { messages } = body;
     
+    const model = body.model || defaultModel;
+    
     if (!messages || !Array.isArray(messages)) {
       throw new Error('Invalid request: messages array is required');
     }
     
     console.log('handleChatRequest: Messages extracted', messages);
+    console.log('handleChatRequest: Using model:', model);
     
     const transformedMessages = messages.map(msg => ({
       role: msg.role,
@@ -31,7 +34,7 @@ export async function handleChatRequest(request: Request): Promise<Response> {
     console.log('handleChatRequest: Transformed messages', transformedMessages);
     
     const anthropicPayload = JSON.stringify({
-      model: defaultModel,
+      model: model,
       messages: transformedMessages,
       stream: true,
       max_tokens: 1000
