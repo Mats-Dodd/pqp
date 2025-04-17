@@ -1,9 +1,9 @@
-use std::collections::HashMap;
 use rmcp::{
-    service::{RunningService, RoleClient},
-    model::{CallToolResult, Tool}
+    model::{CallToolResult, Tool},
+    service::{RoleClient, RunningService},
 };
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Default)]
 pub struct ServiceManager {
@@ -23,7 +23,7 @@ impl ServiceManager {
         self.services.keys().cloned().collect()
     }
 
-    pub fn remove_service(&mut self, name: &str) -> Option<RunningService<RoleClient, ()>> { 
+    pub fn remove_service(&mut self, name: &str) -> Option<RunningService<RoleClient, ()>> {
         self.services.remove(name)
     }
 }
@@ -46,4 +46,4 @@ pub struct ToolCallResponse {
     pub success: bool,
     pub result: Option<CallToolResult>,
     pub message: String,
-} 
+}

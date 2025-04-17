@@ -2,21 +2,17 @@
 use std::sync::{Arc, Mutex};
 use tauri::Manager;
 
-pub mod services;
 pub mod commands;
+pub mod services;
 
+use commands::mcp_commands::{call_tool, get_services, list_tools, start_service, stop_service};
+use commands::proxy_commands::stream_api_request;
 use services::mcp::ServiceManager;
-use commands::mcp_commands::{
-    start_service,
-    list_tools,
-    call_tool,
-    get_services,
-    stop_service,
-};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_opener::init())
         .manage(Arc::new(Mutex::new(ServiceManager::default())))
@@ -26,6 +22,7 @@ pub fn run() {
             call_tool,
             get_services,
             stop_service,
+            stream_api_request,
         ])
         .setup(|app| {
             #[cfg(debug_assertions)]

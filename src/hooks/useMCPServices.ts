@@ -24,7 +24,6 @@ export function useMCPServices() {
   const initializationRef = useRef(false);
   
   useEffect(() => {
-    // Only start the service if it hasn't been started and we haven't attempted to start it yet
     if (!serviceStarted && !initializationRef.current) {
       initializationRef.current = true;
       startService();

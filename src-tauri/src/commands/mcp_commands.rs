@@ -1,14 +1,12 @@
-use std::sync::{Arc, Mutex};
-use tauri::{Manager, State, Runtime};
-use rmcp::{
-    ServiceExt,
-    model::CallToolRequestParam,
-    transport::TokioChildProcess,
-};
-use tokio::process::Command;
+use rmcp::{model::CallToolRequestParam, transport::TokioChildProcess, ServiceExt};
 use std::borrow::Cow;
+use std::sync::{Arc, Mutex};
+use tauri::{Manager, Runtime, State};
+use tokio::process::Command;
 
-use crate::services::mcp::{ServiceManager, ServiceResponse, ToolsResponse, ToolCallResponse, McpError};
+use crate::services::mcp::{
+    McpError, ServiceManager, ServiceResponse, ToolCallResponse, ToolsResponse,
+};
 
 type ServiceState<'a> = State<'a, Arc<Mutex<ServiceManager>>>;
 
@@ -16,17 +14,14 @@ type ServiceState<'a> = State<'a, Arc<Mutex<ServiceManager>>>;
 pub async fn start_service<R: Runtime>(
     app: tauri::AppHandle<R>,
     service_name: String,
-    executable: String, 
+    executable: String,
     args: Vec<String>,
 ) -> Result<ServiceResponse, String> {
     let result = async {
-        let child_process = TokioChildProcess::new(
-            Command::new(executable).args(args)
-        ).map_err(McpError::from)?;
+        let child_process =
+            TokioChildProcess::new(Command::new(executable).args(args)).map_err(McpError::from)?;
 
-        let service = ().serve(child_process)
-            .await
-            .map_err(McpError::from)?;
+        let service = ().serve(child_process).await.map_err(McpError::from)?;
 
         let server_info = service.peer_info();
         println!("Server info for {}: {:?}", service_name, server_info);
@@ -41,7 +36,8 @@ pub async fn start_service<R: Runtime>(
             success: true,
             message: format!("Service {} started successfully", service_name),
         })
-    }.await;
+    }
+    .await;
 
     result.map_err(|e: McpError| e.to_string())
 }
@@ -54,14 +50,13 @@ pub async fn list_tools(
     let result = async {
         let peer = {
             let state = service_state.lock()?;
-            let server = state.get_service(&service_name)
+            let server = state
+                .get_service(&service_name)
                 .ok_or_else(|| McpError::ServiceNotFound(service_name.clone()))?;
             server.peer().clone()
         };
 
-        let tools = peer.list_all_tools()
-            .await
-            .map_err(McpError::from)?;
+        let tools = peer.list_all_tools().await.map_err(McpError::from)?;
 
         let tools_count = tools.len();
         println!("Found {} tools for {}", tools_count, service_name);
@@ -71,7 +66,8 @@ pub async fn list_tools(
             tools,
             message: format!("Found {} tools", tools_count),
         })
-    }.await;
+    }
+    .await;
 
     result.map_err(|e: McpError| e.to_string())
 }
@@ -86,12 +82,17 @@ pub async fn call_tool(
     let result = async {
         let args = match arguments {
             serde_json::Value::Object(map) => Some(map),
-            _ => return Err(McpError::InvalidArguments("Arguments must be a valid JSON object".to_string()))
+            _ => {
+                return Err(McpError::InvalidArguments(
+                    "Arguments must be a valid JSON object".to_string(),
+                ))
+            }
         };
 
         let peer = {
             let state = service_state.lock()?;
-            let server = state.get_service(&service_name)
+            let server = state
+                .get_service(&service_name)
                 .ok_or_else(|| McpError::ServiceNotFound(service_name.clone()))?;
             server.peer().clone()
         };
@@ -111,7 +112,8 @@ pub async fn call_tool(
             result: Some(tool_result),
             message: format!("Tool {} called successfully", tool_name),
         })
-    }.await;
+    }
+    .await;
 
     result.map_err(|e: McpError| e.to_string())
 }
@@ -132,7 +134,8 @@ pub async fn stop_service(
     service_name: String,
 ) -> Result<ServiceResponse, String> {
     let maybe_service = {
-        let mut service_manager = service_state.lock()
+        let mut service_manager = service_state
+            .lock()
             .map_err(|e| McpError::LockError(e.to_string()))?;
         service_manager.remove_service(&service_name)
     };
@@ -152,4 +155,3 @@ pub async fn stop_service(
         })
     }
 }
-

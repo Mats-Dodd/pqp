@@ -23,6 +23,7 @@
           "sidecar": false
         }
       ]
-    }
+    },
+    "http:default"
   ]
 }
