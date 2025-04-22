@@ -29,7 +29,7 @@ function getProviderForModel(model: string): 'anthropic' | 'openai' {
 }
 
 
-export const defaultModel = 'claude-3-5-sonnet-20240620';
+export const defaultModel = 'claude-3-5-sonnet-latest';
 
 export async function handleChatRequest(request: Request): Promise<Response> {
   try {

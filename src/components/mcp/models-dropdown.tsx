@@ -38,7 +38,7 @@ export function ModelsDropdown({ open, onOpenChange, onSelectModel, selectedMode
       <DropdownMenuTrigger 
         className="px-1ch py-0 h-auto hover:text-[var(--accent-color)] transition-colors duration-200 font-mono text-xs text-[#D6A97A]"
       >
-        {selectedModel ? selectedModel.name : 'Select Model'}
+        {selectedModel ? `${selectedModel.name}` : 'Select Model [⌘/]'}
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="end" 

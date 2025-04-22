@@ -52,6 +52,20 @@ function App() {
     }
   }, [mcpOpen, fetchServices]);
   
+  // Add keyboard shortcut handler for cmd+/
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Check for cmd+/ (metaKey is cmd on Mac)
+      if ((event.metaKey) && event.key === '/') {
+        event.preventDefault();
+        setModelsOpen(prev => !prev);
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+  
   const handleSelectModel = (modelId: string) => {
     console.log(`Selected model ID: ${modelId}`);
     setSelectedModel(modelId);
