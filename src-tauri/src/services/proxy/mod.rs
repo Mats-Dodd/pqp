@@ -1,11 +1,18 @@
 use serde_json::Value;
-use tauri::Window;
+use tauri::{Window, Emitter};
 use thiserror::Error;
-use reqwest;
-use std::fmt;
+use tauri_plugin_http::reqwest;
 use async_trait::async_trait;
 use std::env;
 use dotenv::dotenv;
+
+// Expose provider modules
+mod anthropic;
+mod openai;
+
+// Re-export provider structs
+pub use anthropic::AnthropicProvider;
+pub use openai::OpenAIProvider;
 
 // Event type constants
 pub(crate) const EVT_CHUNK: &str = "ai-stream-chunk";
@@ -74,16 +81,14 @@ pub fn load_api_key(provider: &str) -> ProxyResult<String> {
 
 /// Get a provider implementation based on the provider name
 pub fn get_provider(provider: &str) -> ProxyResult<Box<dyn ProxyProvider + Send + Sync>> {
+    let api_key = load_api_key(provider)?;
+    
     match provider {
         "anthropic" => {
-            // Forward declare the AnthropicProvider to avoid circular imports
-            // Will be implemented in anthropic.rs
-            Err(ProxyError::ApiKey(format!("AnthropicProvider not yet implemented")))
+            Ok(Box::new(AnthropicProvider::new(api_key)))
         },
         "openai" => {
-            // Forward declare the OpenAIProvider to avoid circular imports
-            // Will be implemented in openai.rs
-            Err(ProxyError::ApiKey(format!("OpenAIProvider not yet implemented")))
+            Ok(Box::new(OpenAIProvider::new(api_key)))
         },
         _ => Err(ProxyError::ApiKey(format!("Unsupported provider: {}", provider))),
     }
