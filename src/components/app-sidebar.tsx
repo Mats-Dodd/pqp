@@ -11,6 +11,7 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
 import { Home, Settings } from "lucide-react"; // Example icons
+import { useEffect, useState } from "react";
 
 // Example menu items
 const items = [
@@ -27,6 +28,25 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check for Cmd+S (or Ctrl+S on Windows)
+      if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+        e.preventDefault(); // Prevent browser save dialog
+        setIsVisible(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  if (!isVisible) {
+    return null;
+  }
+
   return (
     <Sidebar className="font-mono font-medium bg-[#1F1F1F] text-white">
       <SidebarHeader className="p-2ch flex items-center">
