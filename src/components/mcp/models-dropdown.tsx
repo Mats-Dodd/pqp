@@ -21,7 +21,8 @@ export function ModelsDropdown({ open, onOpenChange, onSelectModel, selectedMode
   const models: Model[] = [
     { id: "claude-3-5-sonnet-latest", name: "Claude 3.5 Sonnet" },
     { id: "claude-3-7-sonnet-latest", name: "Claude 3.7 Sonnet" },
-    { id: "claude-3-5-haiku-latest", name: "Claude 3.5 Haiku" }
+    { id: "claude-3-5-haiku-latest", name: "Claude 3.5 Haiku" },
+    { id: "gpt-4.1-2025-04-14", name: "GPT-4.1 Preview" }
   ];
   
   const selectedModel = models.find(model => model.id === selectedModelId);

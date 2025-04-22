@@ -1,70 +1,91 @@
 import { createAnthropic } from '@ai-sdk/anthropic';
+import { createOpenAI } from '@ai-sdk/openai';
 import { customTauriFetch } from './custom-fetch';
 
 
 export const anthropicProvider = createAnthropic({
   fetch: customTauriFetch as typeof fetch,
 });
+export const openaiProvider = createOpenAI({
+  compatibility: 'strict',
+  fetch: customTauriFetch as typeof fetch,
+});
 
-export const defaultModel = 'claude-3-haiku-20240307';
+
+const modelProviderMap: Record<string, 'anthropic' | 'openai'> = {
+  'claude-3-5-sonnet': 'anthropic', 
+  'claude-': 'anthropic',          
+  'gpt-': 'openai',              
+};
+
+function getProviderForModel(model: string): 'anthropic' | 'openai' {
+  for (const key in modelProviderMap) {
+    if (model.startsWith(key)) {
+      return modelProviderMap[key];
+    }
+  }
+  console.warn(`Could not determine provider for model: ${model}. Defaulting to anthropic.`);
+  return 'anthropic'; 
+}
+
+
+export const defaultModel = 'claude-3-5-sonnet-20240620';
 
 export async function handleChatRequest(request: Request): Promise<Response> {
   try {
     console.log('handleChatRequest: Processing request', request.method);
-    
+
     const body = await request.json();
     console.log('handleChatRequest: Request body parsed', body);
-    
+
     const { messages } = body;
-    
     const model = body.model || defaultModel;
-    
+    const provider = getProviderForModel(model);
+
     if (!messages || !Array.isArray(messages)) {
       throw new Error('Invalid request: messages array is required');
     }
-    
+
     console.log('handleChatRequest: Messages extracted', messages);
-    console.log('handleChatRequest: Using model:', model);
-    
+    console.log(`handleChatRequest: Using model: ${model}, provider: ${provider}`);
+
     const transformedMessages = messages.map(msg => ({
       role: msg.role,
       content: msg.content
     }));
-    
+
     console.log('handleChatRequest: Transformed messages', transformedMessages);
-    
-    const anthropicPayload = JSON.stringify({
+
+    const apiPayload = JSON.stringify({
       model: model,
       messages: transformedMessages,
       stream: true,
-      max_tokens: 1000
+      ...(provider === 'anthropic' && { max_tokens: 1000 }),
     });
-    
-    console.log('handleChatRequest: Prepared direct Anthropic payload');
-    
-    const response = await customTauriFetch('https://api.anthropic.com/v1/messages', {
+
+    console.log(`handleChatRequest: Prepared API payload for ${provider}`);
+
+    const response = await customTauriFetch('api/stream', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: anthropicPayload,
+      body: JSON.stringify({
+         provider: provider,
+         payload: apiPayload
+      }),
     });
-    
-    return new Response(response.body, {
-      headers: {
-        'Content-Type': 'text/plain', 
-        'Transfer-Encoding': 'chunked',
-        'x-vercel-ai-data-stream': 'v1'
-      }
-    });
+
+    return response;
+
   } catch (error) {
     console.error('Error processing chat request:', error);
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         error: 'Failed to process request',
-        details: error instanceof Error ? error.message : String(error) 
+        details: error instanceof Error ? error.message : String(error)
       }),
-      { 
+      {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       }
