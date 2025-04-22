@@ -5,6 +5,7 @@ use tauri_plugin_http::reqwest;
 use async_trait::async_trait;
 use std::env;
 use dotenv::dotenv;
+use log::{debug, info, error};
 
 // Expose provider modules
 mod anthropic;
@@ -57,23 +58,21 @@ pub fn load_api_key(provider: &str) -> ProxyResult<String> {
         _ => return Err(ProxyError::ApiKey(format!("Unsupported provider: {}", provider))),
     };
     
-    println!("Attempting to load {} from environment/dotenv", key_name);
+    debug!("Loading {} from environment/dotenv", key_name);
     
     match env::var(key_name) {
         Ok(key) => {
-            // Redacted logging for security
-            let key_len = key.len();
-            let redacted_key = if key_len > 10 {
-                format!("{}...{}", &key[..5], &key[key_len-5..])
+            let redacted = if key.len() > 10 {
+                format!("{}...{}", &key[..5], &key[key.len()-5..])
             } else {
                 "Key too short to redact safely".to_string()
             };
-            println!("{} loaded successfully (redacted: {}).", key_name, redacted_key);
+            debug!("{} loaded (redacted: {})", key_name, redacted);
             Ok(key)
         },
         Err(e) => {
             let error_msg = format!("Failed to load {}: {}", key_name, e);
-            println!("{}", error_msg);
+            error!("{}", error_msg);
             Err(ProxyError::ApiKey(error_msg))
         }
     }
@@ -99,25 +98,22 @@ pub fn get_provider(provider: &str) -> ProxyResult<Box<dyn ProxyProvider + Send 
 /// Emit an error event to the client
 pub(crate) fn emit_error<S: Into<String>>(window: &Window, message: S) -> ProxyResult<()> {
     let msg = message.into();
-    // Log before emitting
-    println!("RUST -> FE: Emitting Error: {}", msg);
+    error!("Emitting Error: {}", msg);
     window.emit(EVT_ERROR, &msg)
-          .map_err(|e| ProxyError::Emit(format!("Failed to emit error event ({}): {}", msg, e)))
+          .map_err(|e| ProxyError::Emit(format!("Failed to emit error event: {}", e)))
 }
 
 /// Emit a chunk of data to the client
 pub(crate) fn emit_chunk<S: Into<String>>(window: &Window, data: S) -> ProxyResult<()> {
     let chunk_data = data.into();
-    // Log before emitting - Use {:?} to see escape characters like \n clearly
-    println!("RUST -> FE: Emitting Chunk: {:?}", chunk_data);
+    debug!("Emitting chunk ({} bytes)", chunk_data.len());
     window.emit(EVT_CHUNK, &chunk_data)
           .map_err(|e| ProxyError::Emit(format!("Failed to emit chunk event: {}", e)))
 }
 
 /// Emit an end event to the client
 pub(crate) fn emit_end(window: &Window) -> ProxyResult<()> {
-    // Log before emitting
-    println!("RUST -> FE: Emitting End");
+    info!("Emitting stream end event");
     window.emit(EVT_END, ())
           .map_err(|e| ProxyError::Emit(format!("Failed to emit end event: {}", e)))
 } 

@@ -1,10 +1,11 @@
 use tauri::Window;
 use serde_json::Value;
 use crate::services::proxy::get_provider;
+use log::info;
 
 #[tauri::command]
 pub async fn stream_api_request(window: Window, provider: String, payload: String) -> Result<(), String> {
-    println!("RUST: Received stream request for provider: {}", provider);
+    info!("Received stream request for provider: {}", provider);
 
     let body_json: Value = match serde_json::from_str(&payload) {
         Ok(json) => json,

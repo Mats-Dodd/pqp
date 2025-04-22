@@ -1,6 +1,7 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 use std::sync::{Arc, Mutex};
 use tauri::Manager;
+use log::LevelFilter;
 
 pub mod commands;
 pub mod services;
@@ -11,6 +12,17 @@ use services::mcp::ServiceManager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // Initialize logger with appropriate level based on build configuration
+    #[cfg(debug_assertions)]
+    let log_level = LevelFilter::Debug;
+    #[cfg(not(debug_assertions))]
+    let log_level = LevelFilter::Info;
+    
+    // Simple logger setup - can be replaced with a more sophisticated logger if needed
+    env_logger::Builder::new()
+        .filter_level(log_level)
+        .init();
+    
     tauri::Builder::default()
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_shell::init())
