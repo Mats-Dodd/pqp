@@ -2823,8 +2823,10 @@ dependencies = [
 name = "pqp"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "dotenv",
  "futures-util",
+ "log",
  "rmcp",
  "serde",
  "serde_json",
@@ -2833,6 +2835,7 @@ dependencies = [
  "tauri-plugin-http",
  "tauri-plugin-opener",
  "tauri-plugin-shell",
+ "thiserror 2.0.12",
  "tokio",
 ]
 

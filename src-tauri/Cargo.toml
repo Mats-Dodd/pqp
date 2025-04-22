@@ -33,4 +33,7 @@ tokio = "1.44.2"
 tauri-plugin-http = "2"
 futures-util = "0.3.31"
 dotenv = "0.15.0"
+log = "0.4.27"
+thiserror = "2.0.12"
+async-trait = "0.1.88"
 

@@ -458,4 +458,19 @@ async fn handle_openai_stream(window: Window, api_key: String, body: Value) -> R
     println!("RUST: OpenAI stream finished processing.");
     emit_end(&window)?; // Signal end of stream *after* processing loop finishes
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_placeholder_verify_stream_api_request_exists() {
+        // This test is a placeholder to ensure the public API doesn't change during refactoring
+        // Actual integration tests would require mocking the Window and APIs
+        
+        // We can only verify the function exists and has the expected signature
+        // This will fail to compile if the signature changes
+        let _: fn(Window, String, String) -> _ = stream_api_request;
+    }
 } 

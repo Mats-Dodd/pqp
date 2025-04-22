@@ -1,106 +1,75 @@
-# Refactoring Plan: Vercel AI SDK Integration via Rust Proxy (Tauri + Vite + React)
+# Proxy Commands Refactor Plan
 
-This plan outlines integrating the Vercel AI SDK (`@ai-sdk/react`) into a Tauri/Vite/React application by proxying Anthropic API requests through the Rust backend to handle API keys securely and bypass CORS, while maintaining streaming functionality.
+## 1. SCOPE & PRINCIPLES
+- **Goal**: Remove duplication, shorten functions, introduce typed errors, but **do not over‑engineer**
+- Keep public API of the Tauri command unchanged (`stream_api_request`)
+- One new top‑level service directory (`services/proxy/`) with **three small rust files** only; no deeper tree unless proven useful
 
-## 1. Dependencies
-
-### Frontend (using pnpm)
-```bash
-pnpm add @ai-sdk/react ai @ai-sdk/anthropic @tauri-apps/api
 ```
-*   `@ai-sdk/react`: Provides the `useChat` hook.
-*   `ai`: Core Vercel AI SDK library for stream handling.
-*   `@ai-sdk/anthropic`: (Used by `useChat` internally, but API calls are proxied).
-*   `@tauri-apps/api`: For `invoke` and `listen` to communicate with the Rust backend.
-
-### Backend (Rust - in `src-tauri/Cargo.toml`)
-Ensure these dependencies are present:
-```toml
-[dependencies]
-tauri = { version = "...", features = ["api-all"] } # Ensure 'api-all' or necessary event features are enabled
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-futures-util = "0.3" # For stream processing
-dotenv = "0.15" # To load API key from .env
+src-tauri/src/services/proxy/
+ ├── mod.rs          // trait + factory + small helpers
+ ├── anthropic.rs    // provider impl
+ └── openai.rs       // provider impl
 ```
 
-tokio and reqwest are already bundled
+## 2. STEP‑BY‑STEP PLAN
 
-## 2. Tauri Rust Backend Proxy Setup
+### PHASE 0 (safety net – 1 commit)
+- Add `log` and `thiserror` crates to Cargo.toml (needed later)
+- Add unit‑test placeholder verifying that current command still streams
 
-### Create Proxy Command Module
-*   Create a new file: `src-tauri/src/commands/proxy_commands.rs`.
-*   Declare the module in `src-tauri/src/commands/mod.rs`.
+### PHASE 1 (typed error + minimal trait – 1 commit)
+File: `services/proxy/mod.rs`
+1. Define lightweight error enum `ProxyError` with `thiserror` (4 variants only: `ApiKey`, `Http`, `Status(u16)`, `Parse`)
+2. Expose `type ProxyResult<T> = Result<T, ProxyError>`
+3. Define tiny trait:
 
-### Implement `stream_api_request` Command
-*   In `proxy_commands.rs`, define structs for request/response if needed, although primary communication will be via events for streaming.
-*   Define the command: `#[tauri::command] async fn stream_api_request(window: tauri::Window, payload: String) -> Result<(), String>`.
-    *   **Parse Payload:** Deserialize the incoming `payload` (JSON string) containing the Anthropic request body (messages, model, max_tokens, stream=true).
-    *   **Load API Key:** Use `dotenv::dotenv().ok();` and `std::env::var("ANTHROPIC_API_KEY")` to get the key securely. Handle missing key errors.
-    *   **Make Request:** Use `reqwest::Client` to POST to `https://api.anthropic.com/v1/messages`.
-        *   Set necessary headers: `Content-Type: application/json`, `anthropic-version`, and crucially `Authorization: Bearer YOUR_API_KEY`.
-        *   Send the parsed payload as the JSON body, ensuring `stream: true` is set.
-    *   **Process Stream:**
-        *   Get the response stream using `response.bytes_stream()`.
-        *   Use `futures_util::StreamExt::while_next` or a similar loop to process chunks.
-        *   For each chunk (`bytes::Bytes`), convert it to a `String` or relevant format.
-        *   **Emit Events:** Use `window.emit("anthropic-stream-chunk", &chunk_string)` to send data to the frontend. Handle potential UTF-8 errors if converting bytes.
-        *   **Handle End/Error:** When the stream ends, emit `window.emit("anthropic-stream-end", ())`. If an error occurs during the request or stream processing, emit `window.emit("anthropic-stream-error", error_message_string)` and return `Err`.
-    *   Return `Ok(())` on successful stream completion.
+```rust
+#[async_trait]
+pub trait ProxyProvider {
+    async fn stream(&self, window: Window, body: Value) -> ProxyResult<()>;
+}
+```
 
-### Register Command
-*   In `src-tauri/src/lib.rs` (or `main.rs`), add `stream_api_request` to the `tauri::generate_handler![]` macro.
+4. Add `impl From<reqwest::Error>` and `serde_json::Error` for automatic conversion
 
-### Capabilities
-*   Review `src-tauri/capabilities/default.json`. Direct HTTP access to Anthropic might not be needed in `permissions` if all calls go through the proxy command. Ensure basic Tauri API permissions are present.
+### PHASE 2 (factory & key loader – 1 commit)
+Still inside `mod.rs`:
+- Move `load_api_key` out of command file; return `ProxyResult<String>`
+- Add `get_provider(provider: &str) -> ProxyResult<Box<dyn ProxyProvider + Send + Sync>>`
 
-### Environment Variables
-*   Create a `.env` file in the `src-tauri` directory (or project root, depending on where you run `cargo`) containing `ANTHROPIC_API_KEY=your_actual_key`. Ensure this file is in your `.gitignore`.
+### PHASE 3 (move common emit helpers – 1 commit)
+- Copy `emit_chunk`, `emit_error`, `emit_end` into `mod.rs`; change return type to `ProxyResult<()>`
+- Mark helpers `pub(crate)` so providers reuse them
 
-## 3. Frontend Custom Fetch Implementation
+### PHASE 4 (Anthropic provider extraction – 1‑2 commits)
+File: `anthropic.rs`
+- Cut‑paste current `handle_anthropic_stream` body, adjust to implement trait
+- Replace string errors with `ProxyError`, remove dead comments / duplicate logs
+- After compile passes, delete old code from `proxy_commands.rs`
 
-*   Create a utility function (e.g., in `src/lib/custom-fetch.ts`) named `customTauriFetch`.
-*   This function should mimic the standard `fetch` signature: `async (url: string | URL | Request, options?: RequestInit): Promise<Response>`.
-*   **Inside `customTauriFetch`:**
-    *   **Extract Request Details:** Get method, headers, and body from the `options`. The `url` might be a placeholder passed from `useChat` (`/api/chat/proxy`). The important part is the `options.body`, which should contain the JSON payload for Anthropic.
-    *   **Setup Stream:** Create a `ReadableStream` with a controller (`let streamController; const readableStream = new ReadableStream({ start(controller) { streamController = controller; } });`).
-    *   **Setup Listeners:** Use Tauri's `listen` from `@tauri-apps/api/event` to subscribe to the events emitted by the Rust backend:
-        *   `listen<string>('anthropic-stream-chunk', (event) => { streamController.enqueue(new TextEncoder().encode(event.payload)); });` (Encode string chunk back to `Uint8Array`).
-        *   `listen<string>('anthropic-stream-error', (event) => { streamController.error(new Error(event.payload)); unlistenAll(); });`
-        *   `listen<void>('anthropic-stream-end', () => { streamController.close(); unlistenAll(); });`
-        *   Store the `unlisten` functions returned by `listen` to clean up later (`const unlistenChunk = await listen(...)`, etc., then `unlistenAll = () => { unlistenChunk(); ... }`).
-    *   **Invoke Command:** Use `invoke` from `@tauri-apps/api/tauri` to call the Rust command: `invoke('stream_api_request', { payload: options.body })`. Handle potential errors from the initial `invoke` call itself (e.g., if the command fails before streaming starts) by calling `streamController.error(...)` and `unlistenAll()`.
-    *   **Return Response:** Return `new Response(readableStream, { status: 200, headers: { 'Content-Type': 'application/octet-stream' /* Or appropriate type */ } });`. The Vercel SDK expects a stream, so this response structure should work.
+### PHASE 5 (OpenAI provider extraction – 1‑2 commits)
+Same as Phase 4 for `openai.rs`
 
-## 4. Frontend `useChat` Integration
+### PHASE 6 (command layer slimming – 1 commit)
+In `proxy_commands.rs`:
+- Keep only: argument parsing, provider lookup, provider.stream call, map `ProxyError` → string for Tauri return
+- Delete now‑unused helpers
 
-*   In your main chat component (e.g., `src/App.tsx`):
-    *   Import `useChat` from `@ai-sdk/react`.
-    *   Import your `customTauriFetch` function.
-    *   Initialize the hook:
-        ```typescript
-        const { messages, input, handleInputChange, handleSubmit, isLoading, error, ... } = useChat({
-          // The 'api' path is less critical now as fetch handles the destination,
-          // but provide a placeholder if required by the hook.
-          api: '/api/chat/proxy',
-          // Provide the custom fetch implementation:
-          fetch: customTauriFetch,
-          // Specify initial model if desired (though Rust command might override)
-          // initialMessages: [...],
-          // body: { /* Add any extra data needed by Rust besides messages */ }
-        });
-        ```
-    *   **State Mapping:** Connect the state and handlers from `useChat` to your UI components (`ChatMessageArea`, `ResizableChatInput`, etc.) as planned previously. Ensure your message display component handles the `Message` format from `ai` package.
-    *   Handle UI updates based on `isLoading`, `error`, and the streaming `messages`.
+### PHASE 7 (cleanup & polish – 1 commit)
+- Downgrade println! to `log::{info,debug,error}`
+- Trim verbose logs (keep bytes count, event type, but remove per‑line noise)
+- Ensure no `.unwrap()` or needless `.clone()`
+- Run `cargo clippy -- -D warnings`
 
-## 5. Cleanup
+## 3. DECISIONS EXPLICITLY NOT TAKEN
+- No generic SSE parser abstraction yet – premature
+- No config file for endpoints; constants stay inline in provider modules
+- No async channel refactor; window emit is fine
+- No macro‑based event emitter; three helpers are sufficient
 
-*   Remove any old client-side Anthropic SDK (`@anthropic-ai/sdk`) usage or direct API call logic (e.g., `src/lib/anthropic.ts`).
-*   Remove the old custom `useChat` hook file if it existed.
-*   Remove `VITE_ANTHROPIC_API_KEY` usage from the frontend and `.env` files at the project root (it's only needed in `src-tauri/.env`).
-*   Remove `tauri-plugin-http` if it was installed and is no longer needed.
-
-This plan provides a detailed roadmap for integrating the Vercel AI SDK with streaming via a secure Rust proxy in your Tauri application.
-
-    Lets make sure to use antrhopic for now and use the initial model
-    
+## 4. SUCCESS CRITERIA
+- ✓ All existing frontend behaviour unchanged
+- ✓ `proxy_commands.rs` ≤ ~80 lines, each provider file ≤ ~200 lines
+- ✓ Duplication of stream‑loop logic reduced but readability preserved
+- ✓ `cargo test` & manual UI test pass after every phase 
