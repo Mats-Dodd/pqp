@@ -1,12 +1,15 @@
-use crate::services::proxy::{ProxyProvider, ProxyResult, ProxyError};
-use crate::services::proxy::{emit_chunk, emit_error, emit_end};
+use crate::services::proxy::{emit_chunk, emit_end, emit_error};
+use crate::services::proxy::{ProxyError, ProxyProvider, ProxyResult};
 use async_trait::async_trait;
 use futures_util::StreamExt;
-use serde_json::Value;
+use log::{debug, error, info, warn};
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use tauri::Window;
-use tauri_plugin_http::reqwest::{self, header::{HeaderMap, HeaderValue, AUTHORIZATION, CONTENT_TYPE}};
-use log::{debug, info, error, warn};
+use tauri_plugin_http::reqwest::{
+    self,
+    header::{HeaderMap, HeaderValue, AUTHORIZATION, CONTENT_TYPE},
+};
 
 pub struct OpenAIProvider {
     api_key: String,
@@ -55,10 +58,14 @@ impl ProxyProvider for OpenAIProvider {
         let client = reqwest::Client::new();
         let mut headers = HeaderMap::new();
         headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
-        headers.insert(AUTHORIZATION, HeaderValue::from_str(&format!("Bearer {}", self.api_key))
-            .map_err(|e| ProxyError::ApiKey(format!("Invalid OpenAI API key format: {}", e)))?);
+        headers.insert(
+            AUTHORIZATION,
+            HeaderValue::from_str(&format!("Bearer {}", self.api_key))
+                .map_err(|e| ProxyError::ApiKey(format!("Invalid OpenAI API key format: {}", e)))?,
+        );
 
-        let response = client.post("https://api.openai.com/v1/chat/completions")
+        let response = client
+            .post("https://api.openai.com/v1/chat/completions")
             .headers(headers)
             .json(&body)
             .send()
@@ -66,9 +73,14 @@ impl ProxyProvider for OpenAIProvider {
 
         let status = response.status();
         if !status.is_success() {
-            let error_body = response.text().await
+            let error_body = response
+                .text()
+                .await
                 .unwrap_or_else(|_| "Failed to read error body".to_string());
-            let error_msg = format!("OpenAI API request failed with status {}: {}", status, error_body);
+            let error_msg = format!(
+                "OpenAI API request failed with status {}: {}",
+                status, error_body
+            );
             emit_error(&window, &error_msg)?;
             return Err(ProxyError::Status(status.as_u16()));
         }
@@ -89,7 +101,7 @@ impl ProxyProvider for OpenAIProvider {
                             while let Some(pos) = buffer.find("\n\n") {
                                 let event_data = buffer[..pos].trim().to_string();
                                 buffer = buffer[pos + 2..].to_string(); // Skip "\n\n"
-                                
+
                                 for line in event_data.lines() {
                                     if let Some(json_str) = line.strip_prefix("data: ") {
                                         if json_str.trim() == "[DONE]" {
@@ -97,40 +109,55 @@ impl ProxyProvider for OpenAIProvider {
                                             continue;
                                         }
 
-                                        match serde_json::from_str::<OpenAIChatCompletionChunk>(json_str) {
+                                        match serde_json::from_str::<OpenAIChatCompletionChunk>(
+                                            json_str,
+                                        ) {
                                             Ok(chunk_event) => {
-                                                debug!("Processing chunk event ID: {}", chunk_event.id);
+                                                debug!(
+                                                    "Processing chunk event ID: {}",
+                                                    chunk_event.id
+                                                );
 
                                                 for choice in chunk_event.choices {
                                                     if let Some(content) = choice.delta.content {
                                                         if !content.is_empty() {
-                                                            let text_json = serde_json::to_string(&content)
-                                                                .map_err(ProxyError::Parse)?;
-                                                            emit_chunk(&window, format!("0:{}\n", text_json))?;
+                                                            let text_json =
+                                                                serde_json::to_string(&content)
+                                                                    .map_err(ProxyError::Parse)?;
+                                                            emit_chunk(
+                                                                &window,
+                                                                format!("0:{}\n", text_json),
+                                                            )?;
                                                         }
                                                     }
 
                                                     if let Some(reason) = choice.finish_reason {
-                                                        debug!("Choice finished with reason: {}", reason);
+                                                        debug!(
+                                                            "Choice finished with reason: {}",
+                                                            reason
+                                                        );
                                                     }
                                                 }
-                                            },
+                                            }
                                             Err(e) => {
                                                 warn!("Failed to parse chunk event: {}", e);
-                                                emit_error(&window, format!("Failed to parse OpenAI JSON: {}", e))?;
+                                                emit_error(
+                                                    &window,
+                                                    format!("Failed to parse OpenAI JSON: {}", e),
+                                                )?;
                                             }
                                         }
                                     }
                                 }
                             }
-                        },
+                        }
                         Err(e) => {
                             let error_msg = format!("Failed to decode chunk as UTF-8: {}", e);
                             error!("{}", error_msg);
                             emit_error(&window, &error_msg)?;
                         }
                     }
-                },
+                }
                 Err(e) => {
                     let error_msg = format!("Error reading stream chunk: {}", e);
                     error!("{}", error_msg);
@@ -144,4 +171,4 @@ impl ProxyProvider for OpenAIProvider {
         emit_end(&window)?;
         Ok(())
     }
-} 
+}

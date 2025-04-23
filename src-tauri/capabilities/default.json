@@ -24,6 +24,9 @@
         }
       ]
     },
-    "http:default"
+    "http:default",
+    "sql:default",
+    "sql:allow-execute"
+    
   ]
 }
