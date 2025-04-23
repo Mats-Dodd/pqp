@@ -12,8 +12,8 @@
   "app": {
     "windows": [
       {
-        "title": "pqp",
-        "width": 800,
+        "title": "Lagom",
+        "width": 1200,
         "height": 600
       }
     ],
