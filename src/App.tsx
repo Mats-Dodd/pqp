@@ -8,6 +8,7 @@ import { ChatFooter } from "./components/chat/chat-footer";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import LayoutIcon from "./assets/layout.svg";
+import ChatIcon from "./assets/chat.svg";
 import { setupApiRoutes } from "./lib/api-routes";
 import { defaultModel } from "./lib/ai-provider";
 
@@ -17,6 +18,7 @@ function App() {
   const [modelsOpen, setModelsOpen] = useState(false);
   const [mcpOpen, setMcpOpen] = useState(false);
   const [selectedModel, setSelectedModel] = useState<string>(defaultModel);
+  const [chatKey, setChatKey] = useState(0);
   
   const {
     messages,
@@ -30,6 +32,7 @@ function App() {
     body: {
       model: selectedModel,
     },
+    id: `chat-${chatKey}`,
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -81,6 +84,10 @@ function App() {
       },
     });
   };
+
+  const resetChat = () => {
+    setChatKey(prev => prev + 1);
+  };
   
   const isChatLoading = status === 'submitted' || status === 'streaming';
   
@@ -90,6 +97,9 @@ function App() {
         <SidebarTrigger>
           <img src={LayoutIcon} alt="Toggle Sidebar" className="w-5 h-5" />
         </SidebarTrigger>
+        <button onClick={resetChat} title="New Chat">
+          <img src={ChatIcon} alt="New Chat" className="w-5 h-5" />
+        </button>
       </div>
       
       <AppSidebar />
