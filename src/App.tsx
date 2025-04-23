@@ -57,9 +57,14 @@ function App() {
   
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey) && event.key === '/') {
-        event.preventDefault();
-        setModelsOpen(prev => !prev);
+      if (event.metaKey) {
+        if (event.key === '/') {
+          event.preventDefault();
+          setModelsOpen(prev => !prev);
+        } else if (event.key === 'n') {
+          event.preventDefault();
+          resetChat();
+        }
       }
     };
     
