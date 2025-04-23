@@ -68,7 +68,6 @@ export function AppSidebar({
           <SidebarGroupContent className="px-2ch py-[calc(var(--line-height)/2)]">
             <ConvoTree 
               onSelectConversation={onSelectConversation}
-              onNewChat={onNewChat}
               currentConversationId={currentConversationId}
             />
           </SidebarGroupContent>

@@ -14,13 +14,11 @@ import { sidebarEvents } from "@/App";
 
 interface ConvoTreeProps {
   onSelectConversation?: (id: number) => void;
-  onNewChat?: () => void;
   currentConversationId?: number;
 }
 
 export function ConvoTree({ 
   onSelectConversation,
-  onNewChat,
   currentConversationId
 }: ConvoTreeProps) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -79,12 +77,6 @@ export function ConvoTree({
   const handleConversationClick = (id: number) => {
     if (onSelectConversation) {
       onSelectConversation(id);
-    }
-  };
-
-  const handleNewChat = () => {
-    if (onNewChat) {
-      onNewChat();
     }
   };
 
@@ -167,13 +159,6 @@ export function ConvoTree({
             onClick={() => setShowNewFolderInput(true)}
             className="hover:text-gray-300 transition-colors"
             title="New folder"
-          >
-            <NewFolderIcon />
-          </button>
-          <button 
-            onClick={handleNewChat}
-            className="hover:text-gray-300 transition-colors"
-            title="New chat"
           >
             <NewFolderIcon />
           </button>

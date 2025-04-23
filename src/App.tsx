@@ -94,7 +94,7 @@ function App() {
         // If no conversation exists yet, create one
         if (!currentConversationId) {
           // Use first few characters of the first user message as the name
-          if (messages.length > 0 && messages[0].role === 'user') {
+          if (messages.length > 0 && messages[0].role === 'user' && messages[0].content.trim() !== '') {
             const firstUserMessage = messages[0].content;
             const truncatedContent = firstUserMessage.slice(0, 30) + (firstUserMessage.length > 30 ? '...' : '');
             setConversationName(truncatedContent);
@@ -112,6 +112,9 @@ function App() {
         } else {
           // If conversation exists, just add the new message
           const lastMessage = messages[messages.length - 1];
+          
+          // Skip empty messages
+          if (lastMessage.content.trim() === '') return;
           
           // Check if this message has already been saved (simple heuristic)
           const existingMessages = await getMessages(currentConversationId);
@@ -227,14 +230,13 @@ function App() {
   // Create a new empty chat
   const handleNewChat = async () => {
     try {
-      const newId = await createConversation(`New Chat ${new Date().toLocaleString()}`);
-      setCurrentConversationId(newId);
+      // Don't create conversation in database until first message is sent
+      setCurrentConversationId(null);
       setConversationName(`New Chat ${new Date().toLocaleString()}`);
       setChatKey(prev => prev + 1);
       setMessages([]);
       
-      // Trigger sidebar reload
-      sidebarEvents.emit('reload');
+      // No need to trigger sidebar reload since no database change
     } catch (error) {
       console.error("Failed to create new chat:", error);
     }
