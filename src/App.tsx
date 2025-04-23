@@ -23,7 +23,7 @@ function App() {
     input,
     handleInputChange,
     handleSubmit,
-    isLoading,
+    status,
     error,
   } = useChat({
     api: '/api/chat',
@@ -52,10 +52,8 @@ function App() {
     }
   }, [mcpOpen, fetchServices]);
   
-  // Add keyboard shortcut handler for cmd+/
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Check for cmd+/ (metaKey is cmd on Mac)
       if ((event.metaKey) && event.key === '/') {
         event.preventDefault();
         setModelsOpen(prev => !prev);
@@ -84,6 +82,8 @@ function App() {
     });
   };
   
+  const isChatLoading = status === 'submitted' || status === 'streaming';
+  
   return (
     <SidebarProvider>
       <div className="fixed top-[var(--line-height)] left-[10px] z-20">
@@ -109,11 +109,11 @@ function App() {
               <ResizableChatInput
                 input={input}
                 handleInputChange={handleInputChange}
-                isLoading={isLoading}
+                isLoading={isChatLoading}
               />
               
               <ChatFooter
-                isLoading={isLoading}
+                isLoading={isChatLoading}
                 serviceStarted={serviceStarted}
                 services={services}
                 modelsOpen={modelsOpen}
