@@ -2,19 +2,20 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
   SidebarHeader,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarGroupLabel,
-  SidebarGroupContent,
 } from "@/components/ui/sidebar";
-import { Home, Settings } from "lucide-react"; // Example icons
-import { useEffect, useState } from "react";
+import { Home, Settings } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ConvoTree } from "@/components/convo-tree";
 
-// Example menu items
-const items = [
+// Core menu items
+const menuItems = [
   {
     title: "Home",
     url: "#",
@@ -27,7 +28,17 @@ const items = [
   },
 ];
 
-export function AppSidebar() {
+interface AppSidebarProps {
+  onSelectConversation?: (id: number) => void;
+  onNewChat?: () => void;
+  currentConversationId?: number;
+}
+
+export function AppSidebar({ 
+  onSelectConversation, 
+  onNewChat,
+  currentConversationId 
+}: AppSidebarProps) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -49,17 +60,26 @@ export function AppSidebar() {
 
   return (
     <Sidebar className="font-mono font-medium bg-[#1F1F1F] text-white">
-      <SidebarHeader className="p-2ch flex items-center">
-        PQP
+      <SidebarHeader className="p-2ch flex items-center justify-between">
+        <span>PQP</span>
       </SidebarHeader>
       <SidebarContent className="p-0">
+        <SidebarGroup>
+          <SidebarGroupContent className="px-2ch py-[calc(var(--line-height)/2)]">
+            <ConvoTree 
+              onSelectConversation={onSelectConversation}
+              onNewChat={onNewChat}
+              currentConversationId={currentConversationId}
+            />
+          </SidebarGroupContent>
+        </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupLabel className="px-2ch py-[calc(var(--line-height)/2)]">
             Application
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton 
                     asChild 
