@@ -48,6 +48,34 @@ pub fn run() {
                 FOREIGN KEY (conversation_id) REFERENCES conversations(id)
             )",
             kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 3,
+            description: "create_folders_table",
+            sql: "CREATE TABLE IF NOT EXISTS folders (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                parent_id INTEGER NULL,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                FOREIGN KEY (parent_id) REFERENCES folders(id)
+            )",
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 4,
+            description: "add_folder_support_to_conversations",
+            sql: "ALTER TABLE conversations ADD COLUMN folder_id INTEGER NULL REFERENCES folders(id)",
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 5,
+            description: "add_forking_support_to_conversations",
+            sql: "ALTER TABLE conversations 
+                ADD COLUMN parent_conversation_id INTEGER NULL REFERENCES conversations(id);
+                ALTER TABLE conversations 
+                ADD COLUMN fork_message_id INTEGER NULL REFERENCES messages(id)",
+            kind: MigrationKind::Up,
         }
     ];
 
